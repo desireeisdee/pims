@@ -2,17 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::controller('App\Http\Controllers\Auth\LoginController'::class)->group(function(){
+    Route::get('/', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::get('/logout', 'logout')->name('logout');
+});
+
+Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(function(){
+    Route::get('/register', 'register')->name('register');
+    Route::post('/store', 'store')->name('store');
+});
+
+Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
+    Route::get('/schools', 'index')->name('schools.index');
+    Route::get('/schools/export/', 'export')->name('schools.export');
 });
