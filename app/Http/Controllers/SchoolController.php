@@ -16,8 +16,14 @@ class SchoolController extends Controller
         return view('admin.school.index', compact('schools'));
     }
 
-    public function export()
+    public function export($id)
     {
-        return Excel::download(new SchoolsExport, 'schools.xlsx');
+        $school = School::findOrFail($id);
+        $schoolData = [
+            'school' => $school->toArray(),
+            'funded_items' => $school->funded_items->toArray(),
+            'personnels' => $school->personnels->toArray(),
+        ];
+        return Excel::download(new SchoolsExport($schoolData), 'schools.xlsx');
     }
 }

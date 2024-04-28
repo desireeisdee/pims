@@ -20,6 +20,8 @@ class School extends Model
                            'general_curricular_offering',
                            'curricular_classification'];
     protected $casts = ['curricular_classification' => 'json'];
+    protected $hidden = ['created_at',
+                         'updated_at'];
 
     public function personnels(): HasMany
     {
