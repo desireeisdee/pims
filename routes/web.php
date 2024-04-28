@@ -10,10 +10,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-// Route::get('/sf7', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
 Route::controller('App\Http\Controllers\Auth\LoginController'::class)->group(function(){
     Route::get('/', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
@@ -27,5 +23,5 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
 
 Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
     Route::get('/schools', 'index')->name('schools.index');
-    Route::get('/schools/export/{id}', 'export')->name('schools.export');
+    Route::get('/schools/export/', 'export')->name('schools.export');
 });
