@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('district');
             $table->string('email');
             $table->string('phone');
-            $table->string('general_curricular_offering')->nullable();
             $table->json('curricular_classification')->nullable();
             $table->timestamps();
         });

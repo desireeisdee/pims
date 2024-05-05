@@ -4,7 +4,7 @@
             {{ __('School') }}
         </h2>
     </x-slot>
-    <div class="max-w-7xl py-5 px-2 sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto sm:px-6 sm:py-3 lg:px-8 lg:py-5">
         <ul class="inline-flex space-x-2">
             <li class="text-gray-600">
                 <a href="https://craft.demo.quebixtechnology.com">Dashboard</a>
@@ -16,7 +16,7 @@
         </ul>
     </div>
 
-    <div class="py-0 max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="py-0 max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             @livewire('datatable.schools-datatable')
         </div>

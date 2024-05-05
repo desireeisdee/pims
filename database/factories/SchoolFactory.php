@@ -18,15 +18,15 @@ class SchoolFactory extends Factory
 
     public function definition(): array
     {
-        $school_type = $this->faker->randomElement(['all', 'elementary', 'secondary']);
+        $school_type = $this->faker->randomElement(['all', 'Elementary', 'Secondary']);
         switch($school_type){
             case 'all':
                 $curricular_classification = ['grade 1', 'grade 2', 'grade 3', 'grade 4', 'grade 5', 'grade 6', 'grade 7', 'grade 8', 'grade 9', 'grade 10', 'grade 11', 'grade 12'];
                 break;
-            case 'elementary':
+            case 'Elementary':
                 $curricular_classification = ['grade 1', 'grade 2', 'grade 3', 'grade 4', 'grade 5', 'grade 6'];
                 break;
-            case 'secondary':
+            case 'Secondary':
                 $curricular_classification = ['grade 7', 'grade 8', 'grade 9', 'grade 10', 'grade 11', 'grade 12'];
                 break;
         }
@@ -40,7 +40,6 @@ class SchoolFactory extends Factory
             'district'  =>  $this->faker->randomElement(['District 1', 'District 2', 'District 3', 'District 4']),
             'email'  => $this->faker->unique()->safeEmail,
             'phone'  => $this->faker->e164PhoneNumber,
-            'general_curricular_offering' => $school_type,
             'curricular_classification'  => $curricular_classification
         ];
     }

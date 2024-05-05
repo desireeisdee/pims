@@ -36,8 +36,7 @@ class RegisterController extends Controller
                 Auth::attempt($credentials);
                 $request->session()->regenerate();
 
-                session()->flash('flash.banner', 'You have successfully registered & logged in!');
-                session()->flash('flash.bannerStyle', 'success');
+                // session()->flash('flash', ['banner' => 'You have successfully registered & logged in!', 'bannerStyle' => 'success']);
 
                 return redirect()->route('dashboard');
             }

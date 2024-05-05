@@ -17,12 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-                SchoolSeeder::class
-            ]);
-
-        School::factory()->count(5)->create()->each(function ($school) {
-            // For each school, create 10 personnel
+        // $this->call([
+        //         SchoolSeeder::class
+        //     ]);
+        School::factory()->count(10)->create()->each(function ($school) {
+            // For each school, create personnel, funded items, and appointments fundings
             $school->personnels()->saveMany(Personnel::factory()->count(5)->make());
             $school->funded_items()->saveMany(FundedItem::factory()->count(5)->make());
             $school->appointments_fundings()->saveMany(AppointmentsFunding::factory()->count(5)->make());
