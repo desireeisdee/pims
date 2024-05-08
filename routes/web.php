@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -23,9 +25,7 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
 
 //Teacher Routes List
 Route::middleware(['auth', 'user-access:teacher'])->group(function () {
-    Route::get('/profile', function () {
-        return view('personnel.profile');
-    })->name('personnel.profile');
+    Route::get('/profile', [PersonnelController::class, 'create'])->name('personnels.create');
 });
 
 //School Head Routes List
@@ -41,10 +41,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
-        Route::get('/schools', 'index')->name('schools.index');
-        Route::get('/schools/export/{id}', 'export')->name('schools.export');
-    });
+    // Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
+    //     Route::get('/schools', 'index')->name('schools.index');
+    //     Route::get('/schools/export/{id}', 'export')->name('schools.export');
+    // });
+    Route::resource('schools', SchoolController::class);
+    Route::resource('personnels', PersonnelController::class);
 });
-
-
