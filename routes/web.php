@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -29,3 +31,6 @@ Route::controller('App\Http\Controllers\SchoolController'::class)->group(functio
     Route::get('/schools', 'index')->name('schools.index');
     Route::get('/schools/export/{id}', 'export')->name('schools.export');
 });
+Route::resource('schools', SchoolController::class);
+Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
+Route::resource('personnels', PersonnelController::class);
