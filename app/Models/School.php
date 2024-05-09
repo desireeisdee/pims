@@ -18,7 +18,8 @@ class School extends Model
                            'email',
                            'phone',
                            'general_curricular_offering',
-                           'curricular_classification'];
+                           'curricular_classification'
+                        ];
     protected $casts = ['curricular_classification' => 'json'];
     protected $hidden = ['created_at',
                          'updated_at'];
