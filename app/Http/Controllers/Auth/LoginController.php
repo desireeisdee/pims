@@ -24,36 +24,46 @@ class LoginController extends Controller
     {
         try {
             $request->validate([
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required'
             ]);
 
             $credentials = $request->only('email', 'password');
-            if(Auth::attempt($credentials)){
-                return redirect()->intended(route('dashboard'));
+
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                $user = auth()->user();
+
+                if ($user->role == 'admin') {
+                    return redirect()->route('dashboard');
+                } elseif ($user->role == 'school_head') {
+                    return redirect()->route('school.profile');
+                } else {
+                    return redirect()->route('personnel.profile');
+                }
             } else {
                 $account = User::where('email', $request->email)->first();
                 if (!$account) {
-                    session()->flash('flash', ['banner' => 'Account Doesn\'t Exist', 'bannerStyle' => 'danger']);
+                    $flashMessage = ['banner' => 'Account Doesn\'t Exist', 'bannerStyle' => 'danger'];
+                } elseif (!password_verify($request->password, $account->password)) {
+                    $flashMessage = ['banner' => 'Password Incorrect', 'bannerStyle' => 'danger'];
                 } else {
-                    if (!password_verify($request->password, $account->password)) {
-                        session()->flash('flash', ['banner' => 'Password Incorrect', 'bannerStyle' => 'danger']);
-                    } else {
-                        session()->flash('flash', ['banner' => 'Authentication Error', 'bannerStyle' => 'danger']);
-                    }
+                    $flashMessage = ['banner' => 'Authentication Error', 'bannerStyle' => 'danger'];
                 }
+
+                session()->flash('flash', $flashMessage);
             }
         } catch (\Exception $e) {
             session()->flash('error', 'Authentication Error!');
         }
+
         return redirect()->back();
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        Session::flush();
-
-        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        return redirect('/login');
     }
 }
