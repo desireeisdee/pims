@@ -18,32 +18,12 @@
             </div>
             <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
                 <span class="w-1/2">
-                    <x-label for="citizenship" value="{{ __('Citizenship') }}"/>
-                    <x-input id="citizenship" type="text" name="citizenship" required/>
-                </span>
-                <span class="w-1/2">
-                    <x-label for="blood_type" value="{{ __('Blood Type') }}"/>
-                    <x-input id="blood_type" type="text" name="blood_type" required/>
-                </span>
-            </div>
-            <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
-                <span class="w-1/2">
                     <x-label for="height" value="{{ __('Height (m)') }}"/>
                     <x-input id="height" type="text" name="height" required/>
                 </span>
                 <span class="w-1/2">
                     <x-label for="weight" value="{{ __('Weight (kg)') }}"/>
                     <x-input id="weight" type="text" name="weight" required/>
-                </span>
-            </div>
-            <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
-                <span class="w-1/2">
-                    <x-label for="date_of_birth" value="{{ __('Date of Birth') }}"/>
-                    <x-input id="date_of_birth" type="text" name="date_of_birth" required/>
-                </span>
-                <span class="w-1/2">
-                    <x-label for="place_of_birth" value="{{ __('Place of Birth') }}"/>
-                    <x-input id="place_of_birth" type="text" name="place_of_birth" required/>
                 </span>
             </div>
         </section>
