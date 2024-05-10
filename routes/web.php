@@ -25,7 +25,8 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
 
 //Teacher Routes List
 Route::middleware(['auth', 'user-access:teacher'])->group(function () {
-    Route::get('/profile', [PersonnelController::class, 'create'])->name('personnels.create');
+    // Route::get('/profile', [PersonnelController::class, 'create'])->name('personnels.create');
+    Route::resource('personnels', PersonnelController::class);
 });
 
 //School Head Routes List
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
     // Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
     //     Route::get('/schools', 'index')->name('schools.index');
     //     Route::get('/schools/export/{id}', 'export')->name('schools.export');
@@ -48,6 +50,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('schools', SchoolController::class);
     Route::resource('personnels', PersonnelController::class);
 });
-Route::resource('schools', SchoolController::class);
-Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
-Route::resource('personnels', PersonnelController::class);
+// Route::resource('schools', SchoolController::class);
+//
+// Route::resource('personnels', PersonnelController::class);

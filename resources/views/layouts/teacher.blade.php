@@ -13,14 +13,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- Styles -->
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-            <div class="pt-12">
+            {{-- @livewire('navigation-menu') --}}
+            <div class="p-0">
                 <x-banner />
 
                 <!-- Page Heading -->
