@@ -48,3 +48,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('schools', SchoolController::class);
     Route::resource('personnels', PersonnelController::class);
 });
+Route::resource('schools', SchoolController::class);
+Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
+Route::resource('personnels', PersonnelController::class);
