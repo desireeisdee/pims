@@ -15,7 +15,7 @@ class PersonnelController extends Controller
 
     public function create()
     {
-        return view('admin.personnel.create');
+        return view('personnel_profile.create');
     }
 
     public function edit($id)

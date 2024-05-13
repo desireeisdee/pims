@@ -15,6 +15,7 @@ class Personnel extends Model
                            'first_name',
                            'middle_name',
                            'last_name',
+                           'name_ext',
                            'sex',
                            'civil_status',
                            'citizenship',
@@ -30,11 +31,21 @@ class Personnel extends Model
                            'employment_end',
                            'job_title',
                            'job_status',
+                           'tin',
+                           'sss_num',
+                           'gsis_num',
+                           'philhealth_num',
+                           'pagibig_num',
                            'school_id'];
 
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
     }
 
     public function addresses(): HasMany

@@ -25,8 +25,7 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
 
 //Teacher Routes List
 Route::middleware(['auth', 'user-access:teacher'])->group(function () {
-    // Route::get('/profile', [PersonnelController::class, 'create'])->name('personnels.create');
-    Route::resource('personnels', PersonnelController::class);
+    Route::resource('personnels', PersonnelController::class)->only('create');
 });
 
 //School Head Routes List
@@ -38,7 +37,7 @@ Route::middleware(['auth', 'user-access:school_head'])->group(function () {
 
 //Admin Routes List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 
@@ -48,7 +47,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     //     Route::get('/schools/export/{id}', 'export')->name('schools.export');
     // });
     Route::resource('schools', SchoolController::class);
-    Route::resource('personnels', PersonnelController::class);
+    // Route::resource('personnels', PersonnelController::class);
 });
 // Route::resource('schools', SchoolController::class);
 //
