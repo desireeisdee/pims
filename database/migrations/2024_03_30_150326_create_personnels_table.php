@@ -13,25 +13,38 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->integer('personnel_id')->unique();
-            $table->unsignedBigInteger('school_id');
+            $table->string('personnel_id')->unique();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->date('date_of_birth');
+            $table->string('name_ext');
             $table->enum('sex', ['male', 'female']);
-            $table->string('address');
-            $table->string('email');
-            $table->string('phone');
-            $table->date('employment_start');
+            $table->enum('civil_status', ['single', 'married', 'widowed', 'divorced', 'others']);
+            $table->string('citizenship');
+            $table->string('blood_type')->nullable();
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
+            $table->date('date_of_birth');
+            $table->string('place_of_birth');
+            $table->string('email')->nullable();
+            $table->string('tel_no')->nullable();
+            $table->string('mobile_no')->nullable();
+
+            $table->date('employment_start')->nullable();
             $table->date('employment_end')->nullable();
-            $table->string('job_title');
+            $table->integer('salary_grade')->nullable();
+            $table->integer('step')->nullable();
+            $table->string('job_title')->nullable();
             $table->enum('job_status', ['active','vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation', 'contract', 'part-time']);
-            $table->string('division');
-            $table->string('district');
+            $table->string('tin')->nullable();
+            $table->string('sss_num')->nullable();
+            $table->string('gsis_num')->nullable();
+            $table->string('philhealth_num')->nullable();
+            $table->string('pagibig_num')->nullable();
+            $table->unsignedBigInteger('school_id');
             $table->timestamps();
 
-            $table->foreign('school_id')->references('id')->on('schools');
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
     }
 

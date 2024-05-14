@@ -23,13 +23,10 @@ class SchoolsDatatable extends Component
 
     public function render()
     {
-        // return view('livewire.datatable.schools-datatable', [
-        //     'schools' => School::search($this->search)
-        //                  ->orderBy($this->sortColumn, $this->sortDirection)
-        //                  ->paginate(10)
-        // ]);
         return view('livewire.datatable.schools-datatable', [
-            'schools' => School::paginate(10)
+            'schools' => School::search($this->search)
+                         ->orderBy($this->sortColumn, $this->sortDirection)
+                         ->paginate(10)
         ]);
     }
 }

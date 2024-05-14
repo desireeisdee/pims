@@ -20,9 +20,8 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
+            <x-banner />
             <div class="pt-12">
-                <x-banner />
-
                 <!-- Page Heading -->
                 @if (isset($header))
                     <header class="bg-white shadow">
@@ -40,7 +39,7 @@
         </div>
 
         @stack('modals')
-
         @livewireScripts
+        <wireui:scripts />
     </body>
 </html>

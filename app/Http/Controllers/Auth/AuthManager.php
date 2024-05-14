@@ -22,15 +22,16 @@ class AuthManager extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string|max:250',
-                'email' => 'required|email|max:250|unique:users',
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
                 'password' => 'required|min:8|confirmed'
             ]);
 
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'type' => "teacher"
             ]);
 
             if ($user) {
