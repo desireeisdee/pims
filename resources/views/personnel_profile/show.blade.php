@@ -19,9 +19,9 @@
                                 <section x-show="formNav === 'address'" id="address">
                                     @livewire('form.address-form')
                                 </section>
-                                {{-- <section x-show="formNav === 'family'" id="family">
-                                    @include('personnel_profile.form.family')
-                                </section> --}}
+                                <section x-show="formNav === 'family'" id="family">
+                                    @livewire('form.family-form')
+                                </section>
                                 {{-- <section x-show="formNav === 'education'" id="education">
                                     @include('personnel_profile.form.education')
                                 </section> --}}

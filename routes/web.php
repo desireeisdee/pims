@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Admin Routes List
     Route::middleware(['user-access:admin'])->group(function () {
-        Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
+        Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('dashboard');
     });
 });
 
