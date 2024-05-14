@@ -1,11 +1,11 @@
 <div class="mx-5 my-8 p-3">
     <div class="flex justify-between">
         <div class="w-1/4 inline-flex space-x-4">
-            <a href="{{ route('personnels.create') }}">
+            {{-- <a href="{{ route('personnels.create') }}">
                 <x-button class="m-0 hover:shadow-[0.5rem_0.5rem_#FA0302,-0.5rem_-0.5rem_#FCC008] transition">
                     {{ __('New Personnel') }}
                 </x-button>
-            </a>
+            </a> --}}
             {{-- <a href="{{ route('schools.export', '8') }}">
                 <x-button class="m-0 hover:shadow-[0.5rem_0.5rem_#FA0302,-0.5rem_-0.5rem_#FCC008] transition">
                     {{ __('Export') }}

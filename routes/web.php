@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -23,32 +24,44 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
     Route::post('/store', 'store')->name('store');
 });
 
-//Teacher Routes List
-Route::middleware(['auth', 'user-access:teacher'])->group(function () {
-    Route::resource('personnels', PersonnelController::class)->only('create');
-});
-
-//School Head Routes List
-Route::middleware(['auth', 'user-access:school_head'])->group(function () {
-    Route::get('/school_profile', function () {
-        return view('school.profile');
-    })->name('school.profile');
-});
-
-//Admin Routes List
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        $user = Auth::user();
+        if ($user->role === 'teacher') {
+            return redirect()->route('teacher.home');
+        } elseif ($user->role === 'school_head') {
+            return redirect()->route('school_head.home');
+        } elseif ($user->role === 'admin') {
+            return redirect()->route('admin.home');
+        } else {
+            return redirect()->route('/login');
+        }
+    });
 
-    Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
+    // Teacher Routes List
+    Route::middleware(['user-access:teacher'])->group(function () {
+        Route::get('/teacher/profile',  [HomeController::class, 'teacherHome'])->name('teacher.home');
+    });
+
+    // School Head Routes List
+    Route::middleware(['user-access:school_head'])->group(function () {
+        Route::get('/profile',  [HomeController::class, 'schoolHeadHome'])->name('school_head.home');
+    });
+
+    // Admin Routes List
+    Route::middleware(['user-access:admin'])->group(function () {
+        Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
+    });
+});
+
+    // Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
     // Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
     //     Route::get('/schools', 'index')->name('schools.index');
     //     Route::get('/schools/export/{id}', 'export')->name('schools.export');
     // });
-    Route::resource('schools', SchoolController::class);
+    // Route::resource('schools', SchoolController::class);
     // Route::resource('personnels', PersonnelController::class);
-});
+
 // Route::resource('schools', SchoolController::class);
 //
 // Route::resource('personnels', PersonnelController::class);

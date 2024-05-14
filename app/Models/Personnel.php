@@ -48,9 +48,14 @@ class Personnel extends Model
         return $this->hasOne(User::class);
     }
 
-    public function addresses(): HasMany
+    public function permanentAddress()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class)->where('address_type', 'permanent');
+    }
+
+    public function residentialAddress()
+    {
+        return $this->hasOne(Address::class)->where('address_type', 'residential');
     }
 
     public function contact_person(): HasOne

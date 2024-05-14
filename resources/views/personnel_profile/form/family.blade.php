@@ -1,7 +1,4 @@
 <div class="mx-auto pt-3 pb-10 px-5">
-    <script>
-        console.log("uwu");
-    </script>
     <h4 class="font-bold text-2xl text-gray-darkest">Family</h4>
     <section>
         <h4 class="my-3 font-bold text-base text-gray-darkest"></h4>

@@ -2,61 +2,58 @@
     <div class="flex justify-center m-auto bg-white">
         <div class="relative w-full h-full">
             {{-- FORM--}}
-            <div class="absolute top-0 left-0 flex items-center w-[69rem] mt-6 ml-52">
+            <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
                 <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
-                    <form action="{{ route('schools.store') }}" method="POST">
-                    @csrf
                         <section x-show="formNav === 'personal_information'" id="personal_information">
-                            @include('personnel_profile.form.personnal_information')
+                            @livewire('form.personal_information')
                         </section>
-                        <section x-show="formNav === 'contact_information'" id="contact_information">
-                            @include('personnel_profile.form.contact_information')
+                        <section x-show="formNav === 'address'" id="address">
+                            @livewire('form.address')
                         </section>
-                        <section x-show="formNav === 'family'" id="family">
+                        {{-- <section x-show="formNav === 'family'" id="family">
                             @include('personnel_profile.form.family')
-                        </section>
-                        <section x-show="formNav === 'education'" id="education">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'education'" id="education">
                             @include('personnel_profile.form.education')
-                        </section>
-                        <section x-show="formNav === 'civil_service_eligibility'" id="civil_service_eligibility">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'civil_service_eligibility'" id="civil_service_eligibility">
                             @include('personnel_profile.form.civil_service_eligibility')
-                        </section>
-                        <section x-show="formNav === 'work_experience'" id="work_experience">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'work_experience'" id="work_experience">
                             @include('personnel_profile.form.work_experience')
-                        </section>
-                        <section x-show="formNav === 'voluntary_work'" id="voluntary_work">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'voluntary_work'" id="voluntary_work">
                             @include('personnel_profile.form.voluntary_work')
-                        </section>
-                        <section x-show="formNav === 'training_certification'" id="training_certification">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'training_certification'" id="training_certification">
                             @include('personnel_profile.form.training_certification')
-                        </section>
-                        <section x-show="formNav === 'references'" id="references">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'references'" id="references">
                             @include('personnel_profile.form.reference')
-                        </section>
-                        <section x-show="formNav === 'assignment_details'" id="assignment_details">
+                        </section> --}}
+                        {{-- <section x-show="formNav === 'assignment_details'" id="assignment_details">
                             dtr
                             @include('personnel_profile.form.assignment_detail')
-                        </section>
-                    </form>
+                        </section> --}}
                 </div>
             </div>
             {{-- OVERLAPPING MENU --}}
             <div class="absolute top-0 left-0 mt-6 w-[13rem] bg-gray-100">
                 <div class="w-[13.5rem]"
-                    :class="{'w-[13.5rem] z-10 bg-white border-t-2 border-primary': formNav === 'personal_information' }">
+                    :class="{'w-[13.2rem] z-10 bg-white': formNav === 'personal_information' }">
                     <a href="#personal_information" @click="formNav = 'personal_information'">
                         <div class="px-4 py-2 w-[13.1rem] "
-                             :class="{'border-l-2 border-b-2 border-primary': formNav === 'personal_information' }">
+                             :class="{'border-l-2 border-y-2 border-primary': formNav === 'personal_information' }">
                             <span class="text-sm font-medium">Personal Information</span>
                         </div>
                     </a>
                 </div>
                 <div class="w-[13.5rem]"
-                     :class="{'w-[13.5rem] z-10 bg-white': formNav === 'contact_information' }">
-                    <a href="#contact_information" @click="formNav = 'contact_information'">
+                     :class="{'w-[13.5rem] z-10 bg-white': formNav === 'address' }">
+                    <a href="#address" @click="formNav = 'address'">
                         <div class="px-4 py-2 w-[13.1rem] "
-                             :class="{'border-l-2 border-y-2 border-primary': formNav === 'contact_information' }">
-                             <span class="text-sm font-medium">Contact Information</span>
+                             :class="{'border-l-2 border-y-2 border-primary': formNav === 'address' }">
+                             <span class="text-sm font-medium">Address</span>
                         </div>
                     </a>
                 </div>

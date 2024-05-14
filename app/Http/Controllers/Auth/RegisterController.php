@@ -45,7 +45,7 @@ class RegisterController extends Controller
                     session()->flash('flash.banner', 'You have successfully registered & logged in!');
                     session()->flash('flash.bannerStyle', 'success');
 
-                    return redirect()->route('personnels.create');
+                    return redirect('/');
                 }
             } catch (\Throwable $th) {
                 dd($th);

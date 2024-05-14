@@ -93,12 +93,9 @@
                 <x-input id="pagibig_num" wire:model="state.pagibig_num" type="number" name="pagibig_num" required/>
             </span>
             <span class="w-1/3">
-                <label for="personnel_id" class="pb-1 block font-medium text-sm text-gray-700">Personnel wID</label>
+                <label for="personnel_id" class="pb-1 block font-medium text-sm text-gray-700">Personnel ID</label>
                 <x-input id="personnel_id" wire:model="state.personnel_id" type="number" name="personnel_id" required/>
             </span>
-        </div>
-        <div class="m-0 mb-4 p-0 flex space-x-3 text-end">
-            <x-button type="submit" label="Save" class="bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
         </div>
     </div>
 </div>
