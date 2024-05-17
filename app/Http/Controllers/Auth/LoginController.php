@@ -37,9 +37,9 @@ class LoginController extends Controller
                 if ($user->role == 'admin') {
                     return redirect()->route('admin.home');
                 } elseif ($user->role == 'school_head') {
-                    return redirect()->route('school_head.home');
+                    return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
                 } elseif ($user->role == 'teacher') {
-                    return redirect()->route('teacher.home');
+                    return redirect()->route('personnels.profile', ['personnel' => $user->personnel->id]);
                 }
             } else {
                 $account = User::where('email', $request->email)->first();

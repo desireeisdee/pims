@@ -42,7 +42,7 @@ class AuthManager extends Controller
                 session()->flash('flash.banner', 'You have successfully registered & logged in!');
                 session()->flash('flash.bannerStyle', 'success');
 
-                return redirect()->route('dashboard');
+                return redirect('/');
             }
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->validator->errors());
@@ -60,7 +60,7 @@ class AuthManager extends Controller
 
             $credentials = $request->only('email', 'password');
             if(Auth::attempt($credentials)){
-                return redirect()->intended(route('dashboard'));
+                return redirect()->intended(route('admin.home'));
             } else {
                 return redirect()->back()->withErrors(['message' => 'Invalid credentials']);
             }

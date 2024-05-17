@@ -1,5 +1,5 @@
 
-<x-teacher-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -14,7 +14,7 @@
                     <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
                         <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
                                 <section x-show="formNav === 'personal_information'" id="personal_information">
-                                    @livewire('form.personal_information')
+                                    @livewire('form.personal_information', ['id' => $personnel->id])
                                 </section>
                                 <section x-show="formNav === 'address'" id="address">
                                     @livewire('form.address-form')
@@ -22,30 +22,30 @@
                                 <section x-show="formNav === 'family'" id="family">
                                     @livewire('form.family-form')
                                 </section>
-                                {{-- <section x-show="formNav === 'education'" id="education">
+                                <section x-show="formNav === 'education'" id="education">
                                     @include('personnel_profile.form.education')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'civil_service_eligibility'" id="civil_service_eligibility">
+                                </section>
+                                <section x-show="formNav === 'civil_service_eligibility'" id="civil_service_eligibility">
                                     @include('personnel_profile.form.civil_service_eligibility')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'work_experience'" id="work_experience">
+                                </section>
+                                <section x-show="formNav === 'work_experience'" id="work_experience">
                                     @include('personnel_profile.form.work_experience')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'voluntary_work'" id="voluntary_work">
+                                </section>
+                                <section x-show="formNav === 'voluntary_work'" id="voluntary_work">
                                     @include('personnel_profile.form.voluntary_work')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'training_certification'" id="training_certification">
+                                </section>
+                                <section x-show="formNav === 'training_certification'" id="training_certification">
                                     @include('personnel_profile.form.training_certification')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'references'" id="references">
+                                </section>
+                                <section x-show="formNav === 'references'" id="references">
                                     @include('personnel_profile.form.reference')
-                                </section> --}}
-                                {{-- <section x-show="formNav === 'assignment_details'" id="assignment_details">
-                                    dtr
+                                </section>
+                                <section x-show="formNav === 'assignment_details'" id="assignment_details">
                                     @include('personnel_profile.form.assignment_detail')
-                                </section> --}}
+                                </section>
                         </div>
                     </div>
+
                     {{-- OVERLAPPING MENU --}}
                     <div class="absolute top-0 left-0 mt-6 w-[13rem] bg-gray-100">
                         <div class="w-[13.5rem]"
@@ -143,6 +143,5 @@
             </div>
 
         </div>
-
     </div>
-</x-teacher-layout>
+</x-app-layout>

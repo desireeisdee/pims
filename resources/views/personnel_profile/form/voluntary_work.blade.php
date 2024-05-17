@@ -25,11 +25,7 @@
                 </h6>
             </div>
             <div class="mt-2">
-                <p x-text="new_voluntary_works">
-
-                </p>
-                uu
-                {{-- <template x-for="(new_voluntary_work, index) in new_voluntary_works" :key="index">
+                <template x-for="(new_voluntary_work, index) in new_voluntary_works" :key="index">
                     <div class="mb-2 w-full flex items-center space-x-2 h-12 border border-gray-200 rounded focus:outline-none"
                             x-cloak
                             x-transition:enter="transition ease-in-out duration-200"
@@ -66,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                </template> --}}
+                </template>
             </div>
         </div>
 

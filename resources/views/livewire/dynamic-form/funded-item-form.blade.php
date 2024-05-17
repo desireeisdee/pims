@@ -13,6 +13,7 @@
             <h6 class="w-1/12 font-semibold"></h6>
         </div>
         <div class="mt-2">
+            {{-- {{ $school }} --}}
             @if(isset($school) && $school->funded_items()->count() > 0)
                 <template x-for="(funded_item, index) in {{ $school->funded_items }}" :key="index">
                     <div class="mb-2 w-full flex items-center space-x-4 h-14 border border-gray-200 rounded focus:outline-none"
@@ -84,22 +85,5 @@
     </div>
 
     @include('admin.school.confirmation-modal.delete_funded_item')
-    <script>
-        function itemFields(with_funded_items) {
-            console.log(with_funded_items);
-            return {
-                new_items: with_funded_items ? [] : [{}],
-                addNewField() {
-                    this.new_items.push({
-                        title: '',
-                        category: '',
-                        incumbent: ''
-                    });
-                },
-                removeField(index) {
-                    this.new_items.splice(index, 1);
-                }
-            };
-        }
-    </script>
+
 </div>

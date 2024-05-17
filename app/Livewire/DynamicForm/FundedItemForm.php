@@ -12,11 +12,9 @@ class FundedItemForm extends Component
     public $school;
     public $confirmingFundedItemDeletion = false;
 
-    public function mount($id = null)
+    public function mount($id)
     {
-        if ($id !== null) {
-            $this->school = School::findOrFail($id);
-        }
+        $this->school = School::findOrFail($id);
     }
 
     public function render()

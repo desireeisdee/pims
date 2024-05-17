@@ -36,13 +36,13 @@ class StoreSchoolRequest extends FormRequest
         $newItemRules = ['new_item_title', 'new_item_category', 'new_item_incumbent'];
         $newAppointmentRules = ['new_appointment_title', 'new_appointment_appointment', 'new_appointment_fund_source', 'new_appointment_incumbent_teaching', 'new_appointment_incumbent_non_teaching'];
 
-        foreach ($newItemRules as $rule) {
-            $this->addRequiredRules($rules, $this->input($rule), $rule);
-        }
+        // foreach ($newItemRules as $rule) {
+        //     $this->addRequiredRules($rules, $this->input($rule), $rule);
+        // }
 
-        foreach ($newAppointmentRules as $rule) {
-            $this->addRequiredRules($rules, $this->input($rule), $rule);
-        }
+        // foreach ($newAppointmentRules as $rule) {
+        //     $this->addRequiredRules($rules, $this->input($rule), $rule);
+        // }
 
         return $rules;
     }

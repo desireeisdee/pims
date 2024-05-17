@@ -32,7 +32,7 @@
     @endforeach
     <div class="mt-3 flex space-x-3 items-center">
         <div class="w-full">
-            <button wire:click.prevent="addNewField" class="py-2 w-full text-base bg-primary text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none">New Child</button>
+            <button wire:click.prevent="addNewField" class="py-2 w-full text-base bg-primary text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none">Add</button>
         </div>
     </div>
 </div>

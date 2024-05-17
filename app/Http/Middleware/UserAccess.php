@@ -15,12 +15,24 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next, $userRole)
     {
-        if (auth()->user()->role == $userRole) {
+        $user = auth()->user();
+
+        if ($user->role == $userRole) {
             return $next($request);
         }
 
-        session()->flash('flash.banner', 'You do not have permission to access for this page.');
-        session()->flash('flash.bannerStyle', 'danger');
-        return redirect()->back();
+        // Redirect based on role
+        switch ($user->role) {
+            case 'admin':
+                return redirect()->route('admin.home');
+            case 'school_head':
+                return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
+            case 'teacher':
+                return redirect()->route('personnels.profile', ['personnel' => $user->personnel->id]);
+            default:
+                session()->flash('flash.banner', 'You do not have permission to access this page.');
+                session()->flash('flash.bannerStyle', 'danger');
+                return redirect()->back();
+        }
     }
 }

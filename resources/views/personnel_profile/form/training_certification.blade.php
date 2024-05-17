@@ -15,34 +15,31 @@
                         <div class="mb-2 w-full flex space-x-2 items-center">
                             <div class="w-9/12 text-xs">
                                 <x-label for="new_training.title" value="{{ __('Training/Seminar Title') }}"/>
-                                <x-input x-model="new_training.title" type="text" name="new_training.title[]" class="text-xs" required/>
+                                <x-input x-model="new_training.title" type="text" label="Training/Seminar Title" name="new_training.title[]" class="text-xs" required/>
                             </div>
                             <div class="w-3/12 text-xs">
                                 <x-label for="new_training.type" value="{{ __('Type of LD') }}"/>
-                                <x-input x-model="new_training.type" type="text" name=" new_training.type[]" class="text-xs" required/>
+                                <x-input x-model="new_training.type" type="text" label="Type of LD" name=" new_training.type[]" class="text-xs" required/>
                             </div>
                         </div>
-                        <div class="mb-2 w-full flex space-x-2 items-center">
-                            <div class="pt-5 w-6/12 text-xs">
-                                <x-label for="to" value="{{ __('Conducted/Sponsored By') }}"/>
-                                <x-input x-model="new_training.sponsor" type="text" name=" new_training.sponsor[]" class="text-xs" required/>
+                        <div class="pt-3 mb-2 w-full flex space-x-2 items-center">
+                            <div class="w-6/12 text-xs">
+                                <x-input x-model="new_training.sponsor" type="text" label="Conducted/Sponsored By" name=" new_training.sponsor[]" class="text-xs" required/>
                             </div>
                             <div class="w-4/12 ps-2 text-xs text-center">
                                 <x-label for="from text-center" value="{{ __('Inclusive Dates') }}"/>
+
                                 <div class="flex space-x-2">
                                     <div class="">
-                                        <x-label for="from" value="{{ __('From') }}"/>
-                                        <x-input x-model="new_training.from" type="date" name="new_training.from[]" placeholder="From" class="text-xs" required/>
+                                        <x-input x-model="new_training.from" type="date" label="Start Date" name="new_training.from[]" placeholder="From" class="text-xs" required/>
                                     </div>
                                     <div class="">
-                                        <x-label for="to" value="{{ __('To') }}"/>
-                                        <x-input x-model="new_training.to" type="date" name="new_training.to[]" placeholder="To" class="text-xs" required/>
+                                        <x-input x-model="new_training.to" type="date" label="End Date" name="new_training.to[]" placeholder="To" class="text-xs" required/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="pt-5 w-2/12 text-xs">
-                                <x-label for="to" value="{{ __('Number of Hours') }}"/>
-                                <x-input x-model="new_training.number_of_hours" type="number" name=" new_training.number_of_hours[]" class="text-xs" required/>
+                            <div class=" w-2/12 text-xs">
+                                <x-input x-model="new_training.number_of_hours" type="number" label="Number of Hours" name=" new_training.number_of_hours[]" class="text-xs" required/>
                             </div>
                         </div>
 

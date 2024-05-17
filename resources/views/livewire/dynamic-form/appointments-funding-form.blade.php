@@ -122,24 +122,5 @@
     </div>
 
     @include('admin.school.confirmation-modal.delete_appointments_funding')
-    <script>
-        function appointmentFields(with_appointments_fundings) {
-            return {
-                new_appointments: with_appointments_fundings ? [] : [{}],
 
-                addNewField() {
-                    this.new_appointments.push({
-                        title: '',
-                        appointment: '',
-                        fund_source: '',
-                        incumbent_teaching: '',
-                        incumbent_non_teaching: ''
-                    });
-                },
-                removeField(index) {
-                    this.new_appointments.splice(index, 1);
-                }
-            };
-        }
-    </script>
 </div>

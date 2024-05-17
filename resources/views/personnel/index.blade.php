@@ -7,11 +7,11 @@
     <div class="max-w-8xl mx-auto sm:px-6 sm:py-3 lg:px-8 lg:py-5">
         <ul class="inline-flex space-x-2">
             <li class="text-gray-600">
-                <a href="https://craft.demo.quebixtechnology.com">Dashboard</a>
+                <a href="{{ route('admin.home') }}">Dashboard</a>
                 >
             </li>
             <li class="text-gray-600">
-                <a href="https://craft.demo.quebixtechnology.com/students">Personnel</a>
+                <a href="{{ route('personnels.index') }}">Personnel</a>
             </li>
         </ul>
     </div>

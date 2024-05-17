@@ -16,6 +16,10 @@ export default {
         "./vendor/wireui/wireui/ts/**/*.ts",
         "./vendor/wireui/wireui/src/View/**/*.php",
 
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+
         "./vendor/vildanbina/livewire-wizard/resources/views/*.blade.php"
       ],
     theme: {

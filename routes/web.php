@@ -7,13 +7,6 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-// Route::get('/sf7', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
 Route::controller('App\Http\Controllers\Auth\LoginController'::class)->group(function(){
     Route::get('/login', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
@@ -29,9 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         $user = Auth::user();
         if ($user->role === 'teacher') {
-            return redirect()->route('teacher.home');
+            return redirect()->route('personnels.profile', ['school' => $user->personnel]);
         } elseif ($user->role === 'school_head') {
-            return redirect()->route('school_head.home');
+            return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
         } elseif ($user->role === 'admin') {
             return redirect()->route('admin.home');
         } else {
@@ -41,40 +34,33 @@ Route::middleware(['auth'])->group(function () {
 
     // Teacher Routes List
     Route::middleware(['user-access:teacher'])->group(function () {
-        Route::get('/teacher/profile',  [HomeController::class, 'teacherHome'])->name('teacher.home');
+        Route::controller('App\Http\Controllers\PersonnelController'::class)->group(function(){
+            Route::get('personnels', 'index')->name('personnels.index');
+            Route::get('profile/{personnel}', 'show')->name('personnels.profile');
+            Route::get('personnels/{personnel}', 'update')->name('personnels.update');
+        });
     });
 
     // School Head Routes List
     Route::middleware(['user-access:school_head'])->group(function () {
-        Route::get('/profile',  [HomeController::class, 'schoolHeadHome'])->name('school_head.home');
         Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
             Route::get('/schools/export/{id}', 'export')->name('schools.export');
             Route::get('schools/{school}', 'show')->name('schools.show');
+            Route::get('school_profile/{school}', 'show')->name('schools.profile');
             Route::get('schools/{school}', 'update')->name('schools.update');
-            Route::get('schools/{school}/edit', 'edit')->name('schools.edit');
         });
+        Route::resource('personnels', 'App\Http\Controllers\PersonnelController'::class);
     });
 
     // Admin Routes List
     Route::middleware(['user-access:admin'])->group(function () {
-        Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('dashboard');
+        Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
+
         Route::controller('App\Http\Controllers\SchoolController'::class)->group(function(){
-            Route::get('/schools', 'index')->name('schools.index');
             Route::get('/schools/export/{school}', 'export')->name('schools.export');
-            Route::get('schools/{school}', 'show')->name('schools.show');
-            Route::get('schools/{school}', 'update')->name('schools.update');
-            Route::get('schools/{school}/edit', 'edit')->name('schools.edit');
-            Route::get('schools/{school}', 'destroy')->name('schools.destroy');
         });
-        Route::delete('/appointments_funding', AppointmentsFundingController::class .'@destroy')->name('appointments_fundings.destroy');
+
+        Route::resource('schools', 'App\Http\Controllers\SchoolController'::class);
+        Route::resource('personnels', 'App\Http\Controllers\PersonnelController'::class);
     });
 });
-
-// Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');
-
-// Route::resource('schools', SchoolController::class);
-// Route::resource('personnels', PersonnelController::class);
-
-// Route::resource('schools', SchoolController::class);
-//
-// Route::resource('personnels', PersonnelController::class);

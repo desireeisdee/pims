@@ -11,35 +11,51 @@ use App\Models\FundedItem;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class SchoolController extends Controller
 {
     public function index()
     {
         $schools = School::all();
-        return view('admin.school.index', compact('schools'));
+        return view('school.index', compact('schools'));
     }
 
     public function create()
     {
-        return view('admin.school.create');
+        $schools = School::all();
+        return view('school.create');
+    }
+
+    public function show($id)
+    {
+        $school = School::findOrFail($id);
+        return view('school.show', compact('school'));
     }
 
     public function edit($id)
     {
         $school = School::findOrFail($id);
-        return view('admin.school.edit', ['school' => $school]);
+        return view('school.edit', ['school' => $school]);
+    }
+
+    public function profile($school)
+    {
+        $school = Auth::user()->personnel->school->id;
+        return view('school.show', compact('school'));
     }
 
     public function export($id)
     {
         $school = School::findOrFail($id);
+
         $schoolData = [
             'school' => $school->toArray(),
             'funded_items' => $school->funded_items->toArray(),
             'personnels' => $school->personnels->toArray(),
         ];
-        return Excel::download(new SchoolsExport($schoolData), 'schools.xlsx');
+
+        return Excel::download(new SchoolsExport($schoolData, $school->id), 'schools.xlsx');
     }
 
     public function store(StoreSchoolRequest $request)
@@ -172,4 +188,6 @@ class SchoolController extends Controller
             }
         }
     }
+
+
 }

@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create New School') }}
+            {{ __('Create New Personnel') }}
         </h2>
     </x-slot>
 
@@ -10,79 +10,74 @@
         {{-- BREADCRUMB LINKS --}}
         <ul class="inline-flex space-x-2">
             <li class="text-gray-600">
-                <a href="https://craft.demo.quebixtechnology.com">Dashboard</a>
+                <a href="{{ route('admin.home') }}">Dashboard</a>
                 >
             </li>
             <li class="text-gray-600">
-                <a href="https://craft.demo.quebixtechnology.com/students">Personnels</a>
+                <a href="{{ route('personnels.index') }}">Personnels</a>
                 >
             </li>
             <li class="text-gray-600">
-                <a href="https://craft.demo.quebixtechnology.com/students">Create</a>
+                <a href="{{ route('personnels.create') }}">Create</a>
                 >
             </li>
         </ul>
 
         <div x-data="{ formNav : 'personal_information' }" >
-
-            <div class="flex justify-center m-auto bg-white">
+            <div class="mt-5 flex justify-center m-auto bg-white">
                 <div class="relative w-full h-full">
                     {{-- FORM--}}
-                    <div class="absolute top-0 left-0 flex items-center w-[69rem] mt-6 ml-52">
+                    <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
                         <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
-                            <form action="{{ route('schools.store') }}" method="POST">
-                            @csrf
                                 <section x-show="formNav === 'personal_information'" id="personal_information">
-                                    @include('admin.personnel.form.personnal_information')
+                                    @livewire('form.personal_information')
                                 </section>
-                                <section x-show="formNav === 'contact_information'" id="contact_information">
-                                    @include('admin.personnel.form.contact_information')
+                                <section x-show="formNav === 'address'" id="address">
+                                    @livewire('form.address-form')
                                 </section>
                                 <section x-show="formNav === 'family'" id="family">
-                                    @include('admin.personnel.form.family')
+                                    @livewire('form.family-form')
                                 </section>
                                 <section x-show="formNav === 'education'" id="education">
-                                    @include('admin.personnel.form.education')
+                                    @include('personnel_profile.form.education')
                                 </section>
                                 <section x-show="formNav === 'civil_service_eligibility'" id="civil_service_eligibility">
-                                    @include('admin.personnel.form.civil_service_eligibility')
+                                    @include('personnel_profile.form.civil_service_eligibility')
                                 </section>
                                 <section x-show="formNav === 'work_experience'" id="work_experience">
-                                    @include('admin.personnel.form.work_experience')
+                                    @include('personnel_profile.form.work_experience')
                                 </section>
                                 <section x-show="formNav === 'voluntary_work'" id="voluntary_work">
-                                    @include('admin.personnel.form.voluntary_work')
+                                    @include('personnel_profile.form.voluntary_work')
                                 </section>
                                 <section x-show="formNav === 'training_certification'" id="training_certification">
-                                    @include('admin.personnel.form.training_certification')
+                                    @include('personnel_profile.form.training_certification')
                                 </section>
                                 <section x-show="formNav === 'references'" id="references">
-                                    @include('admin.personnel.form.reference')
+                                    @include('personnel_profile.form.reference')
                                 </section>
                                 <section x-show="formNav === 'assignment_details'" id="assignment_details">
-                                    dtr
-                                    @include('admin.personnel.form.assignment_detail')
+                                    @include('personnel_profile.form.assignment_detail')
                                 </section>
-                            </form>
                         </div>
                     </div>
                     {{-- OVERLAPPING MENU --}}
                     <div class="absolute top-0 left-0 mt-6 w-[13rem] bg-gray-100">
                         <div class="w-[13.5rem]"
-                            :class="{'w-[13.5rem] z-10 bg-white border-t-2 border-primary': formNav === 'personal_information' }">
+                            :class="{'w-[13.2rem] z-10 bg-white': formNav === 'personal_information' }">
                             <a href="#personal_information" @click="formNav = 'personal_information'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-b-2 border-primary': formNav === 'personal_information' }">
+                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'personal_information' }">
                                     <span class="text-sm font-medium">Personal Information</span>
                                 </div>
                             </a>
                         </div>
                         <div class="w-[13.5rem]"
-                             :class="{'w-[13.5rem] z-10 bg-white': formNav === 'contact_information' }">
-                            <a href="#contact_information" @click="formNav = 'contact_information'">
+                             :class="{'w-[13.5rem] z-10 bg-white': formNav === 'address' }">
+                            <a href="#address" @click="formNav = 'address'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'contact_information' }">
-                                     <span class="text-sm font-medium">Contact Information</span>
+                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'address' }">
+                                     <span class="text-sm font-medium">Address</span>
                                 </div>
                             </a>
                         </div>

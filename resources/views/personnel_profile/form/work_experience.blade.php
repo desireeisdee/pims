@@ -12,45 +12,36 @@
                             x-transition:leave="transition ease-in-out duration-200"
                             x-transition:leave-start="opacity-100 transform scale-100"
                             x-transition:leave-end="opacity-0 transform scale-95">
-                        <div class="mb-2 w-full flex space-x-2 items-center">
+                        <div class="mb-2 w-full flex space-x-2 items-end">
                             <div class="w-4/12 pt-5 text-xs">
-                                <x-label for="position" value="{{ __('Position Title') }}"/>
-                                <x-input x-model="new_civil_service.position" type="text" name="new_civil_service.position[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.position" type="text" label="Position Title" name="new_civil_service.position[]" class="text-xs" required/>
                             </div>
                             <div class="w-4/12 pt-5 text-xs">
-                                <x-label for="company" value="{{ __('Company') }}"/>
-                                <x-input x-model="new_civil_service.company" type="text" name="new_civil_service.company[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.company" type="text" label="Company" name="new_civil_service.company[]" class="text-xs" required/>
                             </div>
                             <div class="w-4/12 ps-2 text-xs text-center">
-                                <x-label for="from text-center" value="{{ __('Inclusive Dates') }}"/>
                                 <div class="flex space-x-2">
                                     <div class="">
-                                        <x-label for="from" value="{{ __('From') }}"/>
-                                        <x-input x-model="new_civil_service.from" type="date" name="new_civil_service.from[]" placeholder="From" class="text-xs" required/>
+                                        <x-input x-model="new_civil_service.from" type="date" label="Start Date" name="new_civil_service.from[]" placeholder="From" class="text-xs" required/>
                                     </div>
                                     <div class="">
-                                        <x-label for="to" value="{{ __('To') }}"/>
-                                        <x-input x-model="new_civil_service.to" type="date" name="new_civil_service.to[]" placeholder="To" class="text-xs" required/>
+                                        <x-input x-model="new_civil_service.to" type="date" label="End Date" name="new_civil_service.to[]" placeholder="To" class="text-xs" required/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-3 w-full flex items-center space-x-2">
                             <div class="w-3/12 text-xs">
-                                <x-label for="monthly_salary" value="{{ __('Monthly Salary') }}"/>
-                                <x-input x-model="new_civil_service.monthly_salary" type="text" name="new_civil_service.monthly_salary[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.monthly_salary" type="text" label="Monthly Salary" name="new_civil_service.monthly_salary[]" class="text-xs" required/>
                             </div>
                             <div class="w-3/12 text-xs">
-                                <x-label for="paygrade_step_increment" value="{{ __('Pay Grade/Step Increment') }}"/>
-                                <x-input x-model="new_civil_service.paygrade_step_increment" type="text" name="new_civil_service.paygrade_step_increment[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.paygrade_step_increment" type="text" label="Pay Grade/Step Increment" name="new_civil_service.paygrade_step_increment[]" class="text-xs" required/>
                             </div>
                             <div class="w-3/12 text-xs">
-                                <x-label for="appointment" value="{{ __('Appointment') }}"/>
-                                <x-input x-model="new_civil_service.appointment" type="text" name="new_civil_service.appointment[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.appointment" type="text" label="Appointment" name="new_civil_service.appointment[]" class="text-xs" required/>
                             </div>
                             <div class="w-3/12 text-xs">
-                                <x-label for="gov_service" value="Gov't Service"/>
-                                <x-input x-model="new_civil_service.gov_service" type="text" name="new_civil_service.gov_service[]" class="text-xs" required/>
+                                <x-input x-model="new_civil_service.gov_service" type="text" label="Gov't Service" name="new_civil_service.gov_service[]" class="text-xs" required/>
                             </div>
                         </div>
                     </div>

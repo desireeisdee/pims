@@ -5,7 +5,7 @@
             <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
                 <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
                         <section x-show="formNav === 'personal_information'" id="personal_information">
-                            @livewire('form.personal_information')
+                            @livewire('form.personal_information', ['id' => $personnel->id])
                         </section>
                         <section x-show="formNav === 'address'" id="address">
                             @livewire('form.address')

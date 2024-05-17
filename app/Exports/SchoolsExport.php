@@ -17,12 +17,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class SchoolsExport implements FromView, WithDefaultStyles, WithHeadings, WithStyles, WithEvents
 {
     use Exportable;
-
+    public $school_id;
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data, $id)
     {
         $this->data = $data;
+        $this->school_id = $id;
     }
 
     public function defaultStyles(Style $defaultStyle)
@@ -87,7 +88,7 @@ class SchoolsExport implements FromView, WithDefaultStyles, WithHeadings, WithSt
     public function view(): View
     {
         return view('admin.school.export.school-form-report', [
-            'school' => School::findOrFail(6)
+            'school' => School::findOrFail($this->school_id)
         ]);
     }
 

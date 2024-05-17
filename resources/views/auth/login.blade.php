@@ -24,8 +24,8 @@
             </div>
 
             <div class="mt-2 flex items-center justify-between">
-                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                    <a href="{{ route('register') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500 duration-150">Activate Account/Reset Password</a>
+                <p class="text-sm font-light text-gray-500">
+                    <a href="{{ route('register') }}" class="font-medium text-primary-600 hover:underline duration-150">Activate Account</a>
                 </p>
 
                 <x-button type="submit" label="Login" class="bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>

@@ -1,7 +1,7 @@
 @props(['curricular_classification'])
 
 <div x-data="{ options: [], open: false }" class="w-full relative">
-    <div @click="open = !open" class="px-2 h-auto w-full flex border border-neutral-300 cursor-pointer bg-white rounded-md">
+    <div @click="open = !open" class="placeholder-secondary-400 border border-secondary-300 focus:ring-primary-500 focus:border-primary-500 form-input block w-full sm:text-sm rounded-md transition ease-in-out duration-100 focus:outline-none shadow-sm">
         <template x-if="options.length === 0">
             <p class="my-1 py-1 text-gray-500">Choose Curricular Classifications</p>
         </template>
@@ -29,10 +29,9 @@
                 </template>
             </div>
         @endif
-
     </div>
 
-    <input type="hidden" name="curricular_classification" :value="options" id="options" required>
+    <input id="options" wire:model="curricular_classification" type="hidden" name="curricular_classification" :value="options" required>
     <div x-show="open" x-trap="open"
          @click.outside="open = false"
          @keydown.escape.window="open = false"

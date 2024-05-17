@@ -24,13 +24,13 @@ class HomeController extends Controller
 
     public function schoolHeadHome()
     {
-        $personnel = Auth::user()->personnel;
-        return view('personnel_profile.show', $personnel);
+        $school = Auth::user()->personnel->school->id;
+        return view('school.show', ['school' => $school->id]);
     }
 
     public function teacherHome()
     {
-        $personnel = Auth::user()->personnel;
-        return view('personnel_profile.show', $personnel);
+        $personnel = Auth::user()->personnel->id;
+        return view('personnel_profile.show', ['personnel' => $personnel->id]);
     }
 }

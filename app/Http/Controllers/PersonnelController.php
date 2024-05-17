@@ -3,26 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personnel;
+use App\Jobs\UpdateStepIncrement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PersonnelController extends Controller
 {
     public function index()
     {
         $personnels = Personnel::all();
-        return view('admin.personnel.index', compact('personnels'));
+        return view('personnel.index', compact('personnels'));
     }
 
-    public function show()
-    {
-        return view('personnel_profile.show');
-    }
-
-    public function edit($id)
+    public function show($id)
     {
         $personnel = Personnel::findOrFail($id);
-        return view('admin.personnel.edit', ['personnel' => $personnel]);
+        return view('personnel_profile.show', compact('personnel'));
     }
+    // public function profile($id)
+    // {
+    //     $personnel = Personnel::findOrFail($id);
+    //     return view('personnel_profile.show', compact('personnel'));
+    // }
+
+    public function create()
+    {
+        return view('personnel.create');
+    }
+
+    // public function edit($id)
+    // {
+    //     $personnel = Personnel::findOrFail($id);
+    //     return view('personnel.edit', ['personnel' => $personnel]);
+    // }
 
 
     // public function update(Request $request, $id)
@@ -66,5 +79,11 @@ class PersonnelController extends Controller
     //     }
     //     return redirect()->back();
     // }
+    // public function updateStepIncrement()
+    // {
+    //     // Dispatch the job
+    //     UpdateStepIncrement::dispatch();
 
+    //     return response()->json(['message' => 'Step increment job dispatched successfully.']);
+    // }
 }

@@ -10,7 +10,7 @@
             @csrf
 
             <div>
-                <x-input id="personnel_id" label="Personnel ID" class="block mt-1 w-full" type="text" name="personnel_id" :value="old('personnel_id')" required/>
+                <x-input id="personnel_id" label="Personnel ID" class="block mt-1 w-full" type="number" name="personnel_id" :value="old('personnel_id')" required/>
             </div>
 
             <div class="mt-4">
