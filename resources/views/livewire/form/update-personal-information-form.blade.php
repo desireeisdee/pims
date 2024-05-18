@@ -1,7 +1,12 @@
 <section>
-    <h4 class="font-bold text-2xl text-gray-darkest">Edit Personal Information</h4>
-    <div class="px-3 py-5">
-        <div>
+    <div class="flex justify-between">
+        <h4 class="font-bold text-2xl text-gray-darkest">{{ $personnel ? 'Edit' : 'New' }} Personal Information</h4>
+        <div class="w-[16.666667%]">
+            <x-button wire:click.prevent="back" label="Back" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+        </div>
+    </div>
+    <div>
+        <div class="my-5">
             <h5 class="font-bold text-xl text-gray-darkest">Personal Information </h5>
             <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
                 <span class="w-1/4">
@@ -30,7 +35,6 @@
                         <option value="married">Married</option>
                         <option value="widowed">Widowed</option>
                         <option value="divorced">Divorced</option>
-                        <option value="seperated">Seperated</option>
                         <option value="others">Others</option>
                     </x-native-select>
                 </span>
@@ -64,7 +68,7 @@
                 </span>
             </div>
         </div>
-        <div>
+        <div class="my-7">
             <h5 class="font-bold text-xl text-gray-darkest">Government Information</h5>
             <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
                 <span class="w-1/3">
@@ -84,12 +88,76 @@
                 <span class="w-1/3">
                     <x-input type="number" class="form-control" id="pagibig_num" label="PAG-IBIG No" wire:model="pagibig_num" />
                 </span>
-                <span class="w-1/3">
+            </div>
+        </div>
+        <div class="my-7">
+            <h5 class="font-bold text-xl text-gray-darkest">Work Information</h5>
+            <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
+                <span class="w-3/12">
                     <x-input type="number" class="form-control" id="personnel_id" label="Personnel ID" wire:model="personnel_id" />
+                </span>
+                <span class="w-9/12">
+                    {{-- @livewire('form.input.school-search-select-tag') --}}
+                    <x-input type="number" class="form-control" id="school_id" label="School ID" wire:model="school_id" />
+                    {{-- <x-native-select wire:model="school_id" class="form-control" label="School ID">
+                        <option value="others">Others</option>
+                    </x-native-select> --}}
+                </span>
+            </div>
+            <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
+                {{-- <span class="w-3/12">
+                    <x-input type="number" class="form-control" id="school_id" label="School ID" wire:model="school_id" />
+                    <x-native-select wire:model="school_id" class="form-control" label="School ID">
+                        <option value="others">Others</option>
+                    </x-native-select>
+                </span> --}}
+                <span class="w-3/12">
+                    <x-native-select wire:model="appointment" class="form-control" label="Nature of Appointment">
+                        <option value="regular">Regular</option>
+                        <option value="part-time">Part-Time</option>
+                        <option value="temporary">Temporary</option>
+                        <option value="contract">Contract</option>
+                    </x-native-select>
+                </span>
+                <span class="w-3/12">
+                    <x-native-select wire:model="fund_source" class="form-control" label="Fund Source">
+                        <option value="single" >Single</option>
+                        <option value="married">Married</option>
+                        <option value="widowed">Widowed</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="others">Others</option>
+                    </x-native-select>
+                </span>
+                <span class="w-3/12">
+                    <x-input type="text" class="form-control" id="job_title" label="Job Title" wire:model="job_title" />
+                </span>
+                <span class="w-2/12">
+                    {{-- <x-input type="text" class="form-control" id="rank" label="Teacher Rank" wire:model="rank" /> --}}
+                </span>
+            </div>
+            <div class="mt-2 mb-4 p-0 flex space-x-3" x-data="{ jobStatus: @entangle('job_status') }">
+                <span class="w-2/12">
+                    <x-native-select wire:model="job_status" class="form-control" label="Job Status" x-model="jobStatus">
+                        <option value="active">Active</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="terminated">Terminated</option>
+                        <option value="on leave">On Leave</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="resigned">Resigned</option>
+                        <option value="probation">Probation</option>
+                        <option value="contract">Contract</option>
+                        <option value="part-time">Part-Time</option>
+                    </x-native-select>
+                </span>
+                <span class="w-2/12">
+                    <x-input type="date" class="form-control" id="employment_start" label="Employment Start Date" wire:model="employment_start" />
+                </span>
+                <span class="w-2/12">
+                    <x-input type="date" class="form-control" id="employment_end" label="Employment End Date" wire:model="employment_end" x-bind:disabled="!(jobStatus === 'resigned' || jobStatus === 'terminated')" />
                 </span>
             </div>
         </div>
-        <div>
+        <div class="my-7">
             <h5 class="font-bold text-xl text-gray-darkest">Contact Information</h5>
             <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
                 <span class="w-6/12">
@@ -104,7 +172,16 @@
             </div>
         </div>
     </div>
-    <div class="m-0 mb-4 p-0 flex space-x-3 justify-end">
-        <x-button wire:click.prevent="update" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+    <div class="my-5 p-0 flex space-x-3 justify-end">
+        <div class="w-2/12">
+            <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 py-2.5 w-full bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
+        </div>
+        <div class="w-2/12">
+            @isset($personnel)
+                <x-button wire:click.prevent="update" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+            @else
+                <x-button wire:click.prevent="store" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+            @endisset
+        </div>
     </div>
 </section>

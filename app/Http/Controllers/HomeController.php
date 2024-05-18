@@ -31,6 +31,6 @@ class HomeController extends Controller
     public function teacherHome()
     {
         $personnel = Auth::user()->personnel->id;
-        return view('personnel_profile.show', ['personnel' => $personnel->id]);
+        return view('personnel.show', ['personnel' => $personnel->id]);
     }
 }

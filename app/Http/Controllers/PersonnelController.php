@@ -18,13 +18,8 @@ class PersonnelController extends Controller
     public function show($id)
     {
         $personnel = Personnel::findOrFail($id);
-        return view('personnel_profile.show', compact('personnel'));
+        return view('personnel.show', compact('personnel'));
     }
-    // public function profile($id)
-    // {
-    //     $personnel = Personnel::findOrFail($id);
-    //     return view('personnel_profile.show', compact('personnel'));
-    // }
 
     public function create()
     {

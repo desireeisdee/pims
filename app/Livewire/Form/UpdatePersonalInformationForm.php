@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
-class UpdatePersonalInformation extends PersonalInformation
+class UpdatePersonalInformationForm extends PersonalInformationForm
 {
     public function render()
     {
-        return view('livewire.form.update-personal-information');
+        return view('livewire.form.update-personal-information-form');
     }
 }

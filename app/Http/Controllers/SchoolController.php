@@ -12,6 +12,8 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class SchoolController extends Controller
 {
@@ -19,6 +21,7 @@ class SchoolController extends Controller
     {
         $schools = School::all();
         return view('school.index', compact('schools'));
+        // return $schools;
     }
 
     public function create()
@@ -188,6 +191,57 @@ class SchoolController extends Controller
             }
         }
     }
+
+    // public function getSchoolID(Request $request): Collection
+    // {
+    //     return School::query()
+    //         ->select('id', 'school_name')
+    //         ->when(
+    //             $request->search,
+    //             fn (Builder $query) => $query
+    //                 ->where('school_name', 'like', "%{$request->search}%")
+    //         )
+    //         ->when(
+    //             $request->exists('selected'),
+    //             fn (Builder $query) => $query->whereIn('id', $request->input('selected', [])),
+    //             fn (Builder $query) => $query->limit(10)
+    //         )
+    //         ->orderBy('school_name')
+    //         ->get();
+    //         // ->map(function (User $user) {
+    //         //     $user->profile_image = "https://picsum.photos/300?id={$user->id}";
+
+    //         //     return $user;
+    //         // });
+    // }
+
+    public function getSchoolID(Request $request): Collection
+{
+    // Initialize the query to select id and school_name from the School model
+    $query = School::query()
+        ->select('id', 'school_name');
+
+    // Apply search filter if search parameter is present in the request
+    $query->when(
+        $request->search,
+        fn (Builder $query) => $query->where('school_name', 'like', "%{$request->search}%")
+    );
+
+    // Check if 'selected' parameter exists in the request
+    $query->when(
+        $request->exists('selected'),
+        // If 'selected' parameter exists, filter by selected IDs
+        fn (Builder $query) => $query->whereIn('id', $request->input('selected', [])),
+        // Otherwise, limit the results to 10
+        fn (Builder $query) => $query->limit(10)
+    );
+
+    // Order the results by school_name
+    $query->orderBy('school_name');
+
+    // Execute the query and return the results as a collection
+    return $query->get();
+}
 
 
 }

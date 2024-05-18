@@ -53,14 +53,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-10">
+                <div class="my-7">
                     <h5 class="font-bold text-xl text-gray-darkest">Government Information</h5>
-                    <div class="mt-5 mb-4 p-0 flex space-x-3 justify-between">
+                    <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
                         <span class="w-1/3">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="tin" label="TIN" wire:model="tin" readonly/>
                         </span>
                         <span class="w-1/3">
-                            <x-input type="number" class="bg-gray-50 border-gray-300" id="sss_num" label="SSS No." wire:model="sss_num" readonly/>
+                            <x-input type="number" class="bg-gray-50 border-gray-300" id="sss_num" label="TIN" wire:model="sss_num" readonly/>
                         </span>
                         <span class="w-1/3">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="gsis_num" label="GSIS BP No." wire:model="gsis_num" readonly/>
@@ -73,8 +73,51 @@
                         <span class="w-1/3">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="pagibig_num" label="PAG-IBIG No" wire:model="pagibig_num" readonly/>
                         </span>
-                        <span class="w-1/3">
+                    </div>
+                </div>
+                <div class="my-7">
+                    <h5 class="font-bold text-xl text-gray-darkest">Work Information</h5>
+                    <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
+                        <span class="w-3/12">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="personnel_id" label="Personnel ID" wire:model="personnel_id" readonly/>
+                        </span>
+                        <span class="w-9/12">
+                            {{-- @livewire('form.input.school-search-select-tag') --}}
+                            <x-input type="number" class="bg-gray-50 border-gray-300" id="school_id" label="School ID" wire:model="school_id" readonly/>
+                            {{-- <x-native-select wire:model="school_id" class="bg-gray-50 border-gray-300" label="School ID">
+                                <option value="others">Others</option>
+                            </x-native-select> --}}
+                        </span>
+                    </div>
+                    <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
+                        {{-- <span class="w-3/12">
+                            <x-input type="number" class="bg-gray-50 border-gray-300" id="school_id" label="School ID" wire:model="school_id" />
+                            <x-native-select wire:model="school_id" class="bg-gray-50 border-gray-300" label="School ID">
+                                <option value="others">Others</option>
+                            </x-native-select>
+                        </span> --}}
+                        <span class="w-3/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300" id="appointment" label="Nature of Appointment" wire:model="appointment" readonly/>
+                        </span>
+                        <span class="w-3/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300" id="fund_source" label="Fund Source" wire:model="fund_source" readonly/>
+                        </span>
+                        <span class="w-3/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300" id="job_title" label="Job Title" wire:model="job_title" readonly/>
+                        </span>
+                        <span class="w-2/12">
+                            {{-- <x-input type="text" class="bg-gray-50 border-gray-300" id="rank" label="Teacher Rank" wire:model="rank" /> --}}
+                        </span>
+                    </div>
+                    <div class="mt-2 mb-4 p-0 flex space-x-3" x-data="{ jobStatus: @entangle('job_status') }">
+                        <span class="w-2/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300" id="job_status" label="Job Status" wire:model="job_status" readonly/>
+                        </span>
+                        <span class="w-2/12">
+                            <x-input type="date" class="bg-gray-50 border-gray-300" id="employment_start" label="Employment Start Date" wire:model="employment_start" readonly/>
+                        </span>
+                        <span class="w-2/12">
+                            <x-input type="date" class="bg-gray-50 border-gray-300" id="employment_end" label="Employment End Date" wire:model="employment_end" x-bind:disabled="!(jobStatus === 'resigned' || jobStatus === 'terminated')" readonly/>
                         </span>
                     </div>
                 </div>
@@ -96,31 +139,10 @@
             </div>
         </section>
     @else
-        @livewire('form.update-personal-information')
+        @isset($personnel)
+            @livewire('form.update-personal-information-form', ['id' => $personnel->id])
+        @else
+            @livewire('form.update-personal-information-form')
+        @endisset
     @endif
-    <script>
-        console.log(document.getElementById('tel_no'));
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const telInput = document.getElementById('tel_no');
-            const errorSpan = document.getElementById('tel-error');
-
-            telInput.addEventListener('input', () => {
-                validatePhoneNumber();
-            });
-
-            function validatePhoneNumber() {
-                const telValue = telInput.value;
-                const telPattern = /^[0-9.\-]+$/;
-
-                if (!telPattern.test(telValue)) {
-                    errorSpan.style.display = 'inline';
-                    telInput.classList.add('invalid');
-                } else {
-                    errorSpan.style.display = 'none';
-                    telInput.classList.remove('invalid');
-                }
-            }
-        });
-    </script>
-
 </div>

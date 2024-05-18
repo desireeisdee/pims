@@ -100,6 +100,10 @@
             </div>
         </div>
 
-        @livewire('form.update-family-form', ['id' => $personnel->id])
+        @isset($personnel)
+            @livewire('form.update-family-form', ['id' => $personnel->id])
+        @else
+            @livewire('form.update-personal-information-form')
+        @endisset
     @endif
 </div>
