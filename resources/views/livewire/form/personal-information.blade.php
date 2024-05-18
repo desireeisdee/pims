@@ -86,6 +86,7 @@
                         </span>
                         <span class="w-3/12">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="tel_no" label="Telephone No." wire:model="tel_no" readonly/>
+                            <span id="tel-error" style="color: red; display: none;">Please enter a valid telephone number.</span>
                         </span>
                         <span class="w-3/12">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="mobile_no" label="Mobile No." wire:model="mobile_no" readonly/>
@@ -97,4 +98,29 @@
     @else
         @livewire('form.update-personal-information')
     @endif
+    <script>
+        console.log(document.getElementById('tel_no'));
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const telInput = document.getElementById('tel_no');
+            const errorSpan = document.getElementById('tel-error');
+
+            telInput.addEventListener('input', () => {
+                validatePhoneNumber();
+            });
+
+            function validatePhoneNumber() {
+                const telValue = telInput.value;
+                const telPattern = /^[0-9.\-]+$/;
+
+                if (!telPattern.test(telValue)) {
+                    errorSpan.style.display = 'inline';
+                    telInput.classList.add('invalid');
+                } else {
+                    errorSpan.style.display = 'none';
+                    telInput.classList.remove('invalid');
+                }
+            }
+        });
+    </script>
+
 </div>

@@ -11,27 +11,27 @@
             <div>
                 <div class="mt-5 mb-4 p-0 flex space-x-3 justify-between">
                     <span class="w-1/4">
-                        <x-input id="fathers_first_name" wire:model="state.fathers_first_name" label="Father's First Name" type="text" name="fathers_first_name" required/>
+                        <x-input id="fathers_first_name" wire:model="fathers_first_name" label="Father's First Name" type="text" name="fathers_first_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="fathers_middle_name" wire:model="state.fathers_middle_name" label="Father's Middle Name" type="text" name="fathers_middle_name" required/>
+                        <x-input id="fathers_middle_name" wire:model="fathers_middle_name" label="Father's Middle Name" type="text" name="fathers_middle_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="fathers_last_name" wire:model="state.fathers_last_name" label="Father's Last Name" type="text" name="fathers_last_name" required/>
+                        <x-input id="fathers_last_name" wire:model="fathers_last_name" label="Father's Last Name" type="text" name="fathers_last_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="fathers_name_ext" wire:model="state.fathers_name_ext" label="Father's Name Extension" type="text" name="name_ext" required/>
+                        <x-input id="fathers_name_ext" wire:model="fathers_name_ext" label="Father's Name Extension" type="text" name="name_ext" required/>
                     </span>
                 </div>
                 <div class="mt-5 mb-4 p-0 flex space-x-3">
                     <span class="w-1/4">
-                        <x-input id="mothers_first_name" wire:model="state.mothers_first_name" label="Mother's First Name" type="text" name="mothers_first_name" required/>
+                        <x-input id="mothers_first_name" wire:model="mothers_first_name" label="Mother's First Name" type="text" name="mothers_first_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="mothers_middle_name" wire:model="state.mothers_middle_name" label="Mother's Middle Name" type="text" name="mothers_middle_name" required/>
+                        <x-input id="mothers_middle_name" wire:model="mothers_middle_name" label="Mother's Middle Name" type="text" name="mothers_middle_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="mothers_last_name" wire:model="state.mothers_last_name" label="Mother's Maiden Name" type="text" name="mothers_last_name" required/>
+                        <x-input id="mothers_last_name" wire:model="mothers_last_name" label="Mother's Maiden Name" type="text" name="mothers_last_name" required/>
                     </span>
                     <span class="w-1/4">
                     </span>
@@ -42,32 +42,32 @@
                 <h5 class="mt-5 mb-3 font-bold text-xl text-gray-darkest">Spouse</h5>
                 <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
                     <span class="w-1/4">
-                        <x-input id="spouse_first_name" wire:model="state.spouse_first_name" label="First Name" type="texr" name="spouse_first_name" required/>
+                        <x-input id="spouse_first_name" wire:model="spouse_first_name" label="First Name" type="texr" name="spouse_first_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="spouse_middle_name" wire:model="state.spouse_middle_name" label="Middle Name" type="text" name="spouse_middle_name" required/>
+                        <x-input id="spouse_middle_name" wire:model="spouse_middle_name" label="Middle Name" type="text" name="spouse_middle_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="spouse_last_name" wire:model="state.spouse_last_name" label="Last Name" type="text" name="spouse_last_name" required/>
+                        <x-input id="spouse_last_name" wire:model="spouse_last_name" label="Last Name" type="text" name="spouse_last_name" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="spouse_name_ext" wire:model="state.spouse_name_ext" label="Name Extension" type="text" name="spouse_name_ext" required/>
+                        <x-input id="spouse_name_ext" wire:model="spouse_name_ext" label="Name Extension" type="text" name="spouse_name_ext" required/>
                     </span>
                 </div>
                 <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
                     <span class="w-1/2">
-                        <x-input id="spouse_occupation" wire:model="state.spouse_occupation" label="Occupation" type="text" name="spouse_occupation" required/>
+                        <x-input id="spouse_occupation" wire:model="spouse_occupation" label="Occupation" type="text" name="spouse_occupation" required/>
                     </span>
                     <span class="w-1/2">
-                        <x-input id="spouse_business_name" wire:model="state.spouse_business_name" label="Employer/Business Name" type="text" name="spouse_business_name" required/>
+                        <x-input id="spouse_business_name" wire:model="spouse_business_name" label="Employer/Business Name" type="text" name="spouse_business_name" required/>
                     </span>
                 </div>
                 <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
                     <span class="w-1/2">
-                        <x-input id="spouse_business_address" wire:model="state.spouse_business_address" label="Business Address" type="text" name="spouse_business_address" required/>
+                        <x-input id="spouse_business_address" wire:model="spouse_business_address" label="Business Address" type="text" name="spouse_business_address" required/>
                     </span>
                     <span class="w-1/2">
-                        <x-input id="spouse_tel_no" wire:model="state.spouse_tel_no" label="Telephone No." type="text" name="spouse_tel_no" required/>
+                        <x-input id="spouse_tel_no" wire:model="spouse_tel_no" label="Telephone No." type="text" name="spouse_tel_no" required/>
                     </span>
                 </div>
             </div>
@@ -100,6 +100,6 @@
             </div>
         </div>
 
-        @livewire('form.update-address-form')
+        @livewire('form.update-family-form', ['id' => $personnel->id])
     @endif
 </div>
