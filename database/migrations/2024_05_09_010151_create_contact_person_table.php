@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('funded_items', function (Blueprint $table) {
+        Schema::create('contact_person', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('school_id');
-            $table->string('title');
-            $table->boolean('non_teaching');
-            $table->integer('incumbent');
+            $table->unsignedBigInteger('personnel_id');
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->string('mobile_no');
             $table->timestamps();
 
-			$table->foreign('school_id')->references('id')->on('schools');
+            $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('funded_items');
+        Schema::dropIfExists('contact_persons');
     }
 };

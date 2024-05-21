@@ -12,9 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // $table->boolean('is_verified')->default(false);
-
-            $table->unsignedBigInteger('personnel_id')->nullable();
+            $table->unsignedBigInteger('personnel_id');
             $table->foreign('personnel_id')->references('id')->on('personnels');
         });
     }

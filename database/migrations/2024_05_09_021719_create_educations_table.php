@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personnel_id');
-            $table->enum('type', ['elementary', 'secondary', 'vocational/trade, graduate', 'graduate studies']);
+            $table->enum('type', ['elementary','secondary','vocational/trade', 'graduate','graduate studies']);
             $table->string('school_name');
-            $table->string('degree_course');
-            $table->date('period_from');
-            $table->date('period_to')->nullable();
+            $table->string('degree_course')->nullable();
+            $table->integer('period_from');
+            $table->integer('period_to')->nullable();
             $table->string('highest_level_units')->nullable();
-            $table->year('year_graduated')->nullable();
+            $table->integer('year_graduated')->nullable();
             $table->string('scholarship_honors')->nullable();
             $table->timestamps();
 

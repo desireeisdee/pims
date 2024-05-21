@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('dtr_from')->nullable();
             $table->time('dtr_to')->nullable();
             $table->integer('teaching_minutes_per_week')->nullable();
+            $table->integer('school_year');
             $table->timestamps();
 
             $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');

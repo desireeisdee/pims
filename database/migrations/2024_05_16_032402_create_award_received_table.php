@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('awarding_body');
             $table->timestamp('reward_date');
             $table->timestamps();
+
             $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');
         });
     }

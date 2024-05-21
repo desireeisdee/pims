@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->string('personnel_id')->unique();
+            //Personal Information
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('name_ext');
+            $table->string('name_ext')->nullable();
             $table->enum('sex', ['male', 'female']);
-            $table->enum('civil_status', ['single', 'married', 'widowed', 'divorced', 'others']);
+            $table->enum('civil_status', ['single', 'married', 'widowed', 'divorced', 'seperated', 'others']);
             $table->string('citizenship');
             $table->string('blood_type')->nullable();
             $table->string('height')->nullable();
@@ -30,21 +30,30 @@ return new class extends Migration
             $table->string('tel_no')->nullable();
             $table->string('mobile_no')->nullable();
 
-            $table->date('employment_start')->nullable();
-            $table->date('employment_end')->nullable();
-            $table->integer('salary_grade')->nullable();
-            $table->integer('step')->nullable();
-            $table->string('job_title')->nullable();
-            $table->enum('job_status', ['active','vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation', 'contract', 'part-time']);
-            $table->string('tin')->nullable();
-            $table->string('sss_num')->nullable();
-            $table->string('gsis_num')->nullable();
-            $table->string('philhealth_num')->nullable();
-            $table->string('pagibig_num')->nullable();
+            //Work Information
+            $table->string('personnel_id')->unique();
             $table->unsignedBigInteger('school_id');
+            $table->unsignedBigInteger('position_id');
+            $table->enum('appointment', ['regular', 'part-time', 'temporary', 'contract']);
+            $table->string('fund_source');
+            $table->enum('salary_grade', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
+            $table->enum('step', ['1', '2', '3', '4', '5', '6', '7', '8'])->nullable();
+            $table->enum('classification', ['teaching','teaching-related', 'non-teaching']);
+            $table->enum('category', ['SDO Personnel','School Head', 'Elementary School Teacher', 'Junior High School Teacher', 'Senior High School Teacher', 'School Non-teaching Personnel']);
+            $table->enum('job_status', ['active','vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation', 'contract', 'part-time']);
+            $table->date('employment_start');
+            $table->date('employment_end')->nullable();
+
+            //Government Information
+            $table->integer('tin')->nullable();
+            $table->integer('sss_num')->nullable();
+            $table->integer('gsis_num')->nullable();
+            $table->integer('philhealth_num')->nullable();
+            $table->integer('pagibig_num')->nullable();
             $table->timestamps();
 
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('position_id')->references('id')->on('position')->onDelete('cascade');
         });
     }
 

@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_people', function (Blueprint $table) {
+        Schema::create('service_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personnel_id');
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('mobile_no');
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
+            $table->string('designation');
+            $table->string('appointment_status');
+            $table->decimal('salary', 10, 2)->nullable();
+            $table->string('station')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('lv_wo_pay')->nullable();
+            $table->string('separation_date_cause')->nullable();
             $table->timestamps();
 
             $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_persons');
+        Schema::dropIfExists('service_records');
     }
 };
