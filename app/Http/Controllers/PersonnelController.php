@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PersonnelDataExport;
 use App\Models\Personnel;
 use App\Jobs\UpdateStepIncrement;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
 class PersonnelController extends Controller
@@ -26,59 +28,44 @@ class PersonnelController extends Controller
         return view('personnel.create');
     }
 
-    // public function edit($id)
-    // {
-    //     $personnel = Personnel::findOrFail($id);
-    //     return view('personnel.edit', ['personnel' => $personnel]);
-    // }
+    public function profile($personnel)
+    {
+        $personnel = Auth::user()->personnel->id;
+        return view('personnel.show', compact('personnel'));
+    }
+
+    public function loyaltyAwards()
+    {
+        $recipients = Personnel::getLoyaltyAwardRecipients();
+        return view('personnel.loyalty-awards', compact('recipients'));
+    }
+
+    public function export($id)
+    {
+        // dd("uu");
+        $personnel = Personnel::findOrFail($id);
+
+        $personnelData = [ 'personnels' => $personnel];
+        $filename = $personnel->id . '.xlsx';
+
+        return Excel::download(new PersonnelDataExport($personnelData, $personnel->id), $filename);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $personnel = Personnel::findOrFail($id);
 
 
-    // public function update(Request $request, $id)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'first_name' => 'required',
-    //             'mid_initial' => 'required',
-    //             'last_name' => 'required',
-    //             'sex' => 'required',
-    //             'email' => 'required',
-    //             'phone' => 'required|max:12',
-    //             'address' => 'required',
-    //             'is_admin' => 'required'
-    //         ]);
+            $personnel->delete();
 
-    //         $personnel = Personnel::findOrFail($id);
-    //         $personnel->update($request->all());
+            session()->flash('flash.banner', 'Personnel Deleted Successfully');
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (\Exception $e) {
 
-    //         $logController = new LogController();
-    //         $logController->store("Personnel Update", "success", "updated", $id);
-
-    //         session()->flash('flash.banner', 'Personnel Data Updated Successfully');
-    //         session()->flash('flash.bannerStyle', 'success');
-
-    //     } catch (ValidationException $e) { // Validation failed
-    //         $errorMessage = 'The following errors occurred while validating the personnel data:<br>';
-    //         foreach ($e->validator->errors()->all() as $error) {
-    //             $errorMessage .= "- $error<br>";
-    //         }
-
-    //         session()->flash('flash.banner', $errorMessage);
-    //         session()->flash('flash.bannerStyle', 'danger');
-
-    //     } catch (ModelNotFoundException $e) { // Personnel not found
-    //         $logController = new LogController();
-    //         $logController->store("Personnel Update", "failed", "updated", $id);
-
-    //         session()->flash('flash.banner', 'Personnel Not Found.');
-    //         session()->flash('flash.bannerStyle', 'danger');
-    //     }
-    //     return redirect()->back();
-    // }
-    // public function updateStepIncrement()
-    // {
-    //     // Dispatch the job
-    //     UpdateStepIncrement::dispatch();
-
-    //     return response()->json(['message' => 'Step increment job dispatched successfully.']);
-    // }
+            session()->flash('flash.banner', 'Failed To Delete Personnel.' . $e);
+            session()->flash('flash.bannerStyle', 'danger');
+        }
+        return redirect()->route('personnels.index');
+    }
 }

@@ -15,7 +15,7 @@
             x-transition:leave="transition ease-in-out duration-200"
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-95"
-            {{-- x-init="setTimeout(() => show = false, 5000)" --}}
+            x-init="setTimeout(() => show = false, 5000)"
             >
     {{-- <div class="max-w-screen-xl mx-auto py-2 px-3 sm:px-6 lg:px-8"> --}}
     <div class="w-screen-xl mx-10 py-2">

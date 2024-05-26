@@ -38,8 +38,8 @@
                 </x-native-select>
             </span>
             <span class="w-3/12">
-                <label for="sex" class="pb-1 block font-medium text-sm text-gray-700">Sex</label>
-                <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
+                <label for="sex" class="pb-1 block font-medium text-sm text-gray-700">Seix</label>
+                {{-- <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
                     <div>
                         <input id="male"  wire:model="state.sex" type="radio" name="sex" value="male" class="peer hidden"/>
                         <label for="male" class="block cursor-pointer select-none rounded-xl px-2 py-1 text-center peer-checked:bg-cyan-500 peer-checked:font-bold peer-checked:text-white">Male</label>
@@ -49,7 +49,12 @@
                         <input id="female" wire:model="state.sex" type="radio" name="sex" value="female" class="peer hidden"/>
                         <label for="female" class="block cursor-pointer select-none rounded-xl px-2 py-1 text-center peer-checked:bg-pink-500 peer-checked:font-bold peer-checked:text-white">Female</label>
                     </div>
-                </div>
+                </div> --}}
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input class="sr-only peer" value="" type="checkbox">
+                      <div class="peer rounded-full outline-none duration-100 after:duration-500 w-28 h-14 bg-blue-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500  after:content-['No'] after:absolute after:outline-none after:rounded-full after:h-12 after:w-12 after:bg-white after:top-1 after:left-1 after:flex after:justify-center after:items-center  after:text-sky-800 after:font-bold peer-checked:after:translate-x-14 peer-checked:after:content-['Yes'] peer-checked:after:border-white">
+                    </div>
+                  </label>
             </span>
         </div>
         <div class="m-0 mb-4 p-0 flex space-x-3">
@@ -68,8 +73,9 @@
                 <x-input type="number" wire:model="state.weight" class="pr-10" label="Weight" suffix="kg" required/>
             </span>
         </div>
+
         <h5 class="font-bold text-xl text-gray-darkest">Government Information</h5>
-        <div class="mt-2 mb-4 p-0 flex space-x-3 justify-between">
+        <div class="mt-2 mb-4 p-0 flex space-x-3">
             <span class="w-1/3">
                 <label for="tin" class="pb-1 block font-medium text-sm text-gray-700">TIN</label>
                 <x-input id="tin" wire:model="state.tin" type="number" name="tin" required/>

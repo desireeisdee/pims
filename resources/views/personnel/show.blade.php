@@ -1,23 +1,25 @@
 
 <x-app-layout>
+    @include('personnel.modal.delete-personnel-confirmation-modal')
+    @include('personnel.modal.delete-children-confirmation-modal')
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $personnel->fullName() }}'s Profile
-        </h2>
+        <div class="flex items-center justify-between">
+            <div class="flex">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ $personnel->fullName() }}'s Profile
+                </h2>
+                <span class="ms-5 tracking-wider text-white bg-secondary px-4 py-0.5 text-sm rounded-full leading-loose mx-2 font-semibold" title="">
+                    <i class="fas fa-star" aria-hidden="true"></i> {{ $personnel->position->title }}
+                </span>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="max-w-8xl mx-auto sm:px-6 sm:py-3 lg:px-8 flex justify-between">
-        <div class="w-5/6">
-        </div>
-
-        <div class="w-1/6 text-end">
-            {{-- <a href="{{ route('personnels.export', $personnel->id) }}"> --}}
-                <x-button label="Export" class="w-32 px-5 py-2.5 bg-primary text-white tracking-wider hover:hover:bg-primary-hover hover:scale-105 duration-100"/>
-            {{-- </a> --}}
+    <div class="relative h-[62rem] bg-slate-100">
+        <div>
+            @livewire('personnel-navigation', ['personnelId' => $personnel->id])
         </div>
     </div>
 
-    <div class="max-w-8xl mx-auto sm:px-6 sm:py-3 lg:px-8">
-        @livewire('personnel-navigation', ['personnelId' => $personnel->id])
-    </div>
+
 </x-app-layout>

@@ -4,7 +4,7 @@ namespace App\Livewire\Form;
 
 use Livewire\Component;
 
-class UpdateFamilyForm extends Component
+class UpdateFamilyForm extends FamilyForm
 {
     public function render()
     {

@@ -39,6 +39,7 @@ class LoginController extends Controller
                 } elseif ($user->role == 'school_head') {
                     return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
                 } elseif ($user->role == 'teacher') {
+                    // dd("i");
                     return redirect()->route('personnels.profile', ['personnel' => $user->personnel->id]);
                 }
             } else {

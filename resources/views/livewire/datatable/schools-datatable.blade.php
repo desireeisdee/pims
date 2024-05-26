@@ -106,7 +106,7 @@
                         <div class="text-left">{{ $school->school_name }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left">{{ ucwords($school->district) }}</div>
+                        <div class="text-left">{{ ucwords($school->district->name) }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
                         <div class="text-left">{{ $school->email }}</div>

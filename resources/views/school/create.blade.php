@@ -22,6 +22,7 @@
             </li>
         </ul>
     </div>
+
     <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div x-data="{ formNav : 'school_information' }" >
             <div class="flex justify-center m-auto bg-white">

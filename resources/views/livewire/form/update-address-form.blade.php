@@ -73,21 +73,26 @@
         <div class="mt-10">
             <h5 class="font-bold text-xl text-gray-darkest">Contact Person In Case Of Emergency</h5>
             <section>
-                <div class="mt-5 mb-4 p-0">
-                    <x-input class="form-control" id="contact_person_name" wire:model="contact_person_name" type="text" name="contact_person_name" label="Name"/>
-                </div>
                 <div class="m-0 mb-4 p-0 flex space-x-3">
-                    <span class="w-6/12">
+                    <div class="w-5/12">
+                        <x-input class="form-control" id="contact_person_name" wire:model="contact_person_name" type="text" name="contact_person_name" label="Name"/>
+                    </div>
+                    <span class="w-4/12">
                         <x-input class="form-control" id="contact_person_email" wire:model="contact_person_email" type="email" name="contact_person_email" label="Email"/>
                     </span>
                     <span class="w-3/12">
-                        <x-input class="form-control" id="contact_person_mobile_no" wire:model="contact_person_mobile_no" type="text" name="contact_person_mobile_no" label="Mobile No."/>
+                        <x-input class="form-control" id="contact_person_mobile_no" wire:model="contact_person_mobile_no" type="number" name="contact_person_mobile_no" label="Mobile No."/>
                     </span>
                 </div>
             </section>
         </div>
     </div>
-    <div class="m-0 mb-4 p-0 flex space-x-3 justify-end">
-        <x-button wire:click.prevent="update" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+    <div class="my-5 p-0 flex space-x-3 justify-end">
+        <div class="w-2/12">
+            <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 py-2.5 w-full bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
+        </div>
+        <div class="w-2/12">
+            <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+        </div>
     </div>
 </section>

@@ -14,21 +14,11 @@ class PositionSeeder extends Seeder
     public function run(): void
     {
         $jobTitles = [
-            'OIC-Schools Division Superintendent',
-            'OIC-Assistant Schools Division Superintendent',
-            'Chief Education Supervisor',
-            'Education Program Supervisor',
-            'Senior Education Program Specialist',
-            'Education Program Specialist II',
-            'Accountant III',
-            'Planning Officer III',
-            'Budget Officer V',
             'Information Technology Officer I',
             'Nurse I',
             'Nurse II',
             'Librarian',
-            'Project Development Officer II',
-            'Project Development Officer I',
+            'Guidance Counselor I',
             'Guidance Counselor II',
             'Assistant School Principal II',
             'School Principal I',
@@ -59,15 +49,13 @@ class PositionSeeder extends Seeder
             'Administrative Aide IV',
             'Administrative Aide III',
             'Administrative Aide I',
-            'Guidance Counselor I',
-            'Registrar I',
             'Watchman I',
-            'Disbursing Officer II'
         ];
 
         foreach ($jobTitles as $title) {
             DB::table('position')->insert([
                 'title' => $title,
+                'classification' => 'teaching',
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('inclusive_from');
             $table->date('inclusive_to');
             $table->integer('hours');
-            $table->boolean('is_gov_service');
             $table->timestamps();
 
             $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');

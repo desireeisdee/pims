@@ -5,8 +5,9 @@ namespace App\Livewire\Form;
 use App\Models\Personnel;
 use App\Models\School;
 use Livewire\Component;
+use App\Livewire\PersonnelNavigation;
 
-class PersonalInformationForm extends Component
+class PersonalInformationForm extends PersonnelNavigation
 {
     public $personnel;
     public $first_name, $middle_name, $last_name, $name_ext,
@@ -14,7 +15,7 @@ class PersonalInformationForm extends Component
            $citizenship, $blood_type, $height, $weight,
            $tin, $sss_num, $gsis_num, $philhealth_num,
            $pagibig_num,
-           $personnel_id, $school_id, $appointment, $fund_source, $job_title, $job_status, $employment_start, $employment_end,
+           $personnel_id, $school_id, $position_id, $appointment, $fund_source, $job_status, $category, $employment_start, $employment_end, $salary_grade, $step, $classification, $position,
            $email, $tel_no, $mobile_no;
     public $showMode = false, $storeMode = false, $updateMode = false;
 
@@ -31,12 +32,25 @@ class PersonalInformationForm extends Component
         'height' => 'required',
         'weight' => 'required',
         'blood_type' => 'required',
+
         'personnel_id' => 'required',
+        'school_id' => 'required',
+        'position_id' => 'required',
+        'appointment' => 'required',
+        'fund_source' => 'required',
+        'salary_grade' => 'required',
+        'step' => 'required',
+        'category' => 'required',
+        'job_status' => 'required',
+        'classification' => 'required',
+        'employment_start' => 'required',
+
         // 'tin' => 'nullable|min:8|max:12',
         // 'sss_num' => 'nullable|size:10',
         // 'gsis_num' => 'nullable|min:8|max:11',
         // 'philhealth_num' => 'nullable|size:12',
         // 'pagibig_num' => 'nullable|size:12',
+
         'email' => 'required',
         'tel_no' => 'nullable',
         'mobile_no' => 'required',
@@ -69,10 +83,15 @@ class PersonalInformationForm extends Component
 
                 $this->personnel_id = $this->personnel->personnel_id;
                 $this->school_id = $this->personnel->school->school_id;
-                // $this->appointment = $this->personnel->appointment;
-                // $this->fund_source = $this->personnel->fund_source;
-                $this->job_title = $this->personnel->job_title;
+                $this->position = $this->personnel->position->title;
+                $this->position_id = $this->personnel->position->id;
+                $this->appointment = $this->personnel->appointment;
+                $this->fund_source = $this->personnel->fund_source;
+                $this->salary_grade = $this->personnel->salary_grade;
+                $this->step = $this->personnel->step;
+                $this->category = $this->personnel->category;
                 $this->job_status = $this->personnel->job_status;
+                $this->classification = $this->personnel->classification;
                 $this->employment_start = $this->personnel->employment_start;
                 if ($this->personnel->employment_end)
                 {
@@ -98,15 +117,22 @@ class PersonalInformationForm extends Component
         $this->updateMode = false;
     }
 
-    public function store()
+    public function cancel()
+    {
+        $this->storeMode = false;
+        $this->showMode = true;
+        $this->updateMode = false;
+
+        return redirect()->back()->route('personnels.index');
+    }
+
+    public function save()
     {
         $this->validate();
 
-        // Retrieve the school record based on the provided school_id
-        $school = School::where('school_id', $this->school_id)->firstOrFail();
-
         try {
-            // Prepare the data for creating a new Personnel record
+            $school = School::findOrFail($this->school_id);
+
             $data = [
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
@@ -120,127 +146,53 @@ class PersonalInformationForm extends Component
                 'height' => $this->height,
                 'weight' => $this->weight,
                 'blood_type' => $this->blood_type,
+
                 'tin' => $this->tin,
                 'sss_num' => $this->sss_num,
                 'gsis_num' => $this->gsis_num,
                 'philhealth_num' => $this->philhealth_num,
                 'pagibig_num' => $this->pagibig_num,
+
                 'personnel_id' => $this->personnel_id,
                 'school_id' => $school->id,
-                'job_title' => $this->job_title,
+                'position_id' => $this->position_id,
+                'appointment' => $this->appointment,
+                'fund_source' => $this->fund_source,
+                'salary_grade' => $this->salary_grade,
+                'step' => $this->step,
+                'category' => $this->category,
                 'job_status' => $this->job_status,
                 'employment_start' => $this->employment_start,
+                'employment_end' => $this->employment_end,
+
                 'email' => $this->email,
                 'tel_no' => $this->tel_no,
-                'mobile_no' => $this->mobile_no,
+                'mobile_no' => $this->mobile_no
             ];
-
-            if ($this->employment_end) {
-                $data['employment_end'] = $this->employment_end;
-            }
-
-            // Create a new Personnel record
-            $personnel = Personnel::create($data);
-
-            // Update the mode variables if the personnel was created successfully
-            if ($personnel) {
-                $this->showMode = true;
-                $this->updateMode = false;
-                $this->storeMode = false;
-
-                // Set the personnel property to the created personnel
-                $this->personnel = $personnel;
-
-                session()->flash('flash.banner', 'Personal Information created successfully.');
-                session()->flash('flash.bannerStyle', 'success');
-
-                // Redirect to the show route for the created personnel
-                return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            if($this->personnel == null)
+            {
+                $this->personnel = Personnel::create($data);
+                session()->flash('flash.banner', 'Personnel created successfully');
             } else {
-                session()->flash('flash.banner', 'Failed to create Personal Information.');
-                session()->flash('flash.bannerStyle', 'danger');
+                $this->personnel->update($data);
+                session()->flash('flash.banner', 'Personal Information saved successfully');
             }
-        } catch (\Exception $e) {
-            // Handle exceptions and display an error message
-            session()->flash('flash.banner', 'Failed to create Personal Information. Error: ' . $e->getMessage());
-            session()->flash('flash.bannerStyle', 'danger');
-        }
 
-        // Redirect to the create personnel route if something goes wrong
-        return redirect()->route('personnels.create');
-    }
-
-
-    public function edit()
-    {
-        $this->updateMode = true;
-        $this->storeMode = false;
-        $this->showMode = false;
-    }
-
-    public function cancel()
-    {
-        $this->updateMode = true;
-        $this->storeMode = false;
-        $this->showMode = false;
-        if($this->updateMode)
-        {
             $this->updateMode = false;
             $this->storeMode = false;
             $this->showMode = true;
-        } else {
-            $this->updateMode = false;
-            $this->storeMode = false;
-            $this->showMode = false;
-        }
-        return redirect()->route('personnels.index');
-    }
 
-    public function back()
-    {
-        return redirect()->route('personnels.index');
-    }
 
-    public function update()
-    {
-        $this->validate();
-
-        try {
-            $this->personnel->update([
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'middle_name' => $this->middle_name,
-                'name_ext' => $this->name_ext,
-                'date_of_birth' => $this->date_of_birth,
-                'place_of_birth' => $this->place_of_birth,
-                'sex' => $this->sex,
-                'civil_status' => $this->civil_status,
-                'citizenship' => $this->citizenship,
-                'height' => $this->height,
-                'weight' => $this->weight,
-                'blood_type' => $this->blood_type,
-                'tin' => $this->tin,
-                'sss_num' => $this->sss_num,
-                'gsis_num' => $this->gsis_num,
-                'philhealth_num' => $this->philhealth_num,
-                'pagibig_num' => $this->pagibig_num,
-                'email' => $this->email,
-                'tel_no' => $this->tel_no,
-                'mobile_no' => $this->mobile_no,
-            ]);
-
-            $this->showMode = true;
-            $this->updateMode = false;
-            $this->storeMode = false;
-
-            session()->flash('flash.banner', 'Personal Information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
 
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-        } catch (\Exception $e) {
-            session()->flash('flash.banner', 'Failed to update Personal Information. Error: ' . $e->getMessage());
+        } catch (\Throwable $th) {
+            session()->flash('flash.banner', 'Failed to save Personal Information');
             session()->flash('flash.bannerStyle', 'danger');
+
+            return redirect()->route('personnels.index');
         }
     }
+
 }
 

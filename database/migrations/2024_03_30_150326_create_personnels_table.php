@@ -38,9 +38,8 @@ return new class extends Migration
             $table->string('fund_source');
             $table->enum('salary_grade', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
             $table->enum('step', ['1', '2', '3', '4', '5', '6', '7', '8'])->nullable();
-            $table->enum('classification', ['teaching','teaching-related', 'non-teaching']);
             $table->enum('category', ['SDO Personnel','School Head', 'Elementary School Teacher', 'Junior High School Teacher', 'Senior High School Teacher', 'School Non-teaching Personnel']);
-            $table->enum('job_status', ['active','vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation', 'contract', 'part-time']);
+            $table->enum('job_status', ['active','vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation']);
             $table->date('employment_start');
             $table->date('employment_end')->nullable();
 

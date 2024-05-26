@@ -14,6 +14,7 @@ class AssignmentDetail extends Model
                            'dtr_day',
                            'dtr_from',
                            'dtr_to',
+                           'school_year',
                            'teaching_minutes_per_week'
                         ];
 

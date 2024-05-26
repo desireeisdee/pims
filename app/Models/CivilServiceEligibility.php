@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CivilServiceEligibility extends Model
 {
     use HasFactory;
+    protected $table = 'civil_service_eligibility';
     protected $fillable = ['title',
                            'rating',
                            'date_of_exam',

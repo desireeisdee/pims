@@ -3,12 +3,14 @@
 namespace App\Livewire\Datatable;
 
 use App\Models\Personnel;
+use App\Models\School;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class PersonnelsDatatable extends Component
 {
     use WithPagination;
+    public $selectedSchool = null, $selectedCategory = null, $selectedClassification = null, $selectedPosition = null, $selectedJobStatus = null;
     public $search = '';
     public $sortDirection = 'ASC';
     public $sortColumn = 'id';
@@ -19,15 +21,29 @@ class PersonnelsDatatable extends Component
             return;
         }
         $this->sortColumn = $column;
-        // dd($this->sortColumn == $column);
     }
 
     public function render()
     {
+        $personnels = Personnel::with('school')
+                    ->when($this->selectedSchool, function ($query) {
+                        $query->where('school_id', $this->selectedSchool);
+                    })
+                    ->when($this->selectedCategory, function ($query) {
+                        $query->where('category', $this->selectedCategory);
+                    })
+                    ->when($this->selectedPosition, function ($query) {
+                        $query->where('position_id', $this->selectedPosition);
+                    })
+                    ->when($this->selectedJobStatus, function ($query) {
+                        $query->where('job_status', $this->selectedJobStatus);
+                    })
+                    ->search($this->search)
+                    ->orderBy($this->sortColumn, $this->sortDirection)
+                    ->paginate(10);
+
         return view('livewire.datatable.personnels-datatable', [
-            'personnels' => Personnel::search($this->search)
-                         ->orderBy($this->sortColumn, $this->sortDirection)
-                         ->paginate(10)
+            'personnels' => $personnels
         ]);
     }
 }

@@ -41,27 +41,45 @@ class SchoolsExport implements FromView, WithDefaultStyles, WithHeadings, WithSt
                 $writer = $event->writer;
                 $sheet = $writer->getActiveSheet();
 
-                $sheet->getStyle('A1:S82')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A1:S100')->getAlignment()->setWrapText(true);
 
-                $sheet->getRowDimension(1)->setRowHeight(23.25);
-                $sheet->getRowDimension(3)->setRowHeight(14.25);
-                $sheet->getRowDimension(4)->setRowHeight(13.5);
-                $sheet->getRowDimension(5)->setRowHeight(21.75);
-                $sheet->getRowDimension(6)->setRowHeight(4.5);
-                $sheet->getRowDimension(7)->setRowHeight(19.5);
-                $sheet->getRowDimension(8)->setRowHeight(4.5);
-                $sheet->getRowDimension(9)->setRowHeight(30);
-                $sheet->getRowDimension(10)->setRowHeight(32.25);
-                $sheet->getRowDimension(11)->setRowHeight(30.75);
-                $sheet->getRowDimension(12)->setRowHeight(12);
-                $sheet->getRowDimension(13)->setRowHeight(12);
-                $sheet->getRowDimension(14)->setRowHeight(12);
-                $sheet->getRowDimension(15)->setRowHeight(12);
-                $sheet->getRowDimension(16)->setRowHeight(12);
-                $sheet->getRowDimension(17)->setRowHeight(12);
-                $sheet->getRowDimension(18)->setRowHeight(27.75);
-                $sheet->getRowDimension(19)->setRowHeight(82.5);
+                // Define an array of row heights where the key is the row number and the value is the row height
+                $rowHeights = [
+                    1 => 23.25,
+                    3 => 14.25,
+                    4 => 13.5,
+                    5 => 21.75,
+                    6 => 4.5,
+                    7 => 19.5,
+                    8 => 4.5,
+                    9 => 30,
+                    10 => 32.25,
+                    11 => 30.75,
+                    12 => 12,
+                    13 => 12,
+                    14 => 12,
+                    15 => 12,
+                    16 => 12,
+                    17 => 12,
+                    18 => 27.75,
+                    19 => 82.5,
+                    20 => 12.75,
+                    21 => 12.75,
+                    22 => 12.75,
+                    23 => 12.75,
+                    24 => 12.75,
+                    25 => 12.75,
+                ];
 
+                // Apply the defined row heights
+                foreach ($rowHeights as $row => $height) {
+                    $sheet->getRowDimension($row)->setRowHeight($height);
+                }
+
+                // Set the row height for rows 20 to 72 to 12.75
+                for ($row = 20; $row <= 72; $row++) {
+                    $sheet->getRowDimension($row)->setRowHeight(12.75);
+                }
                 $sheet->getColumnDimension('A')->setWidth(8.57);
                 $sheet->getColumnDimension('B')->setWidth(24.43);
                 $sheet->getColumnDimension('C')->setWidth(4.86);
@@ -87,7 +105,7 @@ class SchoolsExport implements FromView, WithDefaultStyles, WithHeadings, WithSt
 
     public function view(): View
     {
-        return view('admin.school.export.school-form-report', [
+        return view('export.school-form-report', [
             'school' => School::findOrFail($this->school_id)
         ]);
     }
@@ -110,6 +128,6 @@ class SchoolsExport implements FromView, WithDefaultStyles, WithHeadings, WithSt
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:S82')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A1:S100')->getAlignment()->setWrapText(true);
     }
 }

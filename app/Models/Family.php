@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Family extends Model
 {
     use HasFactory;
+    protected $table = 'family';
     protected $fillable = ['relationship',
                            'first_name',
                            'middle_name',
                            'last_name',
-                           'name_extension',
+                           'name_ext',
                            'occupation',
                            'employer_business_name',
                            'business_address',

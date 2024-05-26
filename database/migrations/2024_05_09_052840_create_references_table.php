@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('personnel_id');
             $table->string('full_name');
             $table->string('address');
-            $table->date('tel_no');
+            $table->string('tel_no');
             $table->timestamps();
 
             $table->foreign('personnel_id')->references('id')->on('personnels')->onDelete('cascade');

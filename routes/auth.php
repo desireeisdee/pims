@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
 });
+
 // Role-based redirection
 Route::middleware(['user.access:admin'])->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.home');

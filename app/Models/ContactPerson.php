@@ -10,6 +10,7 @@ class ContactPerson extends Model
 {
     use HasFactory;
 
+    protected $table = 'contact_person';
     protected $fillable = ['personnel_id',
                            'name',
                            'email',

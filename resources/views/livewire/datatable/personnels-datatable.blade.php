@@ -20,20 +20,56 @@
                    class="appearance-none rounded-md border-none block pl-2 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700">
         </div>
     </div>
-    <div class="mt-8 overflow-x-auto">
+    <div class="mt-5 overflow-x-auto">
+        <div class="my-2 flex space-x-2">
+            <div class="w-[9rem] px-0.5 text-xs">
+                <x-native-select wire:model.live.debounce.300ms="selectedJobStatus">
+                    <option value="">Select status</option>
+                    <option value="active">Active</option>
+                    <option value="vacation">Vacation</option>
+                    <option value="terminated">Terminated</option>
+                    <option value="on leave">On Leave</option>
+                    <option value="suspended">Suspended</option>
+                    <option value="resigned">Resigned</option>
+                    <option value="probation">Probation</option>
+                    <option value="contract">Contract</option>
+                    <option value="part-time">Part-time</option>
+                </x-native-select>
+            </div>
+            <div class="w-[12rem] px-0.5 text-xs">
+                <x-select
+                    wire:model.live.debounce.300ms="selectedPosition"
+                    placeholder="Select a position"
+                    :async-data="route('api.positions.index')"
+                    option-label="title"
+                    option-value="id"
+                />
+            </div>
+            <div class="w-[16rem] px-0.5 text-xs">
+                <x-native-select wire:model.live.debounce.300ms="selectedCategory">
+                    <option value="">Select category</option>
+                    <option value="SDO Personnel">SDO Personnel</option>
+                    <option value="School Head">School Head</option>
+                    <option value="Elementary School Teacher">Elementary School Teacher</option>
+                    <option value="Junior High School Teacher">Junior High School Teacher</option>
+                    <option value="Senior High School Teacher">Senior High School Teacher</option>
+                    <option value="School Non-teaching Personnel">School Non-teaching Personnel</option>
+                </x-native-select>
+            </div>
+            <div class="w-[11rem] px-0.5 text-xs">
+                <x-select
+                    wire:model.live.debounce.300ms="selectedSchool"
+                    placeholder="Select a school"
+                    :async-data="route('api.schools.index')"
+                    option-label="school_id"
+                    option-value="id"
+                    option-description="school_name"
+                />
+            </div>
+        </div>
         <table class="table-auto w-full">
             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                 <tr>
-                    <th wire:click="doSort('id')" class="w-1/12 p-2 whitespace-nowrap">
-                        <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="id">
-                                <span class="font-semibold text-left">#</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                </svg>
-                            </button>
-                        </div>
-                    </th>
                     <th wire:click="doSort('personnel_id')" class="w-1/12 p-2 whitespace-nowrap">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="personnel_id">
@@ -44,9 +80,9 @@
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-3/12" wire:click="doSort('first_name')">
+                    <th wire:click="doSort('personnel_id')" class="w-2/12 p-2 whitespace-nowrap">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="name">
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="personnel_id">
                                 <span class="font-semibold text-left">Name</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -54,40 +90,50 @@
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('job_title')">
+                    <th class="p-2 whitespace-nowrap w-1/12" wire:click="doSort('job_status')">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="job_position">
-                                <span class="font-semibold text-left">Rank</span>
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="job_status">
+                                <span class="font-semibold text-left">Job Status</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('school_id')">
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('position_id')">
+                        <div class="flex items-center gap-x-3">
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="position_id">
+                                <span class="font-semibold text-left">Position</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                </svg>
+                            </button>
+                        </div>
+                    </th>
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('classification')">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="school_id">
-                                <span class="font-semibold text-left">School ID</span>
+                                <span class="font-semibold text-left">Classification</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('email')">
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('category')">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="email">
-                                <span class="font-semibold text-left">Email</span>
+                                <span class="font-semibold text-left">Category</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('phone')">
+                    <th class="p-2 whitespace-nowrap w-1/12" wire:click="doSort('school_id')">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="phone">
-                                <span class="font-semibold text-left">Phone</span>
+                                <span class="font-semibold text-left">School ID</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
@@ -105,34 +151,33 @@
             </thead>
             <tbody>
                 @foreach ( $personnels as $index => $personnel)
-                <tr wire:loading.class="opacity-75">
-                    <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-left">{{ $index + 1}}</div>
-                    </td>
+                <tr wire:loading.class="opacity-75" class="text-sm">
                     <td class="p-2 whitespace-nowrap w-1/12">
                         <div class="text-left">{{ $personnel->personnel_id }}</div>
                     </td>
-                    <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-left">{{ $personnel->fullName() }}</div>
+                    <td class="p-2 whitespace-nowrap w-2/12">
+                        <div class="text-left capitalize">{{ $personnel->fullName() }}</div>
                     </td>
-                    <td class="p-2 whitespace-nowrap w-3/12">
-                        <div class="text-left">{{ $personnel->job_title }}</div>
+                    <td class="p-2 whitespace-nowrap w-1/12">
+                        <div class="text-left capitalize">{{ $personnel->job_status }}</div>
+                    </td>
+                    <td class="p-2 whitespace-nowrap w-2/12">
+                        <div class="text-left capitalize">{{ $personnel->position->title }}</div>
+                    </td>
+                    <td class="p-2 whitespace-nowrap w-2/12">
+                        <div class="text-left capitalize">{{ $personnel->position->classification }}</div>
+                    </td>
+                    <td class="p-2 whitespace-nowrap w-2/12">
+                        <div class="text-left capitalize">{{ $personnel->category }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-1/12">
                         <div class="text-left">{{ $personnel->school->school_id }}</div>
                     </td>
-                    <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left">{{ $personnel->email }}</div>
-                    </td>
-                    <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left">{{ $personnel->phone }}</div>
-                    </td>
-                    <td class="p-2 whitespace-nowrap w-2/12">
-                        {{-- @livewire('modal') --}}
+                    <td class="p-2 whitespace-nowrap w-1/12">
                         <div class="flex justify-between space-x-3">
                             <a href="{{ route('personnels.show', ['personnel' => $personnel->id]) }}">
-                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-primary hover:bg-primary hover:text-white text-primary duration-300">
-                                    View : {{ $personnel->id }}
+                                <button class="py-1 px-2 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-primary hover:bg-primary hover:text-white text-primary duration-300">
+                                    View
                                 </button>
                             </a>
                         </div>

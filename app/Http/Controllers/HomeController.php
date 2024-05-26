@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Personnel;
+use App\Models\School;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +22,11 @@ class HomeController extends Controller
 
     public function adminHome()
     {
+        $personnelCount = Personnel::count();
+        $schoolCount = School::count();
+        $userCount = User::count();
+
+        return view('dashboard', compact('personnelCount', 'schoolCount', 'userCount'));
         return view('dashboard');
     }
 

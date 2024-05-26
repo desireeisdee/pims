@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
@@ -12,9 +13,8 @@ class School extends Model
     protected $fillable = ['school_id',
                            'school_name',
                            'address',
-                           'region',
                            'division',
-                           'district',
+                           'district_id',
                            'email',
                            'phone',
                            'curricular_classification'];
@@ -22,19 +22,14 @@ class School extends Model
     protected $hidden = ['created_at',
                          'updated_at'];
 
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class);
+    }
+
     public function personnels(): HasMany
     {
         return $this->hasMany(Personnel::class);
-    }
-
-    public function funded_items(): HasMany
-    {
-        return $this->hasMany(FundedItem::class);
-    }
-
-    public function appointments_fundings(): HasMany
-    {
-        return $this->hasMany(AppointmentsFunding::class);
     }
 
     public function scopeSearch($query, $value){

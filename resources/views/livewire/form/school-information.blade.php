@@ -53,7 +53,6 @@
                 @else
                     <x-button wire:click.prevent="update" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
                 @endif
-
             </div>
         </section>
     @elseif ($showMode)

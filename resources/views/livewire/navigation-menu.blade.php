@@ -21,10 +21,16 @@
                         <x-nav-link href="{{ route('admin.home') }}" :active="request()->routeIs('admin.home')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('positions.index') }}" :active="request()->routeIs('positions.index')">
+                            {{ __('Positions') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('districts.index') }}" :active="request()->routeIs('districts.index')">
+                            {{ __('Districts') }}
+                        </x-nav-link>
                     @endif
                     @if (Auth::user()->role == "school_head")
                         <x-nav-link href="{{ route('schools.profile', ['school' => Auth::user()->personnel->school]) }}" :active="request()->routeIs('schools.profile')">
-                            {{ __('School Profile') }}
+                            {{ Auth::user()->personnel->school->school_name }}
                         </x-nav-link>
                     @elseif(Auth::user()->role == "admin")
                         <x-nav-link href="{{ route('schools.index') }}" :active="request()->routeIs('schools.index')">
@@ -70,9 +76,8 @@
                 </div>
                 {{-- profile  --}}
                 <div class="relative" x-data="{ open: false }">
-                    <button
-                        @click="open = !open" class="flex items-center rounded-full">
-                        <img src="{{ asset('image/user-profile.jpg') }}" alt="avatar" class="w-8 h-8 border-2 border-lime-300 rounded-full hover:scale-110 duration-200">
+                    <button @click="open = !open" class="flex items-center rounded-full">
+                        <x-user-icon></x-user-icon>
                     </button>
 
 
@@ -85,8 +90,16 @@
                         x-transition:leave-end="opacity-0 scale-90"
                         @click.away="open = false"
                         class="absolute z-20 right-0 w-48 mt-2 py-1 bg-white rounded shadow border font-normal text-gray-500">
-                        <li class="border-t border-gray-400">
-                            <a href="{{ route('logout') }}" class="flex items-center px-3 py-3 hover:bg-gray-200">
+                        <li class="border-gray-400">
+                            <a href="#" class="flex items-center px-3 py-1.5 hover:bg-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+                                <span class="ml-2 text-sm">User Account</span>
+                            </a>
+                        </li>
+                        <li class="border-gray-400">
+                            <a href="{{ route('logout') }}" class="flex items-center px-3 py-1.5 hover:bg-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
                                 </svg>
