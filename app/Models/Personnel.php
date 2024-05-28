@@ -71,6 +71,11 @@ class Personnel extends Model
         return $this->hasOne(User::class);
     }
 
+    public function addresses()
+    {
+        return $this->hasOne(Address::class);
+    }
+
     public function permanentAddress()
     {
         return $this->hasOne(Address::class)->where('address_type', 'permanent');
@@ -156,6 +161,11 @@ class Personnel extends Model
         return $this->hasMany(TrainingCertification::class);
     }
 
+    public function otherInformations(): HasMany
+    {
+        return $this->hasMany(OtherInformation::class);
+    }
+
     public function skillsInformation()
     {
         return $this->hasOne(OtherInformation::class)->where('type', 'special_skill');
@@ -196,6 +206,51 @@ class Personnel extends Model
         return $this->hasMany(ServiceRecord::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($personnel) {
+            // Check if any of the specified attributes are being changed
+            $attributes = ['position_id', 'salary_grade', 'appointment', 'school_id', 'district_id', 'job_status'];
+            $isDirty = false;
+            foreach ($attributes as $attribute) {
+                if ($personnel->isDirty($attribute)) {
+                    $isDirty = true;
+                    break;
+                }
+            }
+
+            dd('IsDirty:', $isDirty, 'Changed Attributes:', $personnel->getDirty());
+
+            if ($isDirty) {
+                // Get the current date
+                $currentDate = now();
+
+                // // Find the current active service record
+                // $currentServiceRecord = $personnel->serviceRecords()->whereNull('to_date')->first();
+
+                // if ($currentServiceRecord) {
+                //     // Update the end date of the current service record
+                //     $currentServiceRecord->update(['to_date' => $currentDate]);
+                // }
+
+
+                // Create a new service record
+                $personnel->serviceRecords()->create([
+                    'personnel_id' => $personnel->id,
+                    'from_date' => $currentDate,
+                    'to_date' => null,
+                    'designation' => $personnel->position_id,
+                    'appointment_status' => $personnel->appointment,
+                    'salary' => $personnel->salary_grade,
+                    'station' => $personnel->school->district_id,
+                    'branch' => $personnel->school->id
+                ]);
+            }
+        });
+    }
+
     public function scopeSearch($query, $value){
         $query->where('personnel_id', "like", "%{$value}%")
               ->orWhere(function ($query) use ($value) {
@@ -205,10 +260,13 @@ class Personnel extends Model
                ->orWhere('category', "like", "%{$value}%");
     }
 
-    public static function getLoyaltyAwardRecipients($yearsOfService = 5)
+    public static function getLoyaltyAwardees()
     {
-        $dateThreshold = Carbon::now()->subYears($yearsOfService);
-        return self::where('date_of_joining', '<=', $dateThreshold)->get();
+        $currentYear = Carbon::now()->year;
+        return self::whereNotNull('employment_start')
+            ->whereRaw("TIMESTAMPDIFF(YEAR, employment_start, CURDATE()) % 10 = 0")
+            ->whereRaw("YEAR(employment_start) <= $currentYear")
+            ->get();
     }
 
     public function fullName()
@@ -219,5 +277,6 @@ class Personnel extends Model
                 . $this->name_ext;
 
     }
+
 
 }

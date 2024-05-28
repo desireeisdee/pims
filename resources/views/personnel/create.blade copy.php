@@ -28,7 +28,7 @@
                 <div class="relative w-full h-full">
                     {{-- FORM--}}
                     {{-- <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
-                        <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
+                        <div class="me-7 bg-white min-h-screen w-full border-2 border-main border-solid shadow-md">
                                 <section x-show="formNav === 'personal_information'" id="personal_information">
                                     @livewire('form.personal_information')
                                 </section>
@@ -67,7 +67,7 @@
                             :class="{'w-[13.2rem] z-10 bg-white': formNav === 'personal_information' }">
                             <a href="#personal_information" @click="formNav = 'personal_information'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'personal_information' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'personal_information' }">
                                     <span class="text-sm font-medium">Personal Information</span>
                                 </div>
                             </a>
@@ -76,7 +76,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'address' }">
                             <a href="#address" @click="formNav = 'address'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'address' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'address' }">
                                      <span class="text-sm font-medium">Address</span>
                                 </div>
                             </a>
@@ -85,7 +85,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'family' }">
                             <a href="#family" @click="formNav = 'family'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'family' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'family' }">
                                      <span class="text-sm font-medium">Family</span>
                                 </div>
                             </a>
@@ -94,7 +94,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'education' }">
                             <a href="#education" @click="formNav = 'education'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'education' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'education' }">
                                      <span class="text-sm font-medium">Education</span>
                                 </div>
                             </a>
@@ -103,7 +103,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'civil_service_eligibility' }">
                             <a href="#civil_service_eligibility" @click="formNav = 'civil_service_eligibility'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'civil_service_eligibility' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'civil_service_eligibility' }">
                                      <span class="text-sm font-medium">Civil Service Eligibility</span>
                                 </div>
                             </a>
@@ -112,7 +112,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'work_experience' }">
                             <a href="#work_experience" @click="formNav = 'work_experience'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'work_experience' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'work_experience' }">
                                      <span class="text-sm font-medium">Work Experience</span>
                                 </div>
                             </a>
@@ -121,7 +121,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'voluntary_work' }">
                             <a href="#voluntary_work" @click="formNav = 'voluntary_work'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'voluntary_work' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'voluntary_work' }">
                                      <span class="text-sm font-medium">Voluntary Work</span>
                                 </div>
                             </a>
@@ -130,7 +130,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'training_certification' }">
                             <a href="#training_certification" @click="formNav = 'training_certification'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'training_certification' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'training_certification' }">
                                      <span class="text-sm font-medium">Training & Certification</span>
                                 </div>
                             </a>
@@ -139,7 +139,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'references' }">
                             <a href="#references" @click="formNav = 'references'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'references' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'references' }">
                                      <span class="text-sm font-medium">References</span>
                                 </div>
                             </a>
@@ -148,7 +148,7 @@
                              :class="{'w-[13.5rem] z-10 bg-white': formNav === 'assignment_details' }">
                             <a href="#assignment_details" @click="formNav = 'assignment_details'">
                                 <div class="px-4 py-2 w-[13.1rem] "
-                                     :class="{'border-l-2 border-y-2 border-primary': formNav === 'assignment_details' }">
+                                     :class="{'border-l-2 border-y-2 border-main': formNav === 'assignment_details' }">
                                      <span class="text-sm font-medium">Assignment Details</span>
                                 </div>
                             </a>

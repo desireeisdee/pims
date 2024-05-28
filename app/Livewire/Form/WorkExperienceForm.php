@@ -16,8 +16,8 @@ class WorkExperienceForm extends Component
         'old_work_experiences.*.company' => 'required',
         'old_work_experiences.*.inclusive_from' => 'required',
         'old_work_experiences.*.inclusive_to' => 'required',
-        'old_work_experiences.*.monthly_salary' => 'required',
-        'old_work_experiences.*.paygrade_step_increment' => 'required',
+        'old_work_experiences.*.monthly_salary' => 'nullable',
+        'old_work_experiences.*.paygrade_step_increment' => 'nullable',
         'old_work_experiences.*.appointment' => 'required',
         'old_work_experiences.*.is_gov_service' => 'required',
         'new_work_experiences.*.title' => 'required',
@@ -124,9 +124,9 @@ class WorkExperienceForm extends Component
     public function save()
     {
         $this->validate();
-
         if ($this->personnel->workExperiences()->exists()) {
             foreach ($this->old_work_experiences as $work_experience) {
+                // dd($work_experience);
                 $this->personnel->workExperiences()->where('id', $work_experience['id'])
                     ->update([
                         'title' => $work_experience['title'],

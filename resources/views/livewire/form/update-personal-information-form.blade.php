@@ -187,7 +187,7 @@
             <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 py-2.5 w-full bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
         </div>
         <div class="w-2/12">
-            <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+            <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover"/>
         </div>
     </div>
 </section> --}}
@@ -286,7 +286,9 @@
                 </span>
                 <span class="w-3/12">
                     <x-select
-                        wire:model.live.debounce.300ms="school_id"
+                        wire:model="school_id"
+                        id="school_id"
+                        name="school_id"
                         placeholder="Select a school"
                         :async-data="route('api.schools.index')"
                         option-label="school_id"
@@ -297,7 +299,7 @@
                     />
                 </span>
                 <span class="w-2/12">
-                    <x-native-select label="Job Status" wire:model="job_status" class="form-control">
+                    <x-native-select label="Job Status" wire:model="job_status" id="job_status" name="job_status" class="form-control">
                         @foreach(['active', 'vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation'] as $status)
                             <option value="{{ $status }}" classification="capitalize">{{ ucfirst($status) }}</option>
                         @endforeach
@@ -305,7 +307,7 @@
                 </span>
                 </span>
                 <span class="w-3/12">
-                    <x-native-select label="Select Category" wire:model="category" class="form-control">
+                    <x-native-select label="Select Category" wire:model="category" id="category" name="category" class="form-control">
                         @foreach(['SDO Personnel', 'School Head', 'Elementary School Teacher', 'Junior High School Teacher', 'Senior High School Teacher', 'School Non-teaching Personnel'] as $category)
                             <option value="{{ $category }}">{{ $category }}</option>
                         @endforeach
@@ -315,6 +317,8 @@
                 <span class="w-3/12">
                     <x-select
                         wire:model="position_id"
+                        id="position_id"
+                        name="position_id"
                         placeholder="Select a position"
                         :async-data="route('api.positions.index')"
                         option-label="title"
@@ -324,23 +328,23 @@
                     />
                 </span>
                 <span class="w-3/12">
-                    <x-input type="text" class="form-control" id="fund_source" label="Fund Source" wire:model="fund_source" required/>
+                    <x-input type="text" class="form-control" id="fund_source" label="Fund Source" wire:model="fund_source" name="fund_source" required/>
                 </span>
                 <span class="w-2/12">
-                    <x-native-select label="Nature of Appointment" wire:model="appointment" class="form-control">
+                    <x-native-select label="Nature of Appointment" wire:model="appointment" name="appointment" class="form-control">
                         @foreach(['regular', 'part-time', 'temporary', 'contract'] as $appointment)
                             <option value="{{ $appointment }}" classification="capitalize">{{ ucfirst($appointment) }}</option>
                         @endforeach
                     </x-native-select>
                 </span>
                 <div class="w-3/12 space-x-1 flex">
-                    <x-native-select label="Step" wire:model="step">
+                    <x-native-select label="Step" wire:model="step" id="step" name="step">
                         <option value="">None</option>
                         @foreach(['1', '2', '3', '4', '5', '6', '7', '8'] as $step)
                             <option value="{{ $step }}">{{ $step }}</option>
                         @endforeach
                     </x-native-select>
-                    <x-native-select label="Salary Grade" wire:model="salary_grade">
+                    <x-native-select label="Salary Grade" wire:model="salary_grade" id="salary_grade" name="salary_grade">
                         @foreach(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'] as $grade)
                             <option value="{{ $grade }}">{{ $grade }}</option>
                         @endforeach
@@ -349,10 +353,10 @@
             </div>
             <div class="mt-2 mb-4 p-0 flex space-x-5" x-data="{ jobStatus: @entangle('job_status') }">
                 <span class="w-2/12">
-                    <x-input type="date" class="form-control" id="employment_start" label="Employment Start Date" wire:model="employment_start" required/>
+                    <x-input type="date" class="form-control" id="employment_start" name="employment_start" label="Employment Start Date" wire:model="employment_start" required/>
                 </span>
                 <span class="w-2/12">
-                    <x-input type="date" class="form-control" id="employment_end" label="Employment End Date" wire:model="employment_end" required/>
+                    <x-input type="date" class="form-control" id="employment_end" name="employment_end" label="Employment End Date" wire:model="employment_end" required/>
                 </span>
             </div>
         </div>
@@ -360,13 +364,13 @@
             <h5 class="font-bold text-xl text-gray-darkest">Contact Information</h5>
             <div class="mt-2 mb-4 p-0 flex space-x-5">
                 <span class="w-3/12">
-                    <x-input type="email" class="form-control" id="email" label="Email" wire:model="email" required/>
+                    <x-input type="email" class="form-control" id="email" name="email" label="Email" wire:model="email" required/>
                 </span>
                 <span class="w-2/12">
-                    <x-input type="text" class="form-control" id="tel_no" label="Telephone No." wire:model="tel_no" required/>
+                    <x-input type="text" class="form-control" id="tel_no" name="tel_no" label="Telephone No." wire:model="tel_no" required/>
                 </span>
                 <span class="w-2/12">
-                    <x-input type="text" class="form-control" id="mobile_no" label="Mobile No." wire:model="mobile_no" required/>
+                    <x-input type="number" class="form-control" id="mobile_no" label="Mobile No." wire:model="mobile_no" name="mobile_no" required/>
                 </span>
             </div>
         </div>
@@ -376,7 +380,7 @@
                 <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 py-2.5 w-full bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
             </div>
             <div class="w-2/12">
-                <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 <div class="mx-5 my-8 p-3">
     <div class="flex justify-between">
         <div class="w-1/4 inline-flex space-x-4">
-            <a href="{{ route('schools.create') }}">
+            <a href="{{ route('schools.create') }}" onclick="{{ route('schools.create') }}">
                 <x-button class="m-0 hover:shadow-[0.5rem_0.5rem_#FA0302,-0.5rem_-0.5rem_#FCC008] transition">
                     {{ __('New School') }}
                 </x-button>
@@ -119,7 +119,7 @@
                         {{-- @livewire('modal') --}}
                         <div class="flex justify-between space-x-3">
                             <a href="{{ route('schools.show', ['school' => $school->id]) }}">
-                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-primary hover:bg-primary hover:text-white text-primary duration-300">
+                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>
                             </a>

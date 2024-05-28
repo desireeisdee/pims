@@ -29,19 +29,19 @@
                 <div class="relative w-full h-full">
                     {{-- FORM--}}
                     <div class="absolute top-0 left-0 flex items-center w-[69rem] ml-52">
-                        <div class="me-7 bg-white min-h-screen w-full border-2 border-primary border-solid shadow-md">
+                        <div class="me-7 bg-white min-h-screen w-full border-2 border-main border-solid shadow-md">
                             <section x-show="formNav === 'school_information'" id="school_information">
                                 @livewire('form.school-information', ['storeMode' => true])
                             </section>
                         </div>
                     </div>
                     {{-- OVERLAPPING MENU --}}
-                    <div class="absolute top-0 left-0 mt-6 w-[13rem] bg-gray-100">
+                    <div class="absolute top-0 left-0 w-[13rem] bg-gray-100">
                         <div class="w-[13.5rem]"
-                            :class="{'w-[13.2rem] z-10 bg-white': formNav === 'school_information' }">
+                            :class="{'w-[13.3rem] z-10 bg-white border-t-2 border-main': formNav === 'school_information' }">
                             <a href="#school_information" @click="formNav = 'school_information'">
-                                <div class="px-4 py-2 w-[13.1rem]"
-                                     :class="{'border-l-2 border-y-2 border-primary text-primary': formNav === 'school_information' }">
+                                <div class="px-4 py-2 w-[13rem]"
+                                     :class="{'border-l-2 border-b-2 border-main text-main': formNav === 'school_information' }">
                                     <span class="text-sm font-medium">School Information</span>
                                 </div>
                             </a>

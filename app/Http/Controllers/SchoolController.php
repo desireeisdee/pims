@@ -63,6 +63,7 @@ class SchoolController extends Controller
     public function store(StoreSchoolRequest $request)
     {
         $school = School::create($request->all());
+        dd($school);
 
         if ($school) {
             // $this->storeFundedItems($school, $request->all());

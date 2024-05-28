@@ -21,10 +21,11 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'personnel_id',
         'name',
         'email',
         'password',
-        'type'
+        'role'
     ];
 
     /**
@@ -51,6 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return new Attribute(
             get: fn ($value) =>  ["teacher", "school_head", "admin"][$value],
         );
+    }
+
+    public function scopeSearch($query, $value){
+        $query->where('email', "like", "%{$value}%")
+               ->orWhere('role', "like", "%{$value}%");
     }
 
     public function personnel(): BelongsTo

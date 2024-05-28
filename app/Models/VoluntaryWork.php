@@ -13,8 +13,7 @@ class VoluntaryWork extends Model
                            'position',
                            'inclusive_from',
                            'inclusive_to',
-                           'hours',
-                           'is_gov_service'
+                           'hours'
                         ];
 
     public function personnel(): BelongsTo

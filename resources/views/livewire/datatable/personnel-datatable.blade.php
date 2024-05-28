@@ -176,7 +176,7 @@
                     <td class="p-2 whitespace-nowrap w-1/12">
                         <div class="flex justify-between space-x-3">
                             <a href="{{ route('personnels.show', ['personnel' => $personnel->id]) }}">
-                                <button class="py-1 px-2 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-primary hover:bg-primary hover:text-white text-primary duration-300">
+                                <button class="py-1 px-2 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>
                             </a>

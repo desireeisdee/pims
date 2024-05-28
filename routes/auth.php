@@ -37,9 +37,9 @@ Route::middleware(['user.access:admin'])->group(function () {
 });
 
 Route::middleware(['user.access:school_head'])->group(function () {
-    Route::get('school-profile', [HomeController::class, 'index'])->name('schools.profile');
+    Route::get('school-profile', [HomeController::class, 'index'])->name('schools.show');
 });
 
 Route::middleware(['user.access:personnel'])->group(function () {
-    Route::get('profile', [HomeController::class, 'profile'])->name('personnels.profile');
+    Route::get('profile', [HomeController::class, 'profile'])->name('personnels.show');
 });

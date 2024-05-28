@@ -1,68 +1,94 @@
 <?php
+
 namespace App\Exports\Sheets;
 
-use App\Models\Personnel;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\WithTitle;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Carbon\Carbon;
 
-class PersonnelDataC2Sheet implements WithTitle, FromView, WithStyles
+class PersonnelDataC2Sheet
 {
-    public $personnel_id;
+    protected $personnel;
+    protected $worksheet;
 
-    public function __construct($id)
+    public function __construct($personnel, Spreadsheet $spreadsheet)
     {
-        $this->personnel_id = $id;
+        $this->personnel = $personnel;
+        $this->personnel = $this->personnel[0];
+        $this->worksheet = $spreadsheet->getSheet(1);
     }
 
-    public function title(): string
+    public function populateSheet()
     {
-        return 'C2';
+
+        if ($this->personnel->civilServiceEligibilities) {
+            $this->populateCivilServiceEligibilities();
+        }
+        if ($this->personnel->workExperiences) {
+            $this->populateWorkExperiences();
+        }
     }
 
-    public function view(): View
+    protected function populateCivilServiceEligibilities()
     {
-        return view('export.pds-c2', [
-            'personnel' => Personnel::findOrFail($this->personnel_id)
-        ]);
+        $worksheet = $this->worksheet;
+
+        $startRow = 5;
+        $endRow = 11;
+        $currentRow = $startRow;
+
+        foreach ($this->personnel->civilServiceEligibilities as $civil_service_eligibility) {
+            if ($currentRow > $endRow) {
+                // Copy the current sheet and use the new copy
+                $newSheet = $worksheet->copy();
+                $newSheet->setTitle('Additional CSE ' . ($this->worksheet->getParent()->getSheetCount() + 1));
+                $this->worksheet->getParent()->addSheet($newSheet);
+                $worksheet = $newSheet;
+                $currentRow = $startRow; // Reset the current row to the start row
+            }
+
+            // Populate the cell values
+            $worksheet->setCellValue('A' . $currentRow, $civil_service_eligibility->title);
+            $worksheet->setCellValue('F' . $currentRow, $civil_service_eligibility->rating);
+            $worksheet->setCellValue('G' . $currentRow, Carbon::parse($civil_service_eligibility->date_of_exam)->format('m/d/Y'));
+            $worksheet->setCellValue('I' . $currentRow, $civil_service_eligibility->place_of_exam);
+            $worksheet->setCellValue('L' . $currentRow, $civil_service_eligibility->license_num);
+            $worksheet->setCellValue('M' . $currentRow, Carbon::parse($civil_service_eligibility->license_date_of_validitym)->format('m/d/Y'));
+            $currentRow++;
+        }
     }
 
-    public function styles(Worksheet $sheet)
+    protected function populateWorkExperiences()
     {
-       // Set column widths
-        $columnWidths = [
-            'A' => 2.57, 'B' => 5.57, 'C' => 9, 'D' => 9.86, 'E' => 6.29,
-            'F' => 12.14, 'G' => 6.14, 'H' => 6.14, 'I' => 16.86, 'J' => 7.71,
-            'K' => 8.57, 'L' => 10.43, 'M' => 7.29,
-        ];
+        $worksheet = $this->worksheet;
 
-        foreach ($columnWidths as $column => $width) {
-            $sheet->getColumnDimension($column)->setWidth($width);
+        $startRow = 18;
+        $endRow = 45;
+        $currentRow = $startRow;
+
+        foreach ($this->personnel->workExperiences as $work_experience) {
+            if ($currentRow > $endRow) {
+                // Create a new sheet or use the next existing sheet
+                $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
+                if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
+                    $worksheet = $this->worksheet->getParent()->createSheet();
+                    $worksheet->setTitle('Additional WORK EXPERIENCE ' . ($currentSheetIndex + 1));
+                } else {
+                    $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+                }
+                $currentRow = $startRow; // Reset the current row to the start row
+            }
+
+            // Populate the cell values
+            $worksheet->setCellValue('A' . $currentRow, Carbon::parse($work_experience->inclusive_from)->format('m/d/Y'));
+            $worksheet->setCellValue('C' . $currentRow, Carbon::parse($work_experience->inclusive_to)->format('m/d/Y'));
+            $worksheet->setCellValue('D' . $currentRow, $work_experience->title);
+            $worksheet->setCellValue('G' . $currentRow, $work_experience->company);
+            $worksheet->setCellValue('J' . $currentRow, $work_experience->monthly_salary);
+            $worksheet->setCellValue('K' . $currentRow, $work_experience->paygrade_step_increment);
+            $worksheet->setCellValue('L' . $currentRow, $work_experience->appointment);
+            $worksheet->setCellValue('M' . $currentRow, $work_experience->is_gov_service);
+            $currentRow++;
         }
 
-        // Set row heights
-        $rowHeights = [
-            1 => 3, 2 => 18, 3 => 15, 4 => 25.5, 5 => 27,
-            6 => 27, 7 => 27, 8 => 27, 9 => 27, 10 => 27,
-            11 => 27, 12 => 12, 13 => 18, 14 => 12, 15 => 18,
-            16 => 15, 17 => 15, 18 => 24, 19 => 24, 20 => 24,
-            21 => 24, 22 => 24, 23 => 24, 24 => 24, 25 => 24,
-            26 => 24, 27 => 24, 28 => 24, 29 => 24, 30 => 24,
-            31 => 24, 32 => 24, 33 => 24, 34 => 24, 35 => 24,
-            36 => 24, 37 => 24, 38 => 24, 39 => 24, 40 => 24,
-            41 => 24, 42 => 24, 43 => 24, 44 => 24, 45 => 21.75,
-            46 => 9.75, 47 => 27.75, 48 => 9,
-        ];
-
-        foreach ($rowHeights as $row => $height) {
-            $sheet->getRowDimension($row)->setRowHeight($height);
-        }
-
-        $sheet->getStyle('A1:M48')->getAlignment()->setWrapText(true);
     }
 }

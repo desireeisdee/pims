@@ -3,7 +3,7 @@
     <div class="flex justify-between">
         <h4 class="font-bold text-2xl text-gray-darkest">Voluntary Work</h4>
 
-        <button wire:click.prevent="edit" type="button" class="inline-flex items-center px-5 py-2 mb-2 mr-2 text-sm font-medium text-center text-white bg-primary border border-primary rounded-lg hover:bg-primary-hover hover:scale-105 duration-300">
+        <button wire:click.prevent="edit" type="button" class="inline-flex items-center px-5 py-2 mb-2 mr-2 text-sm font-medium text-center text-white bg-main border border-main rounded-lg hover:bg-main_hover hover:scale-105 duration-300">
             <span class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 -ml-1 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -28,7 +28,7 @@
                 <h6 class="w-3/12">
                     <span class="text-center text-xs text-gray-dark font-semibold uppercase">Position Title</span>
                 </h6>
-                <h6 class="w-1/12">
+                <h6 class="w-2/12">
                     <span class="text-center text-xs text-gray-dark font-semibold uppercase">No. of Hours</span>
                 </h6>
             </div>
@@ -36,22 +36,24 @@
                 @if ($old_voluntary_works != null)
                     <section>
                         @foreach ($old_voluntary_works as $index => $old_voluntary_work)
-                            <div class="mb-2 px-3 w-full space-x-3 h-40 border border-gray-200 rounded focus:outline-none">
-                                <div class="mb-3 flex space-x-2">
+                            <div class="mb-2 w-full">
+                                <div class="px-3 mb-3 flex items-center space-x-4  justify-between h-12 border border-gray-200 rounded focus:outline-none">
                                     <div class="w-2/12 flex space-x-2">
-                                        <x-input id="inclusive_from_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.inclusive_from" name="old_voluntary_works[{{ $index }}][inclusive_from]" readonly/>
+                                        <x-input id="inclusive_from_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.inclusive_from" name="old_voluntary_works[{{ $index }}][inclusive_from]" class="bg-gray-50 border-gray-300" readonly/>
                                     </div>
                                     <div class="w-2/12">
-                                        <x-input id="inclusive_to_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.inclusive_to" name="old_voluntary_works[{{ $index }}][inclusive_to]" readonly/>
+                                        <x-input id="inclusive_to_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.inclusive_to" name="old_voluntary_works[{{ $index }}][inclusive_to]" class="bg-gray-50 border-gray-300" readonly/>
                                     </div>
                                     <div class="w-3/12">
-                                        <x-input id="organization{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.organization" name="old_voluntary_works[{{ $index }}][organization]" readonly/>
+                                        <x-input id="organization{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.organization" name="old_voluntary_works[{{ $index }}][organization]" class="bg-gray-50 border-gray-300" readonly/>
                                     </div>
                                     <div class="w-3/12">
-                                        <x-input id="position_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.position" name="old_voluntary_works[{{ $index }}][position]" readonly/>
+                                        <x-input id="position_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.position" name="old_voluntary_works[{{ $index }}][position]" class="bg-gray-50 border-gray-300" readonly/>
                                     </div>
-                                    <div class="w-1/12">
-                                        <x-input id="hours_{{ $index }}" type="text" wire:model="old_voluntary_works.{{ $index }}.hours" name="old_voluntary_works[{{ $index }}][hours]" readonly/>
+                                    <div class="w-2/12">
+                                        <x-input id="old_voluntary_works.{{ $index }}.hours"
+                                                 wire:model="old_voluntary_works.{{ $index }}.hours" name="old_voluntary_works.{{ $index }}.hours"
+                                                 type="text" class="bg-gray-50 border-gray-300" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +214,7 @@
 
         <div class="mt-3 flex space-x-3 items-center">
             <div class="w-full">
-                <button @click.prevent="addNewField()" class="py-2 w-full text-base bg-primary text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none">New Voluntary Work</button>
+                <button @click.prevent="addNewField()" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none">New Voluntary Work</button>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class WorkExperience extends Model
 {
@@ -22,5 +23,10 @@ class WorkExperience extends Model
     public function personnel(): BelongsTo
     {
         return $this->belongsTo(Personnel::class);
+    }
+
+    public function formatDateOfExam()
+    {
+        return Carbon::parse($this->date_of_exam)->format('m/d/Y');
     }
 }

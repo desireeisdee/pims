@@ -18,7 +18,7 @@
                         <x-input id="division" wire:model="division" type="text" label="Division"  name="division" required/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="district" wire:model="district" type="text" label="District"  name="district" required/>
+                        <x-input id="district_id" wire:model="district_id" type="text" label="District"  name="district_id" required/>
                     </span>
                 </div>
                 <div class="mb-4 flex space-x-3 justify-between">
@@ -41,17 +41,22 @@
                 </div>
                 <div class="flex space-x-4">
                     <div class="w-full">
-                        <label for="curricular_classification" class="mb-2 block font-medium text-sm text-gray-700">Curricular Classifications</label>
-                        <x-grade-level-multi-select :curricular_classification="$curricular_classification"/>
+                        {{-- <label for="curricular_classification" class="mb-2 block font-medium text-sm text-gray-700">Curricular Classifications</label>
+                        <x-grade-level-multi-select :curricular_classification="$curricular_classification"/> --}}
+                        <x-native-select wire:model="curricular_classification" class="form-control" label="Curricular Classifications">
+                            <option value="grade 1-6">Grade 1-6</option>
+                            <option value="grade 7-10">Grade 7-10</option>
+                            <option value="grade 11-12">Grade 11-12</option>
+                        </x-native-select>
                     </div>
                 </div>
             </div>
             <div class="m-0 mb-4 p-0 flex space-x-3 justify-end">
                 <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
                 @if ($storeMode == true)
-                    <x-button wire:click.prevent="store" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                    <x-button wire:click.prevent="store" label="Save" class="px-5 bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
                 @else
-                    <x-button wire:click.prevent="update" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                    <x-button wire:click.prevent="update" label="Save" class="px-5 bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
                 @endif
             </div>
         </section>
@@ -63,7 +68,7 @@
                 </div>
                 <div class="w-1/4 flex space-x-2 justify-end">
                     <div class="w-1/2">
-                        <x-button wire:click.prevent="edit" label="Edit" class="w-full px-5 bg-primary text-white tracking-wider hover:hover:bg-primary-hover hover:scale-105 duration-100"/>
+                        <x-button wire:click.prevent="edit" label="Edit" class="w-full px-5 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100"/>
                     </div>
                 </div>
             </div>
@@ -73,13 +78,13 @@
                         <x-input id="school_id" wire:model="school_id" type="number" label="School ID" class="bg-gray-50 border-gray-300" name="school_id"  readonly/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="region" wire:model="region" type="text" label="Region" class="bg-gray-50 border-gray-300" name="region"  readonly/>
+                        <x-input id="region" wire:model="region" type="text" label="Region" class="bg-gray-50 border-gray-300" name="region" readonly/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="division" wire:model="division" type="text" label="Division" class="bg-gray-50 border-gray-300" name="division"  readonly/>
+                        <x-input id="division" wire:model="division" type="text" label="Division" class="bg-gray-50 border-gray-300" name="division" readonly/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="district" wire:model="district" type="text" label="District" class="bg-gray-50 border-gray-300" name="district"  readonly/>
+                        <x-input id="district_id" wire:model="district_id" type="text" label="District" class="bg-gray-50 border-gray-300" name="district"  readonly/>
                     </span>
                 </div>
                 <div class="mb-4 flex space-x-3 justify-between">
@@ -102,8 +107,13 @@
                 </div>
                 <div class="flex space-x-4">
                     <div class="w-full">
-                        <label for="curricular_classification" class="mb-2 block font-medium text-sm text-gray-700">Curricular Classifications</label>
-                        <x-grade-level-multi-select :curricular_classification="$curricular_classification"/>
+                        {{-- <label for="curricular_classification" class="mb-2 block font-medium text-sm text-gray-700">Curricular Classifications</label> --}}
+                        {{-- <x-grade-level-multi-select :curricular_classification="$curricular_classification"/> --}}
+                        <x-native-select wire:model="curricular_classification" class="form-control" label="Curricular Classifications">
+                            <option value="grade 1-6">Grade 1-6</option>
+                            <option value="grade 7-10">Grade 7-10</option>
+                            <option value="grade 11-12">Grade 11-12</option>
+                        </x-native-select>
                     </div>
                 </div>
             </div>
@@ -111,7 +121,7 @@
                 @if (!$showMode)
                     <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
                     @if ($storeMode == true)
-                        <x-button wire:click.prevent="store" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                        <x-button wire:click.prevent="store" label="Save" class="px-5 bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
                     @endif
 
                 @endif

@@ -8,7 +8,7 @@ use Livewire\Component;
 class SchoolInformation extends Component
 {
     public $school;
-    public $school_id, $region, $division, $district, $school_name,
+    public $school_id, $region, $division, $district_id, $school_name,
            $address, $email, $phone, $curricular_classification;
     public $showMode = false, $storeMode = false, $updateMode = false;
 
@@ -16,8 +16,8 @@ class SchoolInformation extends Component
         'school_id' => 'required',
         'region' => 'required',
         'school_name' => 'required',
-        'division' => 'required',
-        'district' => 'required',
+        // 'division' => 'required',
+        'district_id' => 'required',
         'address' => 'required',
         'email' => 'required',
         'phone' => 'required',
@@ -35,7 +35,7 @@ class SchoolInformation extends Component
                 $this->school_name = $this->school->school_name;
                 $this->region = $this->school->region;
                 $this->division = $this->school->division;
-                $this->district = $this->school->district;
+                $this->district_id = $this->school->district_id;
                 $this->address = $this->school->address;
                 $this->email = $this->school->email;
                 $this->phone = $this->school->phone;
@@ -82,7 +82,7 @@ class SchoolInformation extends Component
             'region' => $this->region,
             'school_name' => $this->school_name,
             'division' => $this->division,
-            'district' => $this->district,
+            'district_id' => $this->district_id,
             'address' => $this->address,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -107,7 +107,7 @@ class SchoolInformation extends Component
                 'region' => $this->region,
                 'school_name' => $this->school_name,
                 'division' => $this->division,
-                'district' => $this->district,
+                'district_id' => $this->district_id,
                 'address' => $this->address,
                 'email' => $this->email,
                 'phone' => $this->phone,

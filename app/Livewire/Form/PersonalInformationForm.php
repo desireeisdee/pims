@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Form;
 
+use App\Models\Log;
 use App\Models\Personnel;
 use App\Models\School;
 use Livewire\Component;
@@ -42,14 +43,13 @@ class PersonalInformationForm extends PersonnelNavigation
         'step' => 'required',
         'category' => 'required',
         'job_status' => 'required',
-        'classification' => 'required',
         'employment_start' => 'required',
 
-        // 'tin' => 'nullable|min:8|max:12',
-        // 'sss_num' => 'nullable|size:10',
-        // 'gsis_num' => 'nullable|min:8|max:11',
-        // 'philhealth_num' => 'nullable|size:12',
-        // 'pagibig_num' => 'nullable|size:12',
+        // 'tin' => 'required|min:8|max:12',
+        // 'sss_num' => 'required|min:10',
+        // 'gsis_num' => 'required|min:8',
+        // 'philhealth_num' => 'required|min:12',
+        // 'pagibig_num' => 'required|min:12',
 
         'email' => 'required',
         'tel_no' => 'nullable',
@@ -82,7 +82,7 @@ class PersonalInformationForm extends PersonnelNavigation
                 $this->pagibig_num = $this->personnel->pagibig_num;
 
                 $this->personnel_id = $this->personnel->personnel_id;
-                $this->school_id = $this->personnel->school->school_id;
+                $this->school_id = $this->personnel->school->id;
                 $this->position = $this->personnel->position->title;
                 $this->position_id = $this->personnel->position->id;
                 $this->appointment = $this->personnel->appointment;
@@ -91,7 +91,6 @@ class PersonalInformationForm extends PersonnelNavigation
                 $this->step = $this->personnel->step;
                 $this->category = $this->personnel->category;
                 $this->job_status = $this->personnel->job_status;
-                $this->classification = $this->personnel->classification;
                 $this->employment_start = $this->personnel->employment_start;
                 if ($this->personnel->employment_end)
                 {
@@ -126,73 +125,195 @@ class PersonalInformationForm extends PersonnelNavigation
         return redirect()->back()->route('personnels.index');
     }
 
+    // public function save()
+    // {
+    //     $this->validate();
+
+    //     // try {
+    //     $school = School::findOrFail($this->school_id);
+
+    //     $data = [
+    //         'first_name' => $this->first_name,
+    //         'last_name' => $this->last_name,
+    //         'middle_name' => $this->middle_name,
+    //         'name_ext' => $this->name_ext,
+    //         'date_of_birth' => $this->date_of_birth,
+    //         'place_of_birth' => $this->place_of_birth,
+    //         'sex' => $this->sex,
+    //         'civil_status' => $this->civil_status,
+    //         'citizenship' => $this->citizenship,
+    //         'height' => $this->height,
+    //         'weight' => $this->weight,
+    //         'blood_type' => $this->blood_type,
+
+    //         'tin' => $this->tin,
+    //         'sss_num' => $this->sss_num,
+    //         'gsis_num' => $this->gsis_num,
+    //         'philhealth_num' => $this->philhealth_num,
+    //         'pagibig_num' => $this->pagibig_num,
+
+    //         'personnel_id' => $this->personnel_id,
+    //         'school_id' => $school->id,
+    //         'position_id' => $this->position_id,
+    //         'appointment' => $this->appointment,
+    //         'fund_source' => $this->fund_source,
+    //         'salary_grade' => $this->salary_grade,
+    //         'step' => $this->step,
+    //         'category' => $this->category,
+    //         'job_status' => $this->job_status,
+    //         'employment_start' => $this->employment_start,
+    //         'employment_end' => $this->employment_end,
+
+    //         'email' => $this->email,
+    //         'tel_no' => $this->tel_no,
+    //         'mobile_no' => $this->mobile_no
+    //     ];
+
+    //     if ($this->personnel == null) {
+    //         $this->personnel = Personnel::create($data);
+    //         session()->flash('flash.banner', 'Personnel created successfully');
+    //         session()->flash('flash.bannerStyle', 'success');
+
+    //         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+    //     } else {
+
+    //         $this->personnel->update($data);
+    //         session()->flash('flash.banner', 'Personal Information saved successfully');
+    //         session()->flash('flash.bannerStyle', 'success');
+
+    //         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+    //     }
+
+    //     $this->updateMode = false;
+    //     $this->storeMode = false;
+    //     $this->showMode = true;
+    // }
+
     public function save()
     {
         $this->validate();
 
-        try {
-            $school = School::findOrFail($this->school_id);
+        // Find the school
+        $school = School::findOrFail($this->school_id);
 
-            $data = [
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'middle_name' => $this->middle_name,
-                'name_ext' => $this->name_ext,
-                'date_of_birth' => $this->date_of_birth,
-                'place_of_birth' => $this->place_of_birth,
-                'sex' => $this->sex,
-                'civil_status' => $this->civil_status,
-                'citizenship' => $this->citizenship,
-                'height' => $this->height,
-                'weight' => $this->weight,
-                'blood_type' => $this->blood_type,
+        // Prepare data for Personnel
+        $data = [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'middle_name' => $this->middle_name,
+            'name_ext' => $this->name_ext,
+            'date_of_birth' => $this->date_of_birth,
+            'place_of_birth' => $this->place_of_birth,
+            'sex' => $this->sex,
+            'civil_status' => $this->civil_status,
+            'citizenship' => $this->citizenship,
+            'height' => $this->height,
+            'weight' => $this->weight,
+            'blood_type' => $this->blood_type,
 
-                'tin' => $this->tin,
-                'sss_num' => $this->sss_num,
-                'gsis_num' => $this->gsis_num,
-                'philhealth_num' => $this->philhealth_num,
-                'pagibig_num' => $this->pagibig_num,
+            'tin' => $this->tin,
+            'sss_num' => $this->sss_num,
+            'gsis_num' => $this->gsis_num,
+            'philhealth_num' => $this->philhealth_num,
+            'pagibig_num' => $this->pagibig_num,
 
-                'personnel_id' => $this->personnel_id,
-                'school_id' => $school->id,
-                'position_id' => $this->position_id,
-                'appointment' => $this->appointment,
-                'fund_source' => $this->fund_source,
-                'salary_grade' => $this->salary_grade,
-                'step' => $this->step,
-                'category' => $this->category,
-                'job_status' => $this->job_status,
-                'employment_start' => $this->employment_start,
-                'employment_end' => $this->employment_end,
+            'personnel_id' => $this->personnel_id,
+            'school_id' => $school->id,
+            'position_id' => $this->position_id,
+            'appointment' => $this->appointment,
+            'fund_source' => $this->fund_source,
+            'salary_grade' => $this->salary_grade,
+            'step' => $this->step,
+            'category' => $this->category,
+            'job_status' => $this->job_status,
+            'employment_start' => $this->employment_start,
+            'employment_end' => $this->employment_end,
 
-                'email' => $this->email,
-                'tel_no' => $this->tel_no,
-                'mobile_no' => $this->mobile_no
-            ];
-            if($this->personnel == null)
-            {
-                $this->personnel = Personnel::create($data);
-                session()->flash('flash.banner', 'Personnel created successfully');
-            } else {
-                $this->personnel->update($data);
-                session()->flash('flash.banner', 'Personal Information saved successfully');
-            }
+            'email' => $this->email,
+            'tel_no' => $this->tel_no,
+            'mobile_no' => $this->mobile_no
+        ];
 
-            $this->updateMode = false;
-            $this->storeMode = false;
-            $this->showMode = true;
+        if ($this->personnel == null) {
+            // Create a new Personnel
+            $this->personnel = Personnel::create($data);
 
+            // Create an initial ServiceRecord for the new Personnel
+            $this->personnel->serviceRecords()->create([
+                'personnel_id' => $this->personnel->id,
+                'from_date' => now(),
+                'to_date' => null,
+                'designation' => $this->position_id,
+                'appointment_status' => $this->appointment,
+                'salary' => $this->salary_grade,
+                'station' => $school->district_id,
+                'branch' => $school->id
+            ]);
 
+            dd("uu");
+
+            session()->flash('flash.banner', 'Personnel created successfully');
             session()->flash('flash.bannerStyle', 'success');
 
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-        } catch (\Throwable $th) {
-            session()->flash('flash.banner', 'Failed to save Personal Information');
-            session()->flash('flash.bannerStyle', 'danger');
+        } else {
+            // Check if any of the specified attributes are being changed
+            $attributes = ['position_id', 'salary_grade', 'appointment', 'school_id', 'district_id', 'job_status'];
+            $isDirty = false;
+            foreach ($attributes as $attribute) {
+                if ($this->personnel->isDirty($attribute)) {
+                    $isDirty = true;
+                    break;
+                }
+            }
 
-            return redirect()->route('personnels.index');
+            // Update the Personnel
+            $this->personnel->update($data);
+
+            if ($isDirty) {
+                // Get the current date
+                $currentDate = now();
+
+                // Find the current active service record
+                $currentServiceRecord = $this->personnel->serviceRecords()->whereNull('to_date')->first();
+
+                if ($currentServiceRecord) {
+                    // Update the end date of the current service record
+                    $currentServiceRecord->update(['to_date' => $currentDate]);
+                }
+
+                // Create a new service record
+                $this->personnel->serviceRecords()->create([
+                    'personnel_id' => $this->personnel->id,
+                    'from_date' => $currentDate,
+                    'to_date' => null,
+                    'designation' => $this->position_id,
+                    'appointment_status' => $this->appointment,
+                    'salary' => $this->salary_grade,
+                    'station' => $school->district_id,
+                    'branch' => $school->id
+                ]);
+            }
+
+            session()->flash('flash.banner', 'Personal Information saved successfully');
+            session()->flash('flash.bannerStyle', 'success');
+
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
+
+        $this->updateMode = false;
+        $this->storeMode = false;
+        $this->showMode = true;
     }
 
+
+    public function logAction($action, $description)
+    {
+        Log::create([
+            'personnel_id' => $this->personnel->id,
+            'action' => $action,
+            'description' => $description
+        ]);
+    }
 }
 

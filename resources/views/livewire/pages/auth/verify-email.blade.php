@@ -41,9 +41,9 @@ $logout = function (Logout $logout) {
     @endif
 
     <div class="mt-4 flex items-center justify-between">
-        <x-primary-button wire:click="sendVerification">
+        <x-main-button wire:click="sendVerification">
             {{ __('Resend Verification Email') }}
-        </x-primary-button>
+        </x-main-button>
 
         <button wire:click="logout" type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {{ __('Log Out') }}

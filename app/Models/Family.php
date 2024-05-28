@@ -27,4 +27,13 @@ class Family extends Model
     {
         return $this->belongsTo(Personnel::class);
     }
+
+    public function fullName()
+    {
+        return $this->first_name . ' '
+                . ($this->middle_name ? $this->middle_name[0] . '. ' : '')
+                . $this->last_name . ' '
+                . $this->name_ext;
+
+    }
 }

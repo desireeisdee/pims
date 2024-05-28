@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\District;
 use App\Models\Position;
 use App\Models\School;
 use Illuminate\Http\Request;
@@ -47,3 +48,17 @@ Route::get('/positions', function () {
 
     return $query->get(['id','title']);
 })->name('api.positions.index');
+
+Route::get('/districts', function () {
+    $query = District::query();
+
+    if ($search = request('search')) {
+        $query->where('name', 'like', "%{$search}%");
+    }
+
+    if ($selected = request('selected')) {
+        $query->where('id', $selected);
+    }
+
+    return $query->get(['id','name']);
+})->name('api.districts.index');

@@ -137,9 +137,10 @@ class FamilyForm extends Component
             session()->flash('flash.banner', 'Child information deleted successfully');
             session()->flash('flash.bannerStyle', 'success');
         } catch (\Throwable $th) {
-            session()->flash('flash.banner', 'Child information saved successfully');
-            session()->flash('flash.bannerStyle', 'success');
+            session()->flash('flash.banner', 'Failed to delete child information');
+            session()->flash('flash.bannerStyle', 'danger');
         }
+        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
     }
 
     public function render()

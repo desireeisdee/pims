@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-            <div class="px-5 py-8 bg-white border-4 border-primary overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="px-5 py-8 ">
                 <section class="flex space-x-5 justify-between">
                     <div class="w-1/3 flex items-center p-8 bg-white shadow rounded-lg">
                         <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
@@ -50,22 +50,11 @@
         </div>
 
         <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="px-5 py-8 bg-white border-4 border-primary overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="my-5 px-5 py-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <h3 class="font-semibod text-lg text-gray-800 leading-tight">Loyalty Award Recipients - {{ date("Y") }}</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Department</th>
-                            <th>Award Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- @foreach($personnels->where()) --}}
-                    </tbody>
-                </table>
+
+
+                @livewire('datatable.loyalty-datatable')
             </div>
         </div>
 

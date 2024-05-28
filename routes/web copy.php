@@ -23,9 +23,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         $user = Auth::user();
         if ($user->role === 'teacher') {
-            return redirect()->route('personnels.profile', ['personnel' => $user->personnel->id]);
+            return redirect()->route('personnels.show', ['personnel' => $user->personnel->id]);
         } elseif ($user->role === 'school_head') {
-            return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
+            return redirect()->route('schools.show', ['school' => $user->personnel->school]);
         } elseif ($user->role === 'admin') {
             return redirect()->route('admin.home');
         } else {
@@ -34,12 +34,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['user-access:teacher'])->group(function () {
-        Route::get('/personnels/{personnel}', [PersonnelController::class, 'show'])->name('personnels.profile');
+        Route::get('/personnels/{personnel}', [PersonnelController::class, 'show'])->name('personnels.show');
         Route::patch('/personnels/{personnel}', [PersonnelController::class, 'update'])->name('personnels.update');
     });
 
     Route::middleware(['user-access:school_head'])->group(function () {
-        Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.profile');
+        Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.show');
         Route::patch('/schools/{school}', [SchoolController::class, 'update'])->name('schools.update');
 
         Route::get('/schools/export/{school}', [SchoolController::class, 'export'])->name('schools.export');

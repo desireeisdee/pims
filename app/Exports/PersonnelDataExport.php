@@ -1,47 +1,49 @@
 <?php
+
 namespace App\Exports;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Models\Personnel;
 use App\Exports\Sheets\PersonnelDataC1Sheet;
 use App\Exports\Sheets\PersonnelDataC2Sheet;
 use App\Exports\Sheets\PersonnelDataC3Sheet;
 use App\Exports\Sheets\PersonnelDataC4Sheet;
-use App\Models\Personnel;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\WithDefaultStyles;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
-use PhpOffice\PhpSpreadsheet\Style\Style;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PersonnelDataExport implements WithDefaultStyles, WithMultipleSheets
+class PersonnelDataExport
 {
-    use Exportable;
+    protected $personnel;
+    protected $filename;
+    protected $spreadsheet;
+    protected $outputPath;
 
-    public $personnel_id;
-    protected $data;
-
-    public function __construct($data, $id)
+    public function __construct($id)
     {
-        $this->data = $data;
-        $this->personnel_id = $id;
+        $this->personnel = Personnel::findOrFail($id); // Ensure this returns a single model instance
+
+        $this->filename = public_path('report/cs_form_no_212.xlsx'); // Adjust the path as needed
+        $this->spreadsheet = IOFactory::load($this->filename);
+
+        $personnelC1Sheet = new PersonnelDataC1Sheet($this->personnel, $this->spreadsheet);
+        $personnelC1Sheet->populateSheet();
+
+        $personnelC2Sheet = new PersonnelDataC2Sheet($this->personnel, $this->spreadsheet);
+        $personnelC2Sheet->populateSheet();
+
+        $personnelC3Sheet = new PersonnelDataC3Sheet($this->personnel, $this->spreadsheet);
+        $personnelC3Sheet->populateSheet();
+
+        $personnelC4Sheet = new PersonnelDataC4Sheet($this->personnel, $this->spreadsheet);
+        $personnelC4Sheet->populateSheet();
+
+        // Save the updated spreadsheet to a temporary file
+        $this->outputPath = public_path('report/pds_generated.xlsx'); // Adjust the path as needed
+        $writer = new Xlsx($this->spreadsheet);
+        $writer->save($this->outputPath);
     }
 
-    public function sheets(): array
+    public function getOutputPath()
     {
-        return [
-            'C1' => new PersonnelDataC1Sheet($this->personnel_id),
-            'C2' => new PersonnelDataC2Sheet($this->personnel_id),
-            'C3' => new PersonnelDataC3Sheet($this->personnel_id),
-            'C4' => new PersonnelDataC4Sheet($this->personnel_id),
-        ];
-    }
-
-    public function defaultStyles(Style $defaultStyle)
-    {
-        $defaultStyle->getFont()->setName('Arial Narrow');
-        $defaultStyle->getFont()->setSize(8);
-
-        return $defaultStyle;
+        return $this->outputPath;
     }
 }

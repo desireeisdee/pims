@@ -2,7 +2,7 @@
     <div class="flex justify-between">
         <div class="w-1/4 inline-flex space-x-4">
             <a href="#" x-on:click="$openModal('create-position-modal')">
-                <button class="w-[9rem] py-2 px-4 bg-primary font-medium text-sm tracking-wider rounded-md border-2 hover:bg-blue-900 text-white duration-300">
+                <button class="w-[9rem] py-2 px-4 bg-main font-medium text-sm tracking-wider rounded-md border-2 hover:bg-blue-900 text-white duration-300">
                     Add Position
                 </button>
             </a>
@@ -89,7 +89,7 @@
                         {{-- @livewire('modal') --}}@include('position.forms.edit')
                         <div class="flex justify-between space-x-3">
                             <a href="#" x-on:click="$openModal('edit-position-modal', { id: '{{ $position->id }}' })">
-                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-primary hover:bg-primary hover:text-white text-primary duration-300">
+                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>
                             </a>

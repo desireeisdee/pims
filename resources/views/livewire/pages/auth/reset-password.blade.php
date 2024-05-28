@@ -89,9 +89,9 @@ $resetPassword = function () {
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
+            <x-main-button>
                 {{ __('Reset Password') }}
-            </x-primary-button>
+            </x-main-button>
         </div>
     </form>
 </div>

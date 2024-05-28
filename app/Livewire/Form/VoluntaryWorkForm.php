@@ -17,13 +17,11 @@ class VoluntaryWorkForm extends Component
         'old_voluntary_works.*.inclusive_from' => 'required',
         'old_voluntary_works.*.inclusive_to' => 'required',
         'old_voluntary_works.*.hours' => 'required',
-        'old_voluntary_works.*.is_gov_service' => 'required',
         'new_voluntary_works.*.organization' => 'required',
         'new_voluntary_works.*.position' => 'required',
         'new_voluntary_works.*.inclusive_from' => 'required',
         'new_voluntary_works.*.inclusive_to' => 'required',
         'new_voluntary_works.*.hours' => 'required',
-        'new_voluntary_works.*.is_gov_service' => 'required',
     ];
 
     public function  mount($id, $showMode=true)
@@ -40,7 +38,6 @@ class VoluntaryWorkForm extends Component
                     'hours' => $voluntary_work->hours,
                     'inclusive_from' => $voluntary_work->inclusive_from,
                     'inclusive_to' => $voluntary_work->inclusive_to,
-                    'is_gov_service' => $voluntary_work->is_gov_service,
                 ];
             })->toArray();
 
@@ -50,7 +47,6 @@ class VoluntaryWorkForm extends Component
                 'hours' => '',
                 'inclusive_from' => '',
                 'inclusive_to' => '',
-                'is_gov_service' => ''
             ];
         }
     }
@@ -63,7 +59,6 @@ class VoluntaryWorkForm extends Component
             'hours' => '',
             'inclusive_from' => '',
             'inclusive_to' => '',
-            'is_gov_service' => ''
         ];
     }
 
@@ -113,9 +108,7 @@ class VoluntaryWorkForm extends Component
 
     public function save()
     {
-        // dd("oopo");
         $this->validate();
-        // dd("oopo");
         if ($this->personnel->voluntaryWorks()->exists()) {
             foreach ($this->old_voluntary_works as $voluntary_work) {
                 $this->personnel->voluntaryWorks()->where('id', $voluntary_work['id'])
@@ -125,11 +118,9 @@ class VoluntaryWorkForm extends Component
                         'inclusive_from' => $voluntary_work['inclusive_from'],
                         'inclusive_to' => $voluntary_work['inclusive_to'],
                         'hours' => $voluntary_work['hours'],
-                        'is_gov_service' => $voluntary_work['is_gov_service']
                     ]);
             }
         }
-dd("poo");
         if($this->new_voluntary_works != null)
         {
             foreach ($this->new_voluntary_works as $voluntary_work) {
@@ -138,8 +129,7 @@ dd("poo");
                     'position' => $voluntary_work['position'],
                     'inclusive_from' => $voluntary_work['inclusive_from'],
                     'inclusive_to' => $voluntary_work['inclusive_to'],
-                    'hours' => $voluntary_work['hours'],
-                    'is_gov_service' => $voluntary_work['is_gov_service']
+                    'hours' => $voluntary_work['hours']
                 ]);
             }
         }

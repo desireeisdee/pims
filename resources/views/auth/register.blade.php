@@ -30,7 +30,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button type="submit" label="Register" class="bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+                <x-button type="submit" label="Register" class="bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover"/>
             </div>
         </form>
     </x-authentication-card>

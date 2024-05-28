@@ -28,10 +28,9 @@ class PersonnelController extends Controller
         return view('personnel.create');
     }
 
-    public function profile($personnel)
+    public function profile()
     {
-        $personnel = Auth::user()->personnel->id;
-        return view('personnel.show', compact('personnel'));
+        dd("ioi");
     }
 
     public function loyaltyAwards()
@@ -42,13 +41,13 @@ class PersonnelController extends Controller
 
     public function export($id)
     {
-        // dd("uu");
         $personnel = Personnel::findOrFail($id);
 
-        $personnelData = [ 'personnels' => $personnel];
-        $filename = $personnel->id . '.xlsx';
+        // Pass the personnel data to the export class
+        $export = new PersonnelDataExport(['id' => $personnel->id]);
 
-        return Excel::download(new PersonnelDataExport($personnelData, $personnel->id), $filename);
+        // Return the file for download
+        return response()->download($export->getOutputPath(), $personnel->id . '_pds.xlsx');
     }
 
     public function destroy($id)

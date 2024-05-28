@@ -25,10 +25,10 @@
 
             <div class="mt-2 flex items-center justify-between">
                 <p class="text-sm font-light text-gray-500">
-                    <a href="{{ route('register') }}" class="font-medium text-primary-600 hover:underline duration-150">Activate Account</a>
+                    <a href="{{ route('register') }}" class="font-medium text-main-600 hover:underline duration-150">Activate Account</a>
                 </p>
 
-                <x-button type="submit" label="Login" class="bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+                <x-button type="submit" label="Login" class="bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover"/>
             </div>
         </form>
     </x-authentication-card>

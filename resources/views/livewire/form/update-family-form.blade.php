@@ -115,10 +115,15 @@
                                 x-transition:leave-end="opacity-0 transform scale-95">
                                 <div class="w-8/12 ps-3 text-xs">
                                     <div class="sm:flex space-x-1 rounded-md border border-gray-300">
-                                        <input id="first_name_{{ $index }}" wire:model="new_children.{{ $index }}.first_name" type="text" name="new_children[{{ $index }}][first_name]" placeholder="First Name" class="w-[14rem] rounded-s-md border-none appearance-none placeholder-gray-400 focus:ring-0" required/>
-                                        <input id="middle_name_{{ $index }}" wire:model="new_children.{{ $index }}.middle_name" type="text" name="new_children[{{ $index }}][middle_name]" placeholder="M.I." class="w-[4rem] rounded-none border-none appearance-none placeholder-gray-400 focus:ring-0" required/>
-                                        <input id="last_name_{{ $index }}" wire:model="new_children.{{ $index }}.last_name" type="text" name="new_children[{{ $index }}][last_name]" placeholder="Last Name" class="w-[14rem] rounded-none border-none appearance-none placeholder-gray-400 focus:ring-0" required/>
-                                        <input id="name_ext_{{ $index }}" wire:model="new_children.{{ $index }}.name_ext" type="text" name="new_children[{{ $index }}][name_ext]" placeholder="Ext." class="w-[4rem] rounded-e-md border-none appearance-none placeholder-gray-400 focus:ring-0" required/>
+                                        <x-input id="new_children.{{ $index }}.first_name"
+                                                 wire:model="new_children.{{ $index }}.first_name"
+                                                 name="new_children.{{ $index }}.first_name"
+                                                 type="text"
+                                                 placeholder="First Name"
+                                                 class="form-control" required/>
+                                        <x-input id="new_children.{{ $index }}.middle_name" wire:model="new_children.{{ $index }}.middle_name" type="text" name="new_children[{{ $index }}][middle_name]" placeholder="M.I." class="form-control" required/>
+                                        <x-input id="last_name_{{ $index }}" wire:model="new_children.{{ $index }}.last_name" type="text" name="new_children[{{ $index }}][last_name]" placeholder="Last Name" class="form-control" required/>
+                                        <x-input id="name_ext_{{ $index }}" wire:model="new_children.{{ $index }}.name_ext" type="text" name="new_children[{{ $index }}][name_ext]" placeholder="Ext." cclass="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="w-3/12 ps-3 text-xs">
@@ -135,7 +140,7 @@
                         @endforeach
                         <div class="mt-3 flex space-x-3 items-center">
                             <div class="w-full">
-                                <x-button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-primary text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none"/>
+                                <x-button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none"/>
                             </div>
                         </div>
                     </div>
@@ -148,7 +153,7 @@
             <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 py-2.5 w-full bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
         </div>
         <div class="w-2/12">
-            <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover"/>
+            <x-button wire:click.prevent="save" label="Save" class="px-5 py-2.5 w-full bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover"/>
         </div>
     </div>
 </section>

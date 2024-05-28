@@ -62,9 +62,9 @@ $login = function () {
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-main-button class="ms-3">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-main-button>
         </div>
     </form>
 </div>

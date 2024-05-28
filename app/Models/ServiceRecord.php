@@ -15,8 +15,8 @@ class ServiceRecord extends Model
                            'designation',
                            'appointment_status',
                            'salary',
-                           'station',
-                           'branch',
+                           'station', //district
+                           'branch',  //school
                            'lv_wo_pay',
                            'separation_date_cause'
                         ];

@@ -6,7 +6,7 @@
                     <h4 class="font-bold text-2xl text-gray-darkest">Edit School Resources</h4>
                 </div>
                 <div class="w-1/4 flex space-x-2 text-end">
-                    <x-button wire:click.prevent="edit" label="Edit" class="w-32 px-5 bg-primary text-white tracking-wider hover:hover:bg-primary-hover hover:scale-105 duration-100"/>
+                    <x-button wire:click.prevent="edit" label="Edit" class="w-32 px-5 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100"/>
                 </div>
             </div>
             <div class="m-0 p-0">
@@ -15,9 +15,9 @@
             <div class="m-0 mb-4 p-0 flex space-x-3 justify-end">
                 <x-button wire:click.prevent="cancel" label="Cancel" class="px-5 bg-danger font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-red-600 hover:scale-105 duration-150"/>
                 @if ($storeMode == true)
-                    <x-button wire:click.prevent="store" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                    <x-button wire:click.prevent="store" label="Save" class="px-5 bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
                 @else
-                    <x-button wire:click.prevent="update" label="Save" class="px-5 bg-primary font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-primary-hover hover:scale-105 duration-150"/>
+                    <x-button wire:click.prevent="update" label="Save" class="px-5 bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover hover:scale-105 duration-150"/>
                 @endif
 
             </div>
@@ -29,7 +29,7 @@
                     <h4 class="font-bold text-2xl text-gray-darkest">School's Resources</h4>
                 </div>
                 <div class="w-1/4 flex space-x-2 text-end">
-                    <x-button wire:click.prevent="edit" label="Edit" class="w-32 px-5 bg-primary text-white tracking-wider hover:hover:bg-primary-hover hover:scale-105 duration-100"/>
+                    <x-button wire:click.prevent="edit" label="Edit" class="w-32 px-5 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100"/>
                 </div>
             </div>
             <div class="mt-7">
