@@ -18,7 +18,7 @@
                 >
             </li>
             <li class="text-gray-600">
-                <a href="{{ route('personnels.create') }}">Create</a>
+                <a href="{{ route('personnel.create') }}">Create</a>
                 >
             </li>
         </ul>

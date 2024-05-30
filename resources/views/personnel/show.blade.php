@@ -15,7 +15,7 @@
         </div>
     </x-slot>
 
-    <div class="relative h-[62rem] bg-slate-100">
+    <div class="relative h-[38rem] bg-slate-100">
         <div>
             @livewire('personnel-navigation', ['personnelId' => $personnel->id])
         </div>

@@ -14,58 +14,67 @@
                     </span>
                 </button>
             </div>
-            <div>
-                <div class="mt-10">
-                    <div class="ps-5 w-full flex space-x-3 h-10 border border-gray-100 bg-gray-lightest items-center">
-                        <h6 class="w-2/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">Attendance Start Date</span>
-                        </h6>
-                        <h6 class="w-2/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">Attendance End Date</span>
-                        </h6>
-                        <h6 class="w-3/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS</span>
-                        </h6>
-                        <h6 class="w-3/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">CONDUCTED/ SPONSORED BY</span>
-                        </h6>
-                        <h6 class="w-1/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">Type</span>
-                        </h6>
-                        <h6 class="w-1/12">
-                            <span class="text-xs text-gray-dark font-semibold uppercase">No. of Hours</span>
-                        </h6>
-                    </div>
-                    @if ($old_training_certifications != null)
-                        <section class="mt-2">
-                            @foreach ($old_training_certifications as $index => $old_training_certification)
-                                <div class="mb-2 px-3 w-full flex items-center space-x-3 h-12 border border-gray-200 rounded focus:outline-none">
-                                    <div class="w-2/12 ps-3 text-xs">
-                                        <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_from" name="old_training_certification[{{ $index }}][inclusive_from]" class="text-xs" readonly/>
-                                    </div>
-                                    <div class="w-2/12 ps-3 text-xs">
-                                        <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_to" name="old_training_certification[{{ $index }}][inclusive_to]" class="text-xs" readonly/>
-                                    </div>
-                                    <div class="w-3/12 ps-3 text-xs">
-                                        <x-input type="text" wire:model="old_training_certifications.{{ $index }}.training_seminar_title" name="old_training_certification[{{ $index }}][training_seminar_title]" class="text-xs" readonly/>
-                                    </div>
-                                    <div class="w-3/12 ps-3 text-xs">
-                                        <x-input type="text" wire:model="old_training_certifications.{{ $index }}.sponsored" name="old_training_certification[{{ $index }}][sponsored]" class="text-xs" readonly/>
-                                    </div>
-                                    <div class="w-1/12 ps-3 text-xs">
-                                        <x-input type="text" wire:model="old_training_certifications.{{ $index }}.type" name="old_training_certification[{{ $index }}][type]" class="text-xs" readonly/>
-                                    </div>
-                                    <div class="w-1/12 ps-3 text-xs">
-                                        <x-input type="number" wire:model="old_training_certifications.{{ $index }}.hours" name="old_training_certification[{{ $index }}][hours]" class="text-xs" readonly/>
-                                    </div>
+
+            @if ($old_training_certifications != null)
+            <section class="mt-2">
+                @foreach ($old_training_certifications as $index => $old_training_certification)
+                    {{-- <div class="mb-2 px-3 py-2 w-full space-x-3 h-40 border border-gray-200 rounded focus:outline-none">
+                        <div class="mb-3 flex space-x-5">
+                            <div class="w-6/12 text-xs">
+                                <x-input type="text" wire:model="old_training_certifications.{{ $index }}.training_seminar_title" name="old_training_certification[{{ $index }}][training_seminar_title]" class="form-control" readonly/>
+                            </div>
+                            <div class="w-3/12 text-xs">
+                                <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_from" name="old_training_certification[{{ $index }}][inclusive_from]" class="form-control" readonly/>
+                            </div>
+                            <div class="w-3/12 text-xs">
+                                <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_to" name="old_training_certification[{{ $index }}][inclusive_to]" class="form-control" readonly/>
+                            </div>
+                        </div>
+                        <div class="mb-3 flex space-x-5 bg-pink-400">
+                            <div class="w-6/12 text-xs">
+                                <x-input type="text" wire:model="old_training_certifications.{{ $index }}.sponsored" name="old_training_certification[{{ $index }}][sponsored]" class="text-xs" readonly/>
+                            </div>
+                            <div class="w-3/12 text-xs">
+                                <x-input type="text" wire:model="old_training_certifications.{{ $index }}.type" name="old_training_certification[{{ $index }}][type]" class="text-xs" readonly/>
+                            </div>
+                            <div class="w-3/12 text-xs">
+                                <x-input type="number" wire:model="old_training_certifications.{{ $index }}.hours" name="old_training_certification[{{ $index }}][hours]" class="text-xs" readonly/>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="flex justify-between">
+                        <div class="w-11/12 mb-4 px-3 py-3 bg-gray-50 border border-gray-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6/12 text-xs">
+                                    <x-input type="text" wire:model="old_training_certifications.{{ $index }}.training_seminar_title" name="old_training_certification[{{ $index }}][training_seminar_title]" label="Development Interventions/ Training Programs" class="form-control" readonly/>
                                 </div>
-                            @endforeach
-                        </section>
-                    @else
-                        <p class="mt-3 w-full py-2 font-medium text-xs text-center bg-gray-200">No Training / Certifications Found</p>
-                    @endif
-                </div>
-            </div>
+                                <div class="w-6/12 text-xs">
+                                    <x-input type="text" wire:model="old_training_certifications.{{ $index }}.sponsored" name="old_training_certification[{{ $index }}][sponsored]" class="text-xs" label="Sponsored" readonly/>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center space-x-3">
+                                <div class="w-3/12 text-xs">
+                                    <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_from" name="old_training_certification[{{ $index }}][inclusive_from]" class="form-control" label="Start Date" readonly/>
+                                </div>
+                                <div class="w-3/12 text-xs">
+                                    <x-input type="date" wire:model="old_training_certifications.{{ $index }}.inclusive_to" name="old_training_certification[{{ $index }}][inclusive_to]" class="form-control" label="End Date" readonly/>
+                                </div>
+                                <div class="w-3/12 text-xs">
+                                    <x-input type="text" wire:model="old_training_certifications.{{ $index }}.type" name="old_training_certification[{{ $index }}][type]" class="text-xs" label="Type" readonly/>
+                                </div>
+                                <div class="w-3/12 text-xs">
+                                    <x-input type="number" wire:model="old_training_certifications.{{ $index }}.hours" name="old_training_certification[{{ $index }}][hours]" class="text-xs" label="Hours" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-1/12 mb-4 px-3 py-3">
+                        </div>
+                    </div>
+                @endforeach
+            </section>
+            @else
+                <p class="mt-1 w-full py-2.5 font-medium text-xs text-center border border-gray-200 bg-gray-50 drop-shadow-sm">No Training / Certifications Found</p>
+            @endif
         </section>
     @else
         @isset($personnel)

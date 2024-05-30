@@ -8,9 +8,9 @@
                 </h2>
             </div>
             <div class="flex space-x-3 justify-end">
-                <a href="{{ route('schools.export', $school->id) }}" class="w-24 rounded-md px-5 py-2 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100">
+                {{-- <a href="{{ route('schools.export', $school->id) }}" class="w-24 rounded-md px-5 py-2 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100">
                     Export
-                </a>
+                </a> --}}
                 <form action="{{ route('schools.destroy', $school->id) }}" method="POST">
                     @csrf
                     @method('DELETE')

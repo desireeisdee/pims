@@ -4,8 +4,9 @@ namespace App\Livewire\Form;
 
 use App\Models\Personnel;
 use Livewire\Component;
+use App\Livewire\PersonnelNavigation;
 
-class TrainingCertificationForm extends Component
+class TrainingCertificationForm extends PersonnelNavigation
 {
     public $personnel;
     public $old_training_certifications = [], $new_training_certifications = [];
@@ -26,7 +27,7 @@ class TrainingCertificationForm extends Component
         'new_training_certifications.*.hours' => 'required',
     ];
 
-    public function  mount($id, $showMode=true)
+    public function mount($id = null)
     {
         if($id) {
             $this->personnel = Personnel::findOrFail($id);
@@ -83,13 +84,9 @@ class TrainingCertificationForm extends Component
 
             session()->flash('flash.banner', 'Work Experience deleted successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } catch (\Throwable $th) {
             session()->flash('flash.banner', 'Failed to deleteWork Experience ');
             session()->flash('flash.bannerStyle', 'danger');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
     }
 
@@ -111,34 +108,73 @@ class TrainingCertificationForm extends Component
         $this->showMode = true;
     }
 
+    // public function save()
+    // {
+    //     $this->validate();
+
+    //     if ($this->personnel->trainingCertifications()->exists()) {
+    //         foreach ($this->old_training_certifications as $training_certification) {
+    //             $this->personnel->trainingCertifications()->where('id', $training_certification['id'])
+    //                 ->update([
+    //                     'training_seminar_title' => $training_certification->training_seminar_title,
+    //                     'type' => $training_certification->type,
+    //                     'inclusive_from' => $training_certification->inclusive_from,
+    //                     'inclusive_to' => $training_certification->inclusive_to,
+    //                     'sponsored' => $training_certification->sponsored,
+    //                     'hours' => $training_certification->hours
+    //                 ]);
+    //         }
+    //     }
+
+    //     if($this->new_training_certifications != null)
+    //     {
+    //         foreach ($this->new_training_certifications as $training_certification) {
+    //             $this->personnel->trainingCertifications()->create([
+    //                 'training_seminar_title' => $training_certification->training_seminar_title,
+    //                 'type' => $training_certification->type,
+    //                 'inclusive_from' => $training_certification->inclusive_from,
+    //                 'inclusive_to' => $training_certification->inclusive_to,
+    //                 'sponsored' => $training_certification->sponsored,
+    //                 'hours' => $training_certification->hours
+    //             ]);
+    //         }
+    //     }
+
+    //     $this->updateMode = false;
+    //     $this->showMode = true;
+
+    //     session()->flash('flash.banner', 'Work Experience saved successfully');
+    //     session()->flash('flash.bannerStyle', 'success');
+
+    //     return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+    // }
+
     public function save()
     {
         $this->validate();
-
         if ($this->personnel->trainingCertifications()->exists()) {
             foreach ($this->old_training_certifications as $training_certification) {
                 $this->personnel->trainingCertifications()->where('id', $training_certification['id'])
                     ->update([
-                        'training_seminar_title' => $training_certification->training_seminar_title,
-                        'type' => $training_certification->type,
-                        'inclusive_from' => $training_certification->inclusive_from,
-                        'inclusive_to' => $training_certification->inclusive_to,
-                        'sponsored' => $training_certification->sponsored,
-                        'hours' => $training_certification->hours
+                        'training_seminar_title' => $training_certification['training_seminar_title'],
+                        'type' => $training_certification['type'],
+                        'sponsored' => $training_certification['sponsored'],
+                        'inclusive_from' => $training_certification['inclusive_from'],
+                        'inclusive_to' => $training_certification['inclusive_to'],
+                        'hours' => $training_certification['hours']
                     ]);
             }
         }
-
         if($this->new_training_certifications != null)
         {
             foreach ($this->new_training_certifications as $training_certification) {
                 $this->personnel->trainingCertifications()->create([
-                    'training_seminar_title' => $training_certification->training_seminar_title,
-                    'type' => $training_certification->type,
-                    'inclusive_from' => $training_certification->inclusive_from,
-                    'inclusive_to' => $training_certification->inclusive_to,
-                    'sponsored' => $training_certification->sponsored,
-                    'hours' => $training_certification->hours
+                    'training_seminar_title' => $training_certification['training_seminar_title'],
+                        'type' => $training_certification['type'],
+                        'sponsored' => $training_certification['sponsored'],
+                        'inclusive_from' => $training_certification['inclusive_from'],
+                        'inclusive_to' => $training_certification['inclusive_to'],
+                        'hours' => $training_certification['hours']
                 ]);
             }
         }
@@ -146,7 +182,7 @@ class TrainingCertificationForm extends Component
         $this->updateMode = false;
         $this->showMode = true;
 
-        session()->flash('flash.banner', 'Work Experience saved successfully');
+        session()->flash('flash.banner', 'Training Certification saved successfully');
         session()->flash('flash.bannerStyle', 'success');
 
         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);

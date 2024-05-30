@@ -6,8 +6,9 @@ use App\Models\Address;
 use App\Models\ContactPerson;
 use App\Models\Personnel;
 use Livewire\Component;
+use App\Livewire\PersonnelNavigation;
 
-class AddressForm extends Component
+class AddressForm extends PersonnelNavigation
 {
     public $personnel, $permanent_address, $residential_address, $contact_person;
     public $permanent_house_no, $permanent_st_address, $permanent_subdivision, $permanent_brgy, $permanent_city, $permanent_province, $permanent_region, $permanent_zip_code;

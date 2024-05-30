@@ -122,7 +122,7 @@ class PersonalInformationForm extends PersonnelNavigation
         $this->showMode = true;
         $this->updateMode = false;
 
-        return redirect()->back()->route('personnels.index');
+        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id, '#personal_information']);
     }
 
     // public function save()
@@ -298,7 +298,7 @@ class PersonalInformationForm extends PersonnelNavigation
             session()->flash('flash.banner', 'Personal Information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
 
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id, '#personal_information']);
         }
 
         $this->updateMode = false;

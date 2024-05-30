@@ -6,8 +6,13 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/excel', [ExcelController::class, 'importView'])->name('excel.view');
+Route::post('/excel/', [ExcelController::class, 'convert'])->name('excel.convert');
 
 Route::controller('App\Http\Controllers\Auth\LoginController'::class)->group(function(){
     Route::get('/login', 'login')->name('login');
@@ -24,9 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         $user = Auth::user();
         if ($user->role === 'teacher') {
-            return redirect()->route('personnels.show', ['personnel' => $user->personnel->id]);
+            return redirect()->route('personnels.profile', ['personnel' => $user->personnel->id]);
         } elseif ($user->role === 'school_head') {
-            return redirect()->route('schools.show', ['school' => $user->personnel->school]);
+            return redirect()->route('schools.profile', ['school' => $user->personnel->school]);
         } elseif ($user->role === 'admin') {
             return redirect()->route('admin.home');
         } else {
@@ -35,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['user-access:teacher'])->group(function () {
-        Route::get('/personnel/{personnel}', [PersonnelController::class, 'show'])->name('personnels.show');
+        Route::get('/personnel/profile', [PersonnelController::class, 'profile'])->name('personnels.profile');
         Route::patch('/personnels/{personnel}', [PersonnelController::class, 'update'])->name('personnels.update');
+        Route::get('personnels/export/{personnel}', [PersonnelController::class, 'export'])->name('personnels.export');
+        // Route::get('/personnels/{personnel}', [PersonnelController::class, 'show'])->name('personnels.show');
     });
 
     Route::middleware(['user-access:school_head'])->group(function () {
@@ -53,12 +60,12 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::controller(PersonnelController::class)->group(function(){
-            Route::get('personnel/create', 'create')->name('personnels.create');
+            // Route::get('personnel/create', 'create')->name('personnels.create');
             Route::get('personnels/', 'index')->name('personnels.index');
             Route::get('personnels/{personnel}/edit', 'edit')->name('personnels.edit');
             Route::get('personnels/export/{personnel}', 'export')->name('personnels.export');
             Route::patch('personnels/{personnel}', 'update')->name('personnels.update');
-            Route::get('personnel/{personnel}', 'show')->name('personnels.profile');
+            // Route::get('personnel/{personnel}', 'show')->name('personnels.profile');
         });
     });
 
@@ -96,10 +103,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/schools/export/{school}', 'export')->name('schools.export');
         });
 
-        Route::get('/personnel/create', UserController::class .'@index')->name('personnel.create');
+        // Route::get('/personnel/create', PersonnelController::class .'@index')->name('personnel.create');
+        Route::get('/personnel/create', function () {
+            return view('personnel.create');
+        })->name('personnel.create');
 
         Route::get('/accounts', UserController::class .'@index')->name('accounts.index');
-        // Route::put('/accounts', UserController::class .'@store')->name('accounts.store');
         Route::post('/accounts', [UserController::class, 'store'])->name('accounts.store');
         Route::put('/accounts/{account}', UserController::class .'@update')->name('accounts.update');
         Route::delete('/accounts/{account}', UserController::class .'@destroy')->name('accounts.destroy');

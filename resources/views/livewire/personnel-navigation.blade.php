@@ -84,18 +84,26 @@
                     </a>
                 </div>
 
-                {{-- <div class="w-[14rem]" :class="{'w-[14.2rem] z-20 bg-white': formNav === 'training_certification'}">
+                <div class="w-[14rem]" :class="{'w-[14.2rem] z-20 bg-white': formNav === 'training_certification'}">
                     <a href="#training_certification" @click.prevent="formNav = 'training_certification'">
                         <div class="px-8 py-2 w-[14rem]" :class="{'border-l-2 border-y-2 border-gray-300': formNav === 'training_certification'}">
                             <span class="text-sm font-medium">Training & Certifications</span>
                         </div>
                     </a>
-                </div> --}}
+                </div>
 
-                {{-- <div class="w-[14rem]" :class="{'w-[14.2rem] z-20 bg-white': formNav === 'other_information'}">
+                <div class="w-[14rem]" :class="{'w-[14.2rem] z-20 bg-white': formNav === 'other_information'}">
                     <a href="#other_information" @click.prevent="formNav = 'other_information'">
                         <div class="px-8 py-2 w-[14rem]" :class="{'border-l-2 border-y-2 border-gray-300': formNav === 'other_information'}">
                             <span class="text-sm font-medium">Other Information</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="w-[14rem]" :class="{'w-[14.2rem] z-20 bg-white': formNav === 'questionnaire'}">
+                    <a href="#questionnaire" @click.prevent="formNav = 'questionnaire'">
+                        <div class="px-8 py-2 w-[14rem]" :class="{'border-l-2 border-y-2 border-gray-300': formNav === 'questionnaire'}">
+                            <span class="text-sm font-medium">Questionnaire</span>
                         </div>
                     </a>
                 </div>
@@ -116,24 +124,16 @@
                     </a>
                 </div>
 
-                <div class="w-[14.5rem]" :class="{'w-[14.5rem] z-10 bg-white': formNav === 'award_received'}">
-                    <a href="#award_received" @click.prevent="formNav = 'award_received'">
-                        <div class="px-8 py-2 w-[13.1rem]" :class="{'border-l-2 border-y-2 border-gray-300': formNav === 'award_received'}">
-                            <span class="text-sm font-medium">Award Received</span>
-                        </div>
-                    </a>
-                </div> --}}
-
-                {{-- <div class="w-[14.5rem]" :class="{'w-[14.5rem] z-10 bg-white': formNav === 'service_record'}">
+                <div class="w-[14.5rem]" :class="{'w-[14.5rem] z-10 bg-white': formNav === 'service_record'}">
                     <a href="#service_record" @click.prevent="formNav = 'service_record'">
                         <div class="px-8 py-2 w-[13.1rem]" :class="{'border-l-2 border-y-2 border-gray-300': formNav === 'service_record'}">
                             <span class="text-sm font-medium">Service Record</span>
                         </div>
-                    </a> --}}
-                {{-- </div> --}}
+                    </a>
+                </div>
             </div>
 
-            <div class="w-10/12 bg-white">
+            <div class="w-10/12 bg-white h-[32rem] overflow-y-auto">
                 <section x-show="formNav === 'personal_information'" id="personal_information">
                     @livewire('form.personal-information-form', ['id' => $personnelId, 'showMode' => true])
                 </section>
@@ -158,6 +158,12 @@
 
                 <section x-show="formNav === 'training_certification'" id="training_certification">
                     @livewire('form.training-certification-form', ['id' => $personnelId, 'showMode' => true])
+                </section>
+                <section x-show="formNav === 'other_information'" id="other_information">
+                    @livewire('form.other-information-form', ['id' => $personnelId, 'showMode' => true])
+                </section>
+                <section x-show="formNav === 'questionnaire'" id="questionnaire">
+                    @livewire('form.questionnaire-form', ['id' => $personnelId, 'showMode' => true])
                 </section>
                 <section x-show="formNav === 'references'" id="references">
                     @livewire('form.references-form', ['id' => $personnelId, 'showMode' => true])

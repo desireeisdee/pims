@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('personnel_id');
             $table->string('training_seminar_title');
-            $table->enum('type', ['managerial', 'supervisory', 'technical', 'etc.']);
+            $table->string('type');
             $table->string('sponsored');
             $table->date('inclusive_from');
             $table->date('inclusive_to');

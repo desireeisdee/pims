@@ -14,6 +14,7 @@ class PersonnelDatatable extends Component
     public $search = '';
     public $sortDirection = 'ASC';
     public $sortColumn = 'id';
+    // public $school
 
 
     public function doSort($column)

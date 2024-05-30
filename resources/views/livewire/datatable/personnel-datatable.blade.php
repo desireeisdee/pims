@@ -1,11 +1,11 @@
 <div class="mx-5 my-8 p-3">
     <div class="flex justify-between">
         <div class="w-1/4 inline-flex space-x-4">
-            <a href="{{ route('personnels.create') }}">
+            {{-- <a href="{{ route('personnel.create') }}">
                 <x-button class="m-0 hover:shadow-[0.5rem_0.5rem_#FA0302,-0.5rem_-0.5rem_#FCC008] transition">
                     {{ __('New Personnel') }}
                 </x-button>
-            </a>
+            </a> --}}
         </div>
 
         <div class="flex w-2/4 items-center rounded-md border border-gray-400 bg-white focus:bg-white focus:border-gray-500">

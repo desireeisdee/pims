@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\PersonnelDataExport;
 use App\Models\Personnel;
 use App\Jobs\UpdateStepIncrement;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
@@ -23,15 +24,35 @@ class PersonnelController extends Controller
         return view('personnel.show', compact('personnel'));
     }
 
+    public function profile()
+    {
+        $personnel = Personnel::findOrFail(Auth::user()->personnel->id);
+        return view('personnel.show', compact('personnel'));
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'personnel_id' => 'required',
+                'school_id' => 'required',
+            ]);
+
+                Personnel::create($request->all());
+                session()->flash('flash.banner', 'Position Created Successfully');
+                session()->flash('flash.bannerStyle', 'success');
+            } catch (ValidationException $e) {
+                session()->flash('flash.banner', 'Failed to create Position');
+                session()->flash('flash.bannerStyle', 'danger');
+            }
+            return redirect()->back();
+    }
+
     public function create()
     {
         return view('personnel.create');
     }
 
-    public function profile()
-    {
-        dd("ioi");
-    }
 
     public function loyaltyAwards()
     {
@@ -44,10 +65,9 @@ class PersonnelController extends Controller
         $personnel = Personnel::findOrFail($id);
 
         // Pass the personnel data to the export class
-        $export = new PersonnelDataExport(['id' => $personnel->id]);
+        $export = new PersonnelDataExport($personnel->id);
 
-        // Return the file for download
-        return response()->download($export->getOutputPath(), $personnel->id . '_pds.xlsx');
+        return response()->download($export->getOutputPath(), $personnel->personnel_id . '_pds.xlsm');
     }
 
     public function destroy($id)

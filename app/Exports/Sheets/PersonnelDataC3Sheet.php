@@ -13,7 +13,7 @@ class PersonnelDataC3Sheet
     public function __construct($personnel, Spreadsheet $spreadsheet)
     {
         $this->personnel = $personnel;
-        $this->personnel = $this->personnel[0];
+        // $this->personnel = $this->personnel[0];
         $this->worksheet = $spreadsheet->getSheet(2);
     }
 

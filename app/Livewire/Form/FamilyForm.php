@@ -5,8 +5,9 @@ namespace App\Livewire\Form;
 use App\Models\Family;
 use App\Models\Personnel;
 use Livewire\Component;
+use App\Livewire\PersonnelNavigation;
 
-class FamilyForm extends Component
+class FamilyForm extends PersonnelNavigation
 {
     public $personnel, $father, $mother, $spouse;
     public $old_children = [], $new_children = [];
@@ -45,7 +46,7 @@ class FamilyForm extends Component
         'new_children.*.date_of_birth' => 'required|date',
     ];
 
-    public function mount($id, $showMode=true)
+    public function mount($id = null)
     {
         $this->personnel = Personnel::findOrFail($id);
 
@@ -89,13 +90,13 @@ class FamilyForm extends Component
             ];
         })->toArray();
 
-        $this->new_children[] = [
-            'first_name' => '',
-            'middle_name' => '',
-            'last_name' => '',
-            'name_ext' => '',
-            'date_of_birth' => ''
-        ];
+        // $this->new_children[] = [
+        //     'first_name' => '',
+        //     'middle_name' => '',
+        //     'last_name' => '',
+        //     'name_ext' => '',
+        //     'date_of_birth' => ''
+        // ];
     }
 
     public function addField()
@@ -114,33 +115,23 @@ class FamilyForm extends Component
         array_splice($this->new_children, $index, 1);
     }
 
-    public function removeOldField($index)
-    {
-        // $this->dispatch('openModal', 'delete-children-confirmation-modal', $index);
-        // $this->dispatch('openModal', [
-        //     'component' => 'delete-children-confirmation-modal',
-        //     'arguments' => ['index' => $index]
-        // ]);
-        dd("oo");
-        // $dispatch('openModal', {component: 'delete-children-confirmation-modal', arguments: {index: $index}})
-    }
-
     public function confirmRemoveOldField($index)
     {
         try {
             $childId = $this->old_children[$index]['id'];
             $childModel = $this->personnel->children()->findOrFail($childId);
-
-            // Delete the child from the database
             $childModel->delete();
 
-            session()->flash('flash.banner', 'Child information deleted successfully');
-            session()->flash('flash.bannerStyle', 'success');
+            unset($this->old_children[$index]);
+
+            // Reset the array to remove gaps
+            $this->old_children = array_values($this->old_children);
         } catch (\Throwable $th) {
             session()->flash('flash.banner', 'Failed to delete child information');
             session()->flash('flash.bannerStyle', 'danger');
+
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
     }
 
     public function render()
@@ -148,25 +139,11 @@ class FamilyForm extends Component
         return view('livewire.form.family-form');
     }
 
-    public function edit()
-    {
-        $this->updateMode = true;
-        $this->showMode = false;
-    }
-
-    public function back()
-    {
-        $this->updateMode = false;
-        $this->showMode = true;
-
-        return redirect()->back()->with('message', 'Back.');
-    }
-
-    public function cancel()
-    {
-        $this->resetModes();
-        return redirect()->back()->with('message', 'Back.');
-    }
+    // public function cancel()
+    // {
+    //     $this->updateMode = false;
+    //     $this->showMode = true;
+    // }
 
     public function resetModes()
     {
@@ -177,7 +154,7 @@ class FamilyForm extends Component
     public function save()
     {
         $this->validate();
-        // dd($this->validate());
+
         try {
             if ($this->father != null) {
                 $this->personnel->father()->update([

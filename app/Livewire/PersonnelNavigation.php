@@ -31,17 +31,7 @@ class PersonnelNavigation extends Component
         return redirect()->back();
     }
 
-    public function cancel()
-    {
-        $this->resetModes();
-        return redirect()->back()->with('message', 'Back.');
-    }
 
-    public function resetModes()
-    {
-        $this->updateMode = false;
-        $this->showMode = false;
-    }
 
     public function setFormNav($section)
     {
@@ -52,4 +42,22 @@ class PersonnelNavigation extends Component
     {
         return view('livewire.personnel-navigation');
     }
+
+    // public function removeOldTraining($index)
+    // {
+    //     try {
+    //         $trainingId = $this->old_training_certifications[$index]['id'];
+    //         $trainingModel = $this->personnel->trainingCertifications()->findOrFail($trainingId);
+
+    //         // Delete the child from the database
+    //         $trainingModel->delete();
+
+    //         session()->flash('flash.banner', 'Work Experience deleted successfully');
+    //         session()->flash('flash.bannerStyle', 'success');
+
+    //     } catch (\Throwable $th) {
+    //         session()->flash('flash.banner', 'Failed to deleteWork Experience ');
+    //         session()->flash('flash.bannerStyle', 'danger');
+    //     }
+    // }
 }

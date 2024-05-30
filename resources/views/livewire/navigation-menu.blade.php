@@ -38,7 +38,8 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->role == "teacher" || Auth::user()->role == "school_head")
-                        <x-nav-link href="{{ route('personnels.show', ['personnel' => Auth::user()->personnel->id]) }}" :active="request()->routeIs('personnels.show', ['personnel' => Auth::user()->personnel->id])">
+                        <x-nav-link href="{{ route('personnels.profile', ['personnel' => Auth::user()->personnel->id]) }}"
+                            :active="request()->routeIs('personnels.profile', ['personnel' => Auth::user()->personnel->id])">
                             {{ __('Profile') }}
                         </x-nav-link>
                     @elseif(Auth::user()->role == "admin")

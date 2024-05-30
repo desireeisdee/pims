@@ -23,10 +23,10 @@
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="mt-2 flex items-center justify-between">
-                <p class="text-sm font-light text-gray-500">
+            <div class="mt-4 flex items-center justify-end">
+                {{-- <p class="text-sm font-light text-gray-500">
                     <a href="{{ route('register') }}" class="font-medium text-main-600 hover:underline duration-150">Activate Account</a>
-                </p>
+                </p> --}}
 
                 <x-button type="submit" label="Login" class="bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover"/>
             </div>

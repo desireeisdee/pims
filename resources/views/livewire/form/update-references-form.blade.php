@@ -5,7 +5,7 @@
                 <h6 class="ps-4 w-3/12">
                     <span class="text-xs text-gray-dark font-semibold uppercase">Fullname</span>
                 </h6>
-                <h6 class="w-4/12">
+                <h6 class="w-5/12">
                     <span class="text-xs text-gray-dark font-semibold uppercase">Address</span>
                 </h6>
                 <h6 class="w-2/12">
@@ -16,10 +16,10 @@
                 <!-- Old Data Children -->
                 @foreach ($old_references as $index => $old_reference)
                 <div class="mb-2 w-full flex items-center space-x-2 h-12 border border-gray-200 rounded focus:outline-none">
-                    <div class="w-3/12 ps-3 text-xs">
+                    <div class="w-4/12 ps-3 text-xs">
                         <x-input id="full_name_{{ $index }}" type="text" wire:model="old_references.{{ $index }}.full_name" name="old_references[{{ $index }}][full_name]" required/>
                     </div>
-                    <div class="w-4/12 ps-3 text-xs">
+                    <div class="w-5/12 ps-3 text-xs">
                         <x-input id="address_{{ $index }}" type="text" wire:model="old_references.{{ $index }}.address" name="old_references[{{ $index }}][address]" required/>
                     </div>
                     <div class="w-2/12 ps-3 text-xs">
@@ -45,10 +45,10 @@
                         x-transition:leave="transition ease-in-out duration-200"
                         x-transition:leave-start="opacity-100 transform scale-100"
                         x-transition:leave-end="opacity-0 transform scale-95">
-                        <div class="w-3/12 ps-3 text-xs">
+                        <div class="w-4/12 ps-3 text-xs">
                             <x-input id="full_name_{{ $index }}" type="text" wire:model="new_references.{{ $index }}.full_name" name="new_references[{{ $index }}][full_name]" required/>
                         </div>
-                        <div class="w-4/12 ps-3 text-xs">
+                        <div class="w-5/12 ps-3 text-xs">
                             <x-input id="address_{{ $index }}" type="text" wire:model="new_references.{{ $index }}.address" name="new_references[{{ $index }}][address]" required/>
                         </div>
                         <div class="w-2/12 ps-3 text-xs">
@@ -65,7 +65,7 @@
                 @endforeach
                 <div class="mt-3 flex space-x-3 items-center">
                     <div class="w-full">
-                        <x-button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-[#334979] hover:text-white duration-300 focus:outline-none"/>
+                        <button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-main_hover hover:text-white duration-300 focus:outline-none"/>
                     </div>
                 </div>
             </div>

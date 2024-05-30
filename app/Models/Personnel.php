@@ -151,6 +151,11 @@ class Personnel extends Model
         return $this->hasMany(CivilServiceEligibility::class);
     }
 
+    public function workExperiences(): HasMany
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+
     public function voluntaryWorks(): HasMany
     {
         return $this->hasMany(VoluntaryWork::class);
@@ -166,19 +171,24 @@ class Personnel extends Model
         return $this->hasMany(OtherInformation::class);
     }
 
-    public function skillsInformation()
+    public function skills()
     {
         return $this->hasOne(OtherInformation::class)->where('type', 'special_skill');
     }
 
-    public function nonacademicDistinctionInformation()
+    public function nonacademicDistinctions()
     {
         return $this->hasOne(OtherInformation::class)->where('type', 'nonacademic_distinction');
     }
 
-    public function associationInformation()
+    public function associations()
     {
         return $this->hasOne(OtherInformation::class)->where('type', 'association');
+    }
+
+    public function personnelDetail() //For Questionnaire
+    {
+        return $this->hasOne(PersonnelDetail::class);
     }
 
     public function references(): HasMany
@@ -186,20 +196,15 @@ class Personnel extends Model
         return $this->hasMany(Reference::class);
     }
 
-    public function workExperiences(): HasMany
-    {
-        return $this->hasMany(WorkExperience::class);
-    }
-
     public function assignmentDetails(): HasMany
     {
         return $this->hasMany(AssignmentDetail::class);
     }
 
-    public function awardReceived(): HasMany
-    {
-        return $this->hasMany(AwardReceived::class);
-    }
+    // public function awardReceived(): HasMany
+    // {
+    //     return $this->hasMany(AwardReceived::class);
+    // }
 
     public function serviceRecords(): HasMany
     {

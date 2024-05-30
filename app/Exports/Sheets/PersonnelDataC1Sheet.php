@@ -12,7 +12,7 @@ class PersonnelDataC1Sheet
     public function __construct($personnel, Spreadsheet $spreadsheet)
     {
         $this->personnel = $personnel;
-        $this->personnel = $this->personnel[0];
+        // $this->personnel = $this->personnel[0];
         $this->worksheet = $spreadsheet->getSheet(0); // Assuming the first sheet is being used
     }
 
@@ -44,9 +44,13 @@ class PersonnelDataC1Sheet
         $worksheet->setCellValue('D10', $this->personnel->last_name);
         $worksheet->setCellValue('D11', $this->personnel->first_name);
         $worksheet->setCellValue('D12', $this->personnel->middle_name);
-        $worksheet->setCellValue('N11', $this->personnel->name_ext);
+        $worksheet->setCellValue('L11', $this->personnel->name_ext);
         $worksheet->setCellValue('D13', $this->personnel->date_of_birth);
         $worksheet->setCellValue('D15', $this->personnel->place_of_birth);
+        $worksheet->setCellValue('D16', $this->personnel->sex);
+        $worksheet->setCellValue('D17', $this->personnel->civil_status);
+        $worksheet->setCellValue('J13', $this->personnel->citizenship);
+
         $worksheet->setCellValue('D22', $this->personnel->height);
         $worksheet->setCellValue('D24', $this->personnel->weight);
         $worksheet->setCellValue('D25', $this->personnel->blood_type);
@@ -59,17 +63,6 @@ class PersonnelDataC1Sheet
         $worksheet->setCellValue('I32', $this->personnel->tel_no);
         $worksheet->setCellValue('I33', $this->personnel->mobile_no);
         $worksheet->setCellValue('I34', $this->personnel->email);
-
-        $worksheet->setCellValue('L60', $this->personnel->voluntaryWorks);
-
-        // Determine the sex and check the appropriate box
-        if ($this->personnel->sex === 'male') {
-            $worksheet->setCellValue('E10', 'X'); // Check "Male"
-            $worksheet->setCellValue('F10', '');  // Uncheck "Female"
-        } elseif ($this->personnel->sex === 'female') {
-            $worksheet->setCellValue('E10', '');  // Uncheck "Male"
-            $worksheet->setCellValue('F10', 'X'); // Check "Female"
-        }
     }
 
     protected function populateAddress()
