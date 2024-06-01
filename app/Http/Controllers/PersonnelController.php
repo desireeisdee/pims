@@ -39,10 +39,10 @@ class PersonnelController extends Controller
             ]);
 
                 Personnel::create($request->all());
-                session()->flash('flash.banner', 'Position Created Successfully');
+                session()->flash('flash.banner', 'Personnel Created Successfully');
                 session()->flash('flash.bannerStyle', 'success');
             } catch (ValidationException $e) {
-                session()->flash('flash.banner', 'Failed to create Position');
+                session()->flash('flash.banner', 'Failed to create Personnel');
                 session()->flash('flash.bannerStyle', 'danger');
             }
             return redirect()->back();

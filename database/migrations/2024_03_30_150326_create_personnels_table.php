@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('tel_no')->nullable();
             $table->string('mobile_no')->nullable();
 
-            //Work Information
+            // Work Information
             $table->string('personnel_id')->unique();
             $table->unsignedBigInteger('school_id');
             $table->unsignedBigInteger('position_id');
@@ -43,12 +43,12 @@ return new class extends Migration
             $table->date('employment_start');
             $table->date('employment_end')->nullable();
 
-            //Government Information
-            $table->integer('tin')->nullable();
-            $table->integer('sss_num')->nullable();
-            $table->integer('gsis_num')->nullable();
-            $table->integer('philhealth_num')->nullable();
-            $table->integer('pagibig_num')->nullable();
+            // Government Information
+            $table->string('tin', 12)->nullable();
+            $table->string('sss_num', 10)->nullable();
+            $table->string('gsis_num', 11)->nullable();
+            $table->string('philhealth_num', 12)->nullable();
+            $table->string('pagibig_num', 12)->nullable();
             $table->timestamps();
 
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->enum('type', ['elementary','secondary','vocational/trade', 'graduate','graduate studies']);
             $table->string('school_name');
             $table->string('degree_course')->nullable();
+            $table->string('major')->nullable();
+            $table->string('minor')->nullable();
             $table->integer('period_from');
             $table->integer('period_to')->nullable();
             $table->string('highest_level_units')->nullable();

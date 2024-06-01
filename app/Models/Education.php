@@ -14,6 +14,8 @@ class Education extends Model
     protected $fillable = ['type',
                            'school_name',
                            'degree_course',
+                           'major',
+                           'minor',
                            'period_from',
                            'period_to',
                            'highest_level_units',
@@ -51,4 +53,36 @@ class Education extends Model
             ]);
         }
     }
+
+    function abbreviateDegree($degree) {
+        // Split the degree string into words
+        $words = explode(' ', $degree);
+        $abbreviatedDegree = '';
+
+        // Iterate through each word and get the first letter
+        foreach ($words as $word) {
+            $abbreviatedDegree .= strtoupper(substr($word, 0, 1)); // Append the first letter in uppercase
+        }
+
+        return $abbreviatedDegree;
+    }
+
+    // public function getMajorOrSpecialization() {
+    //     $degree = $this->abbreviateDegree();
+    //     if
+    //     switch ($degree) {
+    //         case 'BSEED':
+    //             return 'Bachelor of Science in Elementary Education';
+    //         case 'BSED':
+    //             return 'Bachelor of Science in Secondary Education';
+    //         case 'BEED':
+    //             return 'Bachelor of Elementary Education';
+    //         case 'MAED':
+    //             return 'Master of Arts in Education (Specialization: Admin & Supervision)';
+    //         case 'PHD':
+    //             return 'Doctor of Philosophy in Education';
+    //         default:
+    //             return 'Unknown Degree';
+    //     }
+    // }
 }

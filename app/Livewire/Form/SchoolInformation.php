@@ -8,13 +8,13 @@ use Livewire\Component;
 class SchoolInformation extends Component
 {
     public $school;
-    public $school_id, $region, $division, $district_id, $school_name,
+    public $school_id, $division, $district_id, $school_name,
            $address, $email, $phone, $curricular_classification;
     public $showMode = false, $storeMode = false, $updateMode = false;
 
     protected $rules = [
         'school_id' => 'required',
-        'region' => 'required',
+        // 'region' => 'required',
         'school_name' => 'required',
         // 'division' => 'required',
         'district_id' => 'required',
@@ -33,7 +33,7 @@ class SchoolInformation extends Component
             if ($this->school) {
                 $this->school_id = $this->school->school_id;
                 $this->school_name = $this->school->school_name;
-                $this->region = $this->school->region;
+                // $this->region = $this->school->region;
                 $this->division = $this->school->division;
                 $this->district_id = $this->school->district_id;
                 $this->address = $this->school->address;
@@ -79,7 +79,7 @@ class SchoolInformation extends Component
         // }
         $school = School::create([
             'school_id' => $this->school_id,
-            'region' => $this->region,
+            // 'region' => $this->region,
             'school_name' => $this->school_name,
             'division' => $this->division,
             'district_id' => $this->district_id,
@@ -104,7 +104,7 @@ class SchoolInformation extends Component
         try {
             $this->school->update([
                 'school_id' => $this->school_id,
-                'region' => $this->region,
+                // 'region' => $this->region,
                 'school_name' => $this->school_name,
                 'division' => $this->division,
                 'district_id' => $this->district_id,

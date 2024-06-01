@@ -6,7 +6,7 @@
     </div>
 </div> --}}
 <div class="flex justify-center">
-    <div class="flex relative w-8 h-8 bg-dandelion justify-center items-center m-1 mr-2 text-xl rounded-full text-white hover:bg-yellow-500 duration-300 hover:scale-105">
-        {{ Auth::user()->personnel->school->school_name[0] }}
+    <div class="flex items-center text-center px-3 py-2.5 bg-gray-300 m-1 mr-2 rounded-full text-gray-800 hover:bg-gray-400 duration-300 hover:scale-105">
+        <p class="text-center font-semibold">{{ Auth::user()->personnel->school->school_name[0] }}{{ Auth::user()->personnel->first_name[0] }}</p>
     </div>
 </div>

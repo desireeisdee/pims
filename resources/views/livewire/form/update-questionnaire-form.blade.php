@@ -13,9 +13,8 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
-
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="consanguinity_third_degree_yes" label="Yes" wire:model="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required />
+                                    <x-checkbox id="consanguinity_third_degree_no" label="No" wire:model="!consanguinity_third_degree" name="consanguinity_third_degree" value="false" required />
                                 </div>
                             </div>
                         </div>
@@ -25,9 +24,9 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="false" required/>
                                 </div>
                             </div>
                         </div>
@@ -45,15 +44,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="px-5 flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="found_guilty_administrative_offense" name="found_guilty_administrative_offense" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!found_guilty_administrative_offense" name="found_guilty_administrative_offense" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="administrative_offense_details"/>
                             </span>
                         </div>
                         <div class=" w-[45rem] mt-3 flex space-x-3 items-center">
@@ -62,15 +61,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="px-5 flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="criminally_charged" name="criminally_charged" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_fourth_degree" name="consanguinity_fourth_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!criminally_charged" name="criminally_charged" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="criminally_charged_details" wire:model="criminally_charged_details"/>
                             </span>
                         </div>
                     </div>
@@ -82,15 +81,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="px-5 flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="convicted_crime" name="convicted_crime" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!convicted_crime" name="convicted_crime" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="convicted_crime_details" wire:model="convicted_crime_details"/>
                             </span>
                         </div>
                     </div>
@@ -102,15 +101,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="px-5 flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="separated_from_service" name="separated_from_service" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!separated_from_service" name="separated_from_service" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="separation_details"/>
                             </span>
                         </div>
                     </div>
@@ -122,15 +121,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="px-5 flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="candidate_last_year" name="candidate_last_year" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!candidate_last_year" name="candidate_last_year" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="candidate_details" wire:model="candidate_details"/>
                             </span>
                         </div>
                         <div class="mx-5 w-[45rem] mt-3 flex space-x-3 items-center">
@@ -139,15 +138,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="resigned_to_campaign" name="resigned_to_campaign" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!resigned_to_campaign" name="resigned_to_campaign" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="resigned_campaign_details" wire:model="resigned_campaign_details"/>
                             </span>
                         </div>
                     </div>
@@ -159,15 +158,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="immigrant_status" name="immigrant_status" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!immigrant_status" name="immigrant_status" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details (country): " id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details (country): " id="immigrant_country_details"/>
                             </span>
                         </div>
                     </div>
@@ -182,15 +181,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="member_indigenous_group" name="member_indigenous_group" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!member_indigenous_group" name="member_indigenous_group" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, give details" id="indigenous_group_details" wire:model="indigenous_group_details" />
                             </span>
                         </div>
 
@@ -200,15 +199,15 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="person_with_disability" name="person_with_disability" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!person_with_disability" name="person_with_disability" value="false" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
                             <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, please specify ID No: " id="consanguinity_third_degree_details"/>
+                                <x-input class="form-control w-full" type="text" label="If YES, please specify ID No: " id="disability_id_no" wire:model="disability_id_no"/>
                             </span>
                         </div>
 
@@ -218,16 +217,11 @@
                             </div>
                             <div class="w-2/12">
                                 <div class="flex space-x-8 items-center">
-                                    <x-checkbox id="right-label" label="Yes" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="true" required/>
+                                    <x-checkbox id="right-label" label="Yes" wire:model="solo_parent" name="solo_parent" value="true" required/>
 
-                                    <x-checkbox id="right-label" label="No" wire:model.defer="consanguinity_third_degree" name="consanguinity_third_degree" value="false" required/>
+                                    <x-checkbox id="right-label" label="No" wire:model="!solo_parent" name="solo_parent" value="false" required/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mx-5 mt-2.5 w-[57.5rem] flex justify-end">
-                            <span class="w-[20rem]">
-                                <x-input class="form-control w-full" type="text" label="If YES, please specify ID No: " id="consanguinity_third_degree_details"/>
-                            </span>
                         </div>
                     </div>
 

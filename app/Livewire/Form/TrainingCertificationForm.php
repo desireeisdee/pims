@@ -5,6 +5,7 @@ namespace App\Livewire\Form;
 use App\Models\Personnel;
 use Livewire\Component;
 use App\Livewire\PersonnelNavigation;
+use Illuminate\Support\Facades\Auth;
 
 class TrainingCertificationForm extends PersonnelNavigation
 {
@@ -99,7 +100,15 @@ class TrainingCertificationForm extends PersonnelNavigation
     public function cancel()
     {
         $this->resetModes();
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function resetModes()
@@ -185,7 +194,15 @@ class TrainingCertificationForm extends PersonnelNavigation
         session()->flash('flash.banner', 'Training Certification saved successfully');
         session()->flash('flash.bannerStyle', 'success');
 
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function render()

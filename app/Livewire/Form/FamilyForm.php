@@ -6,6 +6,7 @@ use App\Models\Family;
 use App\Models\Personnel;
 use Livewire\Component;
 use App\Livewire\PersonnelNavigation;
+use Illuminate\Support\Facades\Auth;
 
 class FamilyForm extends PersonnelNavigation
 {
@@ -130,7 +131,15 @@ class FamilyForm extends PersonnelNavigation
             session()->flash('flash.banner', 'Failed to delete child information');
             session()->flash('flash.bannerStyle', 'danger');
 
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            if(Auth::user()->role === "teacher")
+            {
+                return redirect()->route('personnel.profile');
+            } elseif(Auth::user()->role === "school_head")
+            {
+                return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+            } else {
+                return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            }
         }
     }
 
@@ -138,12 +147,6 @@ class FamilyForm extends PersonnelNavigation
     {
         return view('livewire.form.family-form');
     }
-
-    // public function cancel()
-    // {
-    //     $this->updateMode = false;
-    //     $this->showMode = true;
-    // }
 
     public function resetModes()
     {
@@ -255,12 +258,18 @@ class FamilyForm extends PersonnelNavigation
 
             session()->flash('flash.banner', 'Family information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } catch (\Exception $ex) {
             session()->flash('flash.banner', 'Failed to save Address and Contact Person');
             session()->flash('flash.bannerStyle', 'danger');
+        }
 
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
     }

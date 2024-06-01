@@ -6,6 +6,7 @@ use App\Models\Log;
 use App\Models\Personnel;
 use App\Models\School;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use App\Livewire\PersonnelNavigation;
 
 class PersonalInformationForm extends PersonnelNavigation
@@ -45,11 +46,11 @@ class PersonalInformationForm extends PersonnelNavigation
         'job_status' => 'required',
         'employment_start' => 'required',
 
-        // 'tin' => 'required|min:8|max:12',
-        // 'sss_num' => 'required|min:10',
-        // 'gsis_num' => 'required|min:8',
-        // 'philhealth_num' => 'required|min:12',
-        // 'pagibig_num' => 'required|min:12',
+        'tin' => 'required|min:8|max:12',
+        'sss_num' => 'required|size:10',
+        'gsis_num' => 'required|min:8',
+        'philhealth_num' => 'required|min:11',
+        'pagibig_num' => 'required|min:11',
 
         'email' => 'required',
         'tel_no' => 'nullable',
@@ -122,7 +123,15 @@ class PersonalInformationForm extends PersonnelNavigation
         $this->showMode = true;
         $this->updateMode = false;
 
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id, '#personal_information']);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnels.profile');
+        } elseif(Auth::user()->role === "schoool_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        }else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     // public function save()
@@ -227,7 +236,7 @@ class PersonalInformationForm extends PersonnelNavigation
             'category' => $this->category,
             'job_status' => $this->job_status,
             'employment_start' => $this->employment_start,
-            'employment_end' => $this->employment_end,
+            'employment_end' => $this->employment_end ?? null,
 
             'email' => $this->email,
             'tel_no' => $this->tel_no,
@@ -250,60 +259,43 @@ class PersonalInformationForm extends PersonnelNavigation
                 'branch' => $school->id
             ]);
 
-            dd("uu");
-
             session()->flash('flash.banner', 'Personnel created successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } else {
-            // Check if any of the specified attributes are being changed
-            $attributes = ['position_id', 'salary_grade', 'appointment', 'school_id', 'district_id', 'job_status'];
-            $isDirty = false;
-            foreach ($attributes as $attribute) {
-                if ($this->personnel->isDirty($attribute)) {
-                    $isDirty = true;
-                    break;
-                }
-            }
-
-            // Update the Personnel
             $this->personnel->update($data);
-
-            if ($isDirty) {
-                // Get the current date
-                $currentDate = now();
-
-                // Find the current active service record
-                $currentServiceRecord = $this->personnel->serviceRecords()->whereNull('to_date')->first();
-
-                if ($currentServiceRecord) {
-                    // Update the end date of the current service record
-                    $currentServiceRecord->update(['to_date' => $currentDate]);
-                }
-
-                // Create a new service record
-                $this->personnel->serviceRecords()->create([
-                    'personnel_id' => $this->personnel->id,
-                    'from_date' => $currentDate,
-                    'to_date' => null,
-                    'designation' => $this->position_id,
-                    'appointment_status' => $this->appointment,
-                    'salary' => $this->salary_grade,
-                    'station' => $school->district_id,
-                    'branch' => $school->id
-                ]);
-            }
 
             session()->flash('flash.banner', 'Personal Information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id, '#personal_information']);
         }
 
         $this->updateMode = false;
         $this->storeMode = false;
         $this->showMode = true;
+        // $this->createInitialServiceRecord();
+
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
+    }
+
+    public function createInitialServiceRecord()
+    {
+        $this->personnel->serviceRecords()->create([
+            'personnel_id' => $this->personnel->id,
+            'from_date' => now(),
+            'to_date' => null,
+            'designation' => $this->personnel->position_id,
+            'appointment_status' => $this->personnel->appointment,
+            'salary' => $this->personnel->salary_grade,
+            'station' => $this->personnel->school->district_id,
+            'branch' => $this->personnel->school_id
+        ]);
     }
 
 

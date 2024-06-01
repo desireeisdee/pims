@@ -4,6 +4,7 @@ namespace App\Livewire\Form;
 
 use App\Models\Personnel;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CivilServiceEligibilityForm extends Component
 {
@@ -83,12 +84,18 @@ class CivilServiceEligibilityForm extends Component
 
             session()->flash('flash.banner', 'Civil Service Eligibility deleted successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } catch (\Throwable $th) {
             session()->flash('flash.banner', 'Failed to delete Civil Service Eligibility');
             session()->flash('flash.bannerStyle', 'success');
+        }
 
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
     }
@@ -102,7 +109,15 @@ class CivilServiceEligibilityForm extends Component
     public function cancel()
     {
         $this->resetModes();
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function resetModes()
@@ -149,7 +164,15 @@ class CivilServiceEligibilityForm extends Component
         session()->flash('flash.banner', 'Civil Service Eligibility saved successfully');
         session()->flash('flash.bannerStyle', 'success');
 
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function render()

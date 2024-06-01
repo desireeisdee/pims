@@ -55,7 +55,7 @@
 
                 <!-- New Data Children -->
                 @foreach ($new_assignment_details as $index => $new_assignment_detail)
-                    <div class="mb-2 px-3 w-full space-x-3 h-40 border border-gray-200 rounded focus:outline-none">
+                    <div class="mb-2 px-3 w-full space-x-3 h-14 border border-gray-200 rounded focus:outline-none">
                         <div class="mb-3 flex space-x-2">
                             <div class="w-2/12 flex space-x-2">
                                 <x-input id="school_year_{{ $index }}" type="text" wire:model="new_assignment_details.{{ $index }}.school_year" name="new_assignment_details[{{ $index }}][school_year]" />
@@ -80,7 +80,7 @@
                 @endforeach
                 <div class="mt-3 flex space-x-3 items-center">
                     <div class="w-full">
-                        <button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-main_hover hover:text-white duration-300 focus:outline-none"/>
+                        <x-button wire:click.prevent="addField" label="Add New" class="w-full bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover" />
                     </div>
                 </div>
             </div>

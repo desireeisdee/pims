@@ -79,7 +79,7 @@
                     <x-input type="number" class="form-control" id="sss_num" label="SSS No." wire:model="sss_num" />
                 </span>
                 <span class="w-1/5">
-                    <x-input type="number" class="form-control" id="gsis_num" label="GSIS BP No." wire:model="gsis_num" />
+                    <x-input type="number" class="form-control" id="gsis_num" label="GSIS No." wire:model="gsis_num" />
                 </span>
                 <span class="w-1/5">
                     <x-input type="number" class="form-control" id="philhealth_num" label="PHILHEALTH NO." wire:model="philhealth_num" />
@@ -266,7 +266,7 @@
                     <x-input type="number" class="form-control" id="sss_num" label="SSS No." wire:model="sss_num" required/>
                 </span>
                 <span class="w-1/4">
-                    <x-input type="number" class="form-control" id="gsis_num" label="GSIS BP No." wire:model="gsis_num" required/>
+                    <x-input type="number" class="form-control" id="gsis_num" label="GSIS No." wire:model="gsis_num" required/>
                 </span>
             </div>
             <div class="mt-2 pt-3 mb-4 p-0 flex space-x-5">

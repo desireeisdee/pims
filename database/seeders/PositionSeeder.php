@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class PositionSeeder extends Seeder
 {
-    /**2
+    /**
      * Run the database seeds.
      */
     public function run(): void
@@ -52,13 +52,38 @@ class PositionSeeder extends Seeder
             'Watchman I',
         ];
 
+        $teachingRelatedKeywords = ['Principal', 'Head Teacher'];
+        $teachingKeywords = ['Special Education Teacher', 'Teacher', 'Master Teacher'];
+        $nonTeachingKeywords = ['Administrative', 'Assistant', 'Aide', 'Watchman'];
+        $classification = 'Teaching';
+
         foreach ($jobTitles as $title) {
+
+            foreach ($teachingRelatedKeywords as $keyword) {
+                if (strpos($title, $keyword) !== false) {
+                    $classification = 'teaching-related';
+                }
+            }
+
+            foreach ($teachingKeywords as $keyword) {
+                if (strpos($title, $keyword) !== false) {
+                    $classification = 'teaching';
+                }
+            }
+
+            foreach ($nonTeachingKeywords as $keyword) {
+                if (strpos($title, $keyword) !== false) {
+                    $classification = 'non-teaching';
+                }
+            }
+
             DB::table('position')->insert([
                 'title' => $title,
-                'classification' => 'teaching',
+                'classification' => $classification,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
         }
     }
+
 }

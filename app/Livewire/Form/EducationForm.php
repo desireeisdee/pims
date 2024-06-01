@@ -5,6 +5,7 @@ namespace App\Livewire\Form;
 use App\Models\Education;
 use App\Models\Personnel;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class EducationForm extends Component
 {
@@ -12,8 +13,8 @@ class EducationForm extends Component
     public $elementary_school_name, $elementary_degree_course, $elementary_period_from, $elementary_period_to, $elementary_highest_level_units, $elementary_year_graduated, $elementary_scholarship_honors;
     public $secondary_school_name, $secondary_degree_course, $secondary_period_from, $secondary_period_to, $secondary_highest_level_units, $secondary_year_graduated, $secondary_scholarship_honors;
     public $vocational_school_name, $vocational_degree_course, $vocational_period_from, $vocational_period_to, $vocational_highest_level_units, $vocational_year_graduated, $vocational_scholarship_honors;
-    public $graduate_school_name, $graduate_degree_course, $graduate_period_from, $graduate_period_to, $graduate_highest_level_units, $graduate_year_graduated, $graduate_scholarship_honors;
-    public $graduate_studies_school_name, $graduate_studies_degree_course, $graduate_studies_period_from, $graduate_studies_period_to, $graduate_studies_highest_level_units, $graduate_studies_year_graduated, $graduate_studies_scholarship_honors;
+    public $graduate_school_name, $graduate_degree_course, $graduate_major, $graduate_minor, $graduate_period_from, $graduate_period_to, $graduate_highest_level_units, $graduate_year_graduated, $graduate_scholarship_honors;
+    public $graduate_studies_school_name, $graduate_studies_degree_course, $graduate_studies_major, $graduate_studies_minor, $graduate_studies_period_from, $graduate_studies_period_to, $graduate_studies_highest_level_units, $graduate_studies_year_graduated, $graduate_studies_scholarship_honors;
 
     public $showMode = false, $storeMode = false, $updateMode = false;
 
@@ -87,6 +88,8 @@ class EducationForm extends Component
                 {
                     $this->graduate_school_name = $this->graduate->school_name;
                     $this->graduate_degree_course = $this->graduate->degree_course;
+                    $this->graduate_major = $this->graduate->major;
+                    $this->graduate_minor = $this->graduate->minor;
                     $this->graduate_period_from = $this->graduate->period_from;
                     $this->graduate_period_to = $this->graduate->period_to;
                     $this->graduate_highest_level_units = $this->graduate->highest_level_units;
@@ -98,6 +101,8 @@ class EducationForm extends Component
                 {
                     $this->graduate_studies_school_name = $this->graduate_studies->school_name;
                     $this->graduate_studies_degree_course = $this->graduate_studies->degree_course;
+                    $this->graduate_studies_major = $this->graduate_studies->major;
+                    $this->graduate_studies_minor = $this->graduate_studies->minor;
                     $this->graduate_studies_period_from = $this->graduate_studies->period_from;
                     $this->graduate_studies_period_to = $this->graduate_studies->period_to;
                     $this->graduate_studies_highest_level_units = $this->graduate_studies->highest_level_units;
@@ -130,7 +135,16 @@ class EducationForm extends Component
             $this->storeMode = false;
             $this->showMode = false;
         }
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function back()
@@ -140,106 +154,6 @@ class EducationForm extends Component
         $this->showMode = true;
         return redirect()->back()->with('message', 'Back.');
     }
-
-    // public function save()
-    // {
-    //     $this->validate();
-
-    //     try {
-    //         // Save or update the permanent address
-    //         Education::updateOrCreate(
-    //             [
-    //                 'personnel_id' => $this->personnel->id,
-    //                 'type' => 'elementary',
-    //             ],
-    //             [
-    //                 'school_name' => $this->elementary_school_name,
-    //                 'degree_course' => $this->elementary_degree_course,
-    //                 'period_from' => $this->elementary_period_from,
-    //                 'period_to' => $this->elementary_period_to,
-    //                 'highest_level_units' => $this->elementary_highest_level_units,
-    //                 'year_graduated' => $this->elementary_year_graduated,
-    //                 'scholarship_honors' => $this->elementary_scholarship_honors,
-    //             ]
-    //         );
-
-    //         // Save or update the residential address
-    //         Education::updateOrCreate(
-    //             [
-    //                 'personnel_id' => $this->personnel->id,
-    //                 'type' => 'secondary',
-    //             ],
-    //             [
-    //                 'school_name' => $this->secondary_school_name,
-    //                 'degree_course' => $this->secondary_degree_course,
-    //                 'period_from' => $this->secondary_period_from,
-    //                 'period_to' => $this->secondary_period_to,
-    //                 'highest_level_units' => $this->secondary_highest_level_units,
-    //                 'year_graduated' => $this->secondary_year_graduated,
-    //                 'scholarship_honors' => $this->secondary_scholarship_honors,
-    //             ]
-    //         );
-
-    //         // Save or update the contact person information
-    //         Education::updateOrCreate(
-    //             [
-    //                 'personnel_id' => $this->personnel->id,
-    //                 'type' => 'vocational/trade',
-    //             ],
-    //             [
-    //                 'school_name' => $this->vocational_school_name,
-    //                 'degree_course' => $this->vocational_degree_course,
-    //                 'period_from' => $this->vocational_period_from,
-    //                 'period_to' => $this->vocational_period_to,
-    //                 'highest_level_units' => $this->vocational_highest_level_units,
-    //                 'year_graduated' => $this->vocational_year_graduated,
-    //                 'scholarship_honors' => $this->vocational_scholarship_honors,
-    //             ]
-    //         );
-
-    //         Education::updateOrCreate(
-    //             [
-    //                 'personnel_id' => $this->personnel->id,
-    //                 'type' => 'graduate',
-    //             ],
-    //             [
-    //                 'school_name' => $this->graduate_school_name,
-    //                 'degree_course' => $this->graduate_degree_course,
-    //                 'period_from' => $this->graduate_period_from,
-    //                 'period_to' => $this->graduate_period_to,
-    //                 'highest_level_units' => $this->graduate_highest_level_units,
-    //                 'year_graduated' => $this->graduate_year_graduated,
-    //                 'scholarship_honors' => $this->graduate_scholarship_honors,
-    //             ]
-    //         );
-
-    //         Education::updateOrCreate(
-    //             [
-    //                 'personnel_id' => $this->personnel->id,
-    //                 'type' => 'graduate studies',
-    //             ],
-    //             [
-    //                 'school_name' => $this->graduate_studies_school_name,
-    //                 'degree_course' => $this->graduate_studies_degree_course,
-    //                 'period_from' => $this->graduate_studies_period_from,
-    //                 'period_to' => $this->graduate_studies_period_to,
-    //                 'highest_level_units' => $this->graduate_studies_highest_level_units,
-    //                 'year_graduated' => $this->graduate_studies_year_graduated,
-    //                 'scholarship_honors' => $this->graduate_studies_scholarship_honors,
-    //             ]
-    //         );
-
-    //         $this->updateMode = false;
-
-    //         session()->flash('flash.banner', 'Address and Contact Person saved successfully');
-    //         session()->flash('flash.bannerStyle', 'success');
-
-    //         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-
-    //     } catch (\Exception $ex) {
-    //         session()->flash('error', 'Something went wrong: ' . $ex->getMessage());
-    //     }
-    // }
 
     public function edit()
     {
@@ -253,7 +167,6 @@ class EducationForm extends Component
         $this->validate();
 
         try {
-            // Save or update the permanent address
            if($this->elementary){
                 $this->personnel->elementaryEducation()->update(
                 [
@@ -333,13 +246,15 @@ class EducationForm extends Component
                     'scholarship_honors' => $this->vocational_scholarship_honors,
                 ]);
             }
-
             if($this->graduate){
+                dd('sas');
                 $this->personnel->graduateEducation()->update([
                     'personnel_id' => $this->personnel->id,
                     'type' => 'graduate',
                     'school_name' => $this->graduate_school_name,
                     'degree_course' => $this->graduate_degree_course,
+                    'major' => $this->graduate_major,
+                    'minor' => $this->graduate_minor,
                     'period_from' => $this->graduate_period_from,
                     'period_to' => $this->graduate_period_to,
                     'highest_level_units' => $this->graduate_highest_level_units,
@@ -352,12 +267,16 @@ class EducationForm extends Component
                     'type' => 'graduate',
                     'school_name' => $this->graduate_school_name,
                     'degree_course' => $this->graduate_degree_course,
+                    'major' => $this->graduate_major,
+                    'minor' => $this->graduate_minor,
                     'period_from' => $this->graduate_period_from,
                     'period_to' => $this->graduate_period_to,
                     'highest_level_units' => $this->graduate_highest_level_units,
                     'year_graduated' => $this->graduate_year_graduated,
                     'scholarship_honors' => $this->graduate_scholarship_honors,
                 ]);
+
+                // dd("oo");
             }
 
             if($this->graduate_studies){
@@ -365,6 +284,8 @@ class EducationForm extends Component
                     'type' => 'graduate studies',
                     'school_name' => $this->graduate_studies_school_name,
                     'degree_course' => $this->graduate_studies_degree_course,
+                    'major' => $this->graduate_studies_major,
+                    'minor' => $this->graduate_studies_minor,
                     'period_from' => $this->graduate_studies_period_from,
                     'period_to' => $this->graduate_studies_period_to,
                     'highest_level_units' => $this->graduate_studies_highest_level_units,
@@ -377,6 +298,8 @@ class EducationForm extends Component
                     'type' => 'graduate studies',
                     'school_name' => $this->graduate_studies_school_name,
                     'degree_course' => $this->graduate_studies_degree_course,
+                    'major' => $this->graduate_studies_major,
+                    'minor' => $this->graduate_studies_minor,
                     'period_from' => $this->graduate_studies_period_from,
                     'period_to' => $this->graduate_studies_period_to,
                     'highest_level_units' => $this->graduate_studies_highest_level_units,
@@ -391,8 +314,15 @@ class EducationForm extends Component
             session()->flash('flash.banner', 'Education saved successfully');
             session()->flash('flash.bannerStyle', 'success');
 
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-
+            if(Auth::user()->role === "teacher")
+            {
+                return redirect()->route('personnel.profile');
+            } elseif(Auth::user()->role === "school_head")
+            {
+                return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+            } else {
+                return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            }
         } catch (\Exception $ex) {
             session()->flash('error', 'Something went wrong: ' . $ex->getMessage());
         }

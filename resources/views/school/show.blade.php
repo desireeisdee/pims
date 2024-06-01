@@ -8,16 +8,25 @@
                 </h2>
             </div>
             <div class="flex space-x-3 justify-end">
-                {{-- <a href="{{ route('schools.export', $school->id) }}" class="w-24 rounded-md px-5 py-2 bg-main text-white tracking-wider hover:hover:bg-main_hover hover:scale-105 duration-100">
-                    Export
+
+                {{-- <a href="{{ route('school.export', $school->id) }}" class="inline-flex items-center px-5 py-2 mb-2 mr-2 text-sm font-medium text-center text-gray-900 bg-gray-50 border border-slate-200 rounded-lg hover:bg-white hover:scale-105 duration-300">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 -ml-1 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                        </svg>
+                        <p>Generate SF7</p>
+                    </span>
                 </a> --}}
-                <form action="{{ route('schools.destroy', $school->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="w-24 rounded-md px-5 py-2 bg-danger text-white tracking-wider hover:hover:bg-red-700 hover:scale-105 duration-100">
-                        Delete
-                    </button>
-                </form>
+
+                @if (Auth::user()->role === "admin")
+                    <form action="{{ route('schools.destroy', $school->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="w-24 rounded-md px-5 py-2 bg-danger text-white tracking-wider hover:hover:bg-red-700 hover:scale-105 duration-100">
+                            Delete
+                        </button>
+                    </form>
+                @endif
             </div>
 
         </div>

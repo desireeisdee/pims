@@ -10,7 +10,8 @@ class PersonnelDatatable extends Component
 {
     use WithPagination;
 
-    public $selectedSchool = null, $selectedCategory = null, $selectedClassification = null, $selectedPosition = null, $selectedJobStatus = null;
+    public $schoolId;
+    public $selectedCategory = null, $selectedClassification = null, $selectedPosition = null, $selectedJobStatus = null;
     public $search = '';
     public $sortDirection = 'ASC';
     public $sortColumn = 'id';
@@ -29,6 +30,7 @@ class PersonnelDatatable extends Component
     public function render()
     {
         $personnels = Personnel::with('school')
+                    ->where('school_id', $this->schoolId)
                     ->when($this->selectedCategory, function ($query) {
                         $query->where('category', $this->selectedCategory);
                     })

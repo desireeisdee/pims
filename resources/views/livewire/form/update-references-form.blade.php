@@ -65,7 +65,7 @@
                 @endforeach
                 <div class="mt-3 flex space-x-3 items-center">
                     <div class="w-full">
-                        <button wire:click.prevent="addField" label="Add New" class="py-2 w-full text-base bg-main text-white tracking-wide font-medium rounded hover:bg-main_hover hover:text-white duration-300 focus:outline-none"/>
+                        <x-button wire:click.prevent="addField" label="Add New" class="w-full bg-main font-semibold text-xs text-white uppercase tracking-widest hover:hover:bg-main_hover" />
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Livewire\Form;
 
 use App\Models\Personnel;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class ReferencesForm extends Component
 {
@@ -66,12 +67,18 @@ class ReferencesForm extends Component
 
             session()->flash('flash.banner', 'Reference deleted successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } catch (\Throwable $th) {
             session()->flash('flash.banner', 'Failed to delete Reference');
             session()->flash('flash.bannerStyle', 'success');
+        }
 
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
     }
@@ -85,14 +92,22 @@ class ReferencesForm extends Component
     public function cancel()
     {
         $this->resetModes();
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function save()
     {
         $this->validate();
 
-        if ($this->personnel->civilServiceEligibilities()->exists()) {
+        if ($this->personnel->references()->exists()) {
             foreach ($this->old_references as $reference) {
                 $this->personnel->references()->where('id', $reference['id'])
                     ->update([
@@ -117,10 +132,18 @@ class ReferencesForm extends Component
         $this->updateMode = false;
         $this->showMode = true;
 
-        session()->flash('flash.banner', 'Civil Service Eligibility saved successfully');
+        session()->flash('flash.banner', 'References saved successfully');
         session()->flash('flash.bannerStyle', 'success');
 
-        return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
+            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+        }
     }
 
     public function render()

@@ -21,32 +21,34 @@
                         <x-nav-link href="{{ route('admin.home') }}" :active="request()->routeIs('admin.home')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        {{-- <x-nav-link href="{{ route('positions.index') }}" :active="request()->routeIs('positions.index')">
-                            {{ __('Positions') }}
-                        </x-nav-link> --}}
-                        {{-- <x-nav-link href="{{ route('districts.index') }}" :active="request()->routeIs('districts.index')">
-                            {{ __('Districts') }}
-                        </x-nav-link> --}}
                     @endif
                     @if (Auth::user()->role == "school_head")
                         <x-nav-link href="{{ route('schools.show', ['school' => Auth::user()->personnel->school]) }}" :active="request()->routeIs('schools.show')">
                             {{ Auth::user()->personnel->school->school_name }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('personnels.profile', ['personnel' => Auth::user()->personnel->id]) }}" :active="request()->routeIs('personnels.profile', ['personnel' => Auth::user()->personnel->id])">
+                            {{ __('Profile') }}
                         </x-nav-link>
                     @elseif(Auth::user()->role == "admin")
                         <x-nav-link href="{{ route('schools.index') }}" :active="request()->routeIs('schools.index')">
                             {{ __('School') }}
                         </x-nav-link>
                     @endif
-                    @if (Auth::user()->role == "teacher" || Auth::user()->role == "school_head")
-                        <x-nav-link href="{{ route('personnels.profile', ['personnel' => Auth::user()->personnel->id]) }}"
-                            :active="request()->routeIs('personnels.profile', ['personnel' => Auth::user()->personnel->id])">
+                    @if (Auth::user()->role == "teacher")
+                        <x-nav-link href="{{ route('personnel.profile', ['personnel' => Auth::user()->personnel->id]) }}"
+                            :active="request()->routeIs('personnel.profile', ['personnel' => Auth::user()->personnel->id])">
                             {{ __('Profile') }}
                         </x-nav-link>
                     @elseif(Auth::user()->role == "admin")
                         <x-nav-link href="{{ route('personnels.index') }}" :active="request()->routeIs('personnels.index')">
                             {{ __('Personnel') }}
                         </x-nav-link>
-
+                        <x-nav-link href="{{ route('positions.index') }}" :active="request()->routeIs('positions.index')">
+                            {{ __('Positions') }}
+                        </x-nav-link>
+                        {{-- <x-nav-link href="{{ route('districts.index') }}" :active="request()->routeIs('districts.index')">
+                            {{ __('Districts') }}
+                        </x-nav-link> --}}
                         <x-nav-link href="{{ route('accounts.index') }}" :active="request()->routeIs('accounts  .index')">
                             {{ __('Accounts') }}
                         </x-nav-link>

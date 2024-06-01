@@ -13,18 +13,14 @@ class PersonnelDataC3Sheet
     public function __construct($personnel, Spreadsheet $spreadsheet)
     {
         $this->personnel = $personnel;
-        // $this->personnel = $this->personnel[0];
         $this->worksheet = $spreadsheet->getSheet(2);
     }
 
     public function populateSheet()
     {
-        if ($this->personnel->voluntaryWorks) {
-            $this->populateVoluntaryWorks();
-        }
-        if ($this->personnel->trainingCertifications) {
-            $this->populateTrainingCertifications();
-        }
+        $this->populateVoluntaryWorks();
+        $this->populateTrainingCertifications();
+        $this->populateOtherInformation();
     }
 
     protected function populateVoluntaryWorks()
@@ -100,60 +96,72 @@ class PersonnelDataC3Sheet
         $currentRow = $startRow;
 
         # SkillsInformation
-        foreach ($this->personnel->skillsInformation as $skills_information) {
-            if ($currentRow > $endRow) {
-                // Create a new sheet or use the next existing sheet
-                $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
-                if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
-                    $worksheet = $this->worksheet->getParent()->createSheet();
-                    $worksheet->setTitle('Additional Voluntary Work ' . ($currentSheetIndex + 1));
-                } else {
-                    $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+        if ($this->personnel->skills) {
+            foreach ($this->personnel->skillsInformation as $skills_information) {
+                if ($currentRow > $endRow) {
+                    // Create a new sheet or use the next existing sheet
+                    $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
+                    if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
+                        $worksheet = $this->worksheet->getParent()->createSheet();
+                        $worksheet->setTitle('Additional Voluntary Work ' . ($currentSheetIndex + 1));
+                    } else {
+                        $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+                    }
+                    $currentRow = $startRow; // Reset the current row to the start row
                 }
-                $currentRow = $startRow; // Reset the current row to the start row
-            }
 
-            // Populate the cell values
-            $worksheet->setCellValue('A' . $currentRow, $skills_information->name);
-            $currentRow++;
+                // Populate the cell values
+                $worksheet->setCellValue('A' . $currentRow, $skills_information->name);
+                $currentRow++;
+            }
+        } else {
+            $worksheet->setCellValue('A' . $currentRow, 'N/A');
         }
 
         # NonacademicDistinctionInformation
-        foreach ($this->personnel->nonacademicDistinctionInformation as $nonacademic_distinction_information) {
-            if ($currentRow > $endRow) {
-                // Create a new sheet or use the next existing sheet
-                $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
-                if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
-                    $worksheet = $this->worksheet->getParent()->createSheet();
-                    $worksheet->setTitle('Additional Nonacademic Distinction Information ' . ($currentSheetIndex + 1));
-                } else {
-                    $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+        if ($this->personnel->skills) {
+            foreach ($this->personnel->nonacademicDistinctionInformation as $nonacademic_distinction_information) {
+                if ($currentRow > $endRow) {
+                    // Create a new sheet or use the next existing sheet
+                    $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
+                    if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
+                        $worksheet = $this->worksheet->getParent()->createSheet();
+                        $worksheet->setTitle('Additional Nonacademic Distinction Information ' . ($currentSheetIndex + 1));
+                    } else {
+                        $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+                    }
+                    $currentRow = $startRow; // Reset the current row to the start row
                 }
-                $currentRow = $startRow; // Reset the current row to the start row
-            }
 
-            // Populate the cell values
-            $worksheet->setCellValue('C' . $currentRow, $nonacademic_distinction_information->name);
-            $currentRow++;
+                // Populate the cell values
+                $worksheet->setCellValue('C' . $currentRow, $nonacademic_distinction_information->name);
+                $currentRow++;
+            }
+        } else {
+            $worksheet->setCellValue('C' . $currentRow, 'N/A');
         }
 
         # AssociationInformation
-        foreach ($this->personnel->associationInformation as $association_information) {
-            if ($currentRow > $endRow) {
-                // Create a new sheet or use the next existing sheet
-                $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
-                if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
-                    $worksheet = $this->worksheet->getParent()->createSheet();
-                    $worksheet->setTitle('Additional Association Information' . ($currentSheetIndex + 1));
-                } else {
-                    $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+        if ($this->personnel->associations) {
+            foreach ($this->personnel->associationInformation as $association_information) {
+                if ($currentRow > $endRow) {
+                    // Create a new sheet or use the next existing sheet
+                    $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
+                    if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
+                        $worksheet = $this->worksheet->getParent()->createSheet();
+                        $worksheet->setTitle('Additional Association Information' . ($currentSheetIndex + 1));
+                    } else {
+                        $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
+                    }
+                    $currentRow = $startRow; // Reset the current row to the start row
                 }
-                $currentRow = $startRow; // Reset the current row to the start row
-            }
 
-            // Populate the cell values
-            $worksheet->setCellValue('I' . $currentRow, $association_information->name);
-            $currentRow++;
+                // Populate the cell values
+                $worksheet->setCellValue('I' . $currentRow, $association_information->name);
+                $currentRow++;
+            }
+        } else {
+            $worksheet->setCellValue('I' . $currentRow, 'N/A');
         }
     }
 }

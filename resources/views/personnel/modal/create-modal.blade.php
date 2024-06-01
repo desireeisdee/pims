@@ -5,36 +5,38 @@
             <div class="px-5 py-5">
                 <div>
                     <div class="mt-2 mb-4 p-0 flex space-x-5">
-                        <span class="w-3/12">
+                        <span class="w-4/12">
                             <x-input type="text" class="form-control" id="first_name" label="First Name" wire:model="first_name" required/>
                         </span>
-                        <span class="w-2/12">
+                        <span class="w-4/12">
                             <x-input type="text" class="form-control" id="middle_name" label="Middle Name" wire:model="middle_name" required/>
                         </span>
-                        <span class="w-3/12">
+                        <span class="w-4/12">
                             <x-input type="text" class="form-control" id="last_name" label="Last Name" wire:model="last_name" required/>
-                        </span>
-                        <span class="w-2/12">
-                            <x-input type="text" class="form-control" id="name_ext" label="Name Extension" wire:model="name_ext" required/>
-                        </span>
-                        <span class="w-2/12">
-                            <x-native-select wire:model="sex" class="form-control" label="Sex">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </x-native-select>
                         </span>
                     </div>
                     <div class="m-0 mb-4 p-0 flex space-x-5">
                         <span class="w-3/12">
                             <x-input type="date" class="form-control" id="date_of_birth" label="Date of Birth" wire:model="date_of_birth" required/>
                         </span>
-                        <span class="w-2/12">
+                        <span class="w-3/12">
                             <x-input type="text" class="form-control" id="place_of_birth" label="Place of Birth" wire:model="place_of_birth" required/>
                         </span>
                         <span class="w-3/12">
+                            <x-native-select wire:model="sex" class="form-control" label="Sex">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </x-native-select>
+                        </span>
+                        <span class="w-3/12">
+                            <x-input type="text" class="form-control" id="name_ext" label="Name Extension" wire:model="name_ext" required/>
+                        </span>
+                    </div>
+                    <div class="m-0 mb-4 p-0 flex space-x-5">
+                        <span class="w-3/12">
                             <x-input type="text" class="form-control" id="citizenship" label="Citizenship" wire:model="citizenship" required/>
                         </span>
-                        <span class="w-2/12">
+                        <span class="w-3/12">
                             <x-native-select wire:model="civil_status" class="form-control" label="Civil Status">
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
@@ -56,45 +58,43 @@
                                 <option value="O-">O-</option>
                             </x-native-select>
                         </span>
-                    </div>
-                    <div class="m-0 mb-4 p-0 flex space-x-6">
-                        <span class="w-1/12">
+                        <span class="w-2/12">
                             <x-input type="number" class="form-control" id="height" label="Height" suffix="m" wire:model="height" required/>
                         </span>
-                        <span class="w-1/12">
+                        <span class="w-2/12">
                             <x-input type="number" class="form-control" id="weight" label="Weight" suffix="kg" wire:model="weight" required/>
                         </span>
                     </div>
                 </div>
-                <div class="my-10">
+                {{-- <div class="my-10">
                     <h5 class="font-bold text-xl text-gray-darkest">Government Information</h5>
                     <div class="mt-2 pt-3 mb-4 p-0 flex space-x-5">
-                        <span class="w-1/4">
+                        <span class="w-2/6">
                             <x-input type="number" class="form-control" id="tin" label="TIN" wire:model="tin" required/>
                         </span>
-                        <span class="w-1/4">
+                        <span class="w-2/6">
                             <x-input type="number" class="form-control" id="sss_num" label="SSS No." wire:model="sss_num" required/>
                         </span>
-                        <span class="w-1/4">
-                            <x-input type="number" class="form-control" id="gsis_num" label="GSIS BP No." wire:model="gsis_num" required/>
+                        <span class="w-2/6">
+                            <x-input type="number" class="form-control" id="gsis_num" label="GSIS No." wire:model="gsis_num" required/>
                         </span>
                     </div>
                     <div class="mt-2 pt-3 mb-4 p-0 flex space-x-5">
-                        <span class="w-1/4">
+                        <span class="w-2/6">
                             <x-input type="number" class="form-control" id="philhealth_num" label="PHILHEALTH NO." wire:model="philhealth_num" required/>
                         </span>
-                        <span class="w-1/4">
+                        <span class="w-2/6">
                             <x-input type="number" class="form-control" id="pagibig_num" label="PAG-IBIG No" wire:model="pagibig_num" required/>
                         </span>
                     </div>
-                </div>
+                </div> --}}
                 <div class="my-10">
                     <h5 class="font-bold text-xl text-gray-darkest">Work Information</h5>
                     <div class="mt-2 mb-4 p-0 flex space-x-3 items-center">
-                        <span class="w-3/12">
+                        <span class="w-2/6">
                             <x-input type="number" class="form-control" id="personnel_id" label="Personnel ID" wire:model="personnel_id" required/>
                         </span>
-                        <span class="w-3/12">
+                        <span class="w-3/6">
                             <x-select
                                 wire:model="school_id"
                                 id="school_id"
@@ -108,23 +108,23 @@
                                 class="form-control"
                             />
                         </span>
-                        <span class="w-2/12">
+                        <span class="w-1/6">
                             <x-native-select label="Job Status" wire:model="job_status" id="job_status" name="job_status" class="form-control">
                                 @foreach(['active', 'vacation', 'terminated', 'on leave', 'suspended', 'resigned', 'probation'] as $status)
-                                    <option value="{{ $status }}" classification="capitalize">{{ ucfirst($status) }}</option>
+                                    <option value="{{ $status }}" class="capitalize">{{ ucfirst($status) }}</option>
                                 @endforeach
                             </x-native-select>
                         </span>
-                        </span>
-                        <span class="w-3/12">
-                            <x-native-select label="Select Category" wire:model="category" id="category" name="category" class="form-control">
-                                @foreach(['SDO Personnel', 'School Head', 'Elementary School Teacher', 'Junior High School Teacher', 'Senior High School Teacher', 'School Non-teaching Personnel'] as $category)
-                                    <option value="{{ $category }}">{{ $category }}</option>
-                                @endforeach
-                            </x-native-select>
                     </div>
                     <div class="mt-2 mb-4 p-0 flex space-x-3 item-center">
-                        <span class="w-3/12">
+                        <span class="w-3/6">
+                            <x-native-select label="Nature of Appointment" wire:model="appointment" name="appointment" class="form-control">
+                                @foreach(['regular', 'part-time', 'temporary', 'contract'] as $appointment)
+                                    <option value="{{ $appointment }}" classification="capitalize">{{ ucfirst($appointment) }}</option>
+                                @endforeach
+                            </x-native-select>
+                        </span>
+                        <span class="w-4/6">
                             <x-select
                                 wire:model="position_id"
                                 id="position_id"
@@ -137,17 +137,21 @@
                                 class="form-control"
                             />
                         </span>
-                        <span class="w-3/12">
+                    </div>
+                    <div class="mt-2 mb-4 p-0 flex space-x-3 item-center">
+                        <span class="w-3/6">
                             <x-input type="text" class="form-control" id="fund_source" label="Fund Source" wire:model="fund_source" name="fund_source" required/>
                         </span>
-                        <span class="w-2/12">
-                            <x-native-select label="Nature of Appointment" wire:model="appointment" name="appointment" class="form-control">
-                                @foreach(['regular', 'part-time', 'temporary', 'contract'] as $appointment)
-                                    <option value="{{ $appointment }}" classification="capitalize">{{ ucfirst($appointment) }}</option>
+                        <span class="w-3/6">
+                            <x-native-select label="Select Category" wire:model="category" id="category" name="category" class="form-control">
+                                @foreach(['SDO Personnel', 'School Head', 'Elementary School Teacher', 'Junior High School Teacher', 'Senior High School Teacher', 'School Non-teaching Personnel'] as $category)
+                                    <option value="{{ $category }}">{{ $category }}</option>
                                 @endforeach
                             </x-native-select>
                         </span>
-                        <div class="w-3/12 space-x-1 flex">
+                    </div>
+                    <div class="mt-2 mb-4 p-0 flex space-x-5" x-data="{ jobStatus: @entangle('job_status') }">
+                        <span class="w-2/6 flex items-center space-x-2">
                             <x-native-select label="Step" wire:model="step" id="step" name="step">
                                 <option value="">None</option>
                                 @foreach(['1', '2', '3', '4', '5', '6', '7', '8'] as $step)
@@ -159,18 +163,16 @@
                                     <option value="{{ $grade }}">{{ $grade }}</option>
                                 @endforeach
                             </x-native-select>
-                        </div>
-                    </div>
-                    <div class="mt-2 mb-4 p-0 flex space-x-5" x-data="{ jobStatus: @entangle('job_status') }">
-                        <span class="w-2/12">
-                            <x-input type="date" class="form-control" id="employment_start" name="employment_start" label="Employment Start Date" wire:model="employment_start" required/>
                         </span>
-                        <span class="w-2/12">
-                            <x-input type="date" class="form-control" id="employment_end" name="employment_end" label="Employment End Date" wire:model="employment_end" required/>
+                        <span class="w-2/6">
+                            <x-input type="date" class="form-control" id="employment_start" name="employment_start" label="Employment Start Date" wire:model="employment_start" required />
+                        </span>
+                        <span class="w-2/6">
+                            <x-input type="date" class="form-control" id="employment_end" name="employment_end" label="Employment End Date" wire:model="employment_end" x-bind:disabled="jobStatus === 'terminated' || jobStatus === 'resigned'" />
                         </span>
                     </div>
                 </div>
-                <div class="mt-10">
+                {{-- <div class="mt-10">
                     <h5 class="font-bold text-xl text-gray-darkest">Contact Information</h5>
                     <div class="mt-2 mb-4 p-0 flex space-x-5">
                         <span class="w-3/12">
@@ -183,7 +185,7 @@
                             <x-input type="number" class="form-control" id="mobile_no" label="Mobile No." wire:model="mobile_no" name="mobile_no" required/>
                         </span>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="my-5 p-0 flex space-x-3 justify-end">
                     <div class="w-2/12">

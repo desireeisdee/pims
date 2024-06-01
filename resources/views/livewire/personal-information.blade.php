@@ -85,7 +85,7 @@
                 <x-input id="sss_num" wire:model="state.sss_num" type="number" name="sss_num" required/>
             </span>
             <span class="w-1/3">
-                <label for="gsis_num" class="pb-1 block font-medium text-sm text-gray-700">GSIS BP No</label>
+                <label for="gsis_num" class="pb-1 block font-medium text-sm text-gray-700">GSIS No</label>
                 <x-input id="gsis_num" wire:model="state.gsis_num" type="number" name="gsis_num" required/>
             </span>
         </div>

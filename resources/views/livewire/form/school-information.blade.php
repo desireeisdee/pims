@@ -7,17 +7,25 @@
                 </h4>
             </div>
             <div class="my-5">
-                <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
+                <div class="m-0 mb-4 p-0 flex space-x-5">
                     <span class="w-1/4">
                         <x-input id="school_id" wire:model="school_id" type="number" label="School ID" name="school_id" required/>
-                    </span>
-                    <span class="w-1/4">
-                        <x-input id="region" wire:model="region" type="text" label="Region"  name="region" required/>
                     </span>
                     <span class="w-1/4">
                         <x-input id="division" wire:model="division" type="text" label="Division"  name="division" required/>
                     </span>
                     <span class="w-1/4">
+                        {{-- <x-select
+                        wire:model="district_id"
+                        id="district_id"
+                        name="district_id"
+                        placeholder="Select a District"
+                        :async-data="route('api.disctricts.index')"
+                        option-label="name"
+                        option-value="id"
+                        label="District"
+                        class="form-control"
+                    /> --}}
                         <x-input id="district_id" wire:model="district_id" type="text" label="District"  name="district_id" required/>
                     </span>
                 </div>
@@ -73,12 +81,9 @@
                 </div>
             </div>
             <div class="mt-7">
-                <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
+                <div class="m-0 mb-4 p-0 flex space-x-3">
                     <span class="w-1/4">
                         <x-input id="school_id" wire:model="school_id" type="number" label="School ID" class="bg-gray-50 border-gray-300" name="school_id"  readonly/>
-                    </span>
-                    <span class="w-1/4">
-                        <x-input id="region" wire:model="region" type="text" label="Region" class="bg-gray-50 border-gray-300" name="region" readonly/>
                     </span>
                     <span class="w-1/4">
                         <x-input id="division" wire:model="division" type="text" label="Division" class="bg-gray-50 border-gray-300" name="division" readonly/>

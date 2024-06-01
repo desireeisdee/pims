@@ -43,7 +43,7 @@
                 @if ($old_assignment_details != null)
                     <section>
                         @foreach ($old_assignment_details as $index => $old_assignment_detail)
-                            <div class="mb-2 px-3 w-full space-x-3 h-40 border border-gray-200 rounded focus:outline-none">
+                            <div class="mb-2 px-3 w-full space-x-3 h-14 border border-gray-200 rounded focus:outline-none">
                                 <div class="mb-3 flex space-x-2">
                                     <div class="w-2/12 flex space-x-2">
                                         <x-input id="school_year_{{ $index }}" type="text" wire:model="old_assignment_details.{{ $index }}.school_year" name="old_assignment_details[{{ $index }}][school_year]" readonly/>

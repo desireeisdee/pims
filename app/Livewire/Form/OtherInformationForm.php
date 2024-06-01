@@ -6,6 +6,7 @@ use App\Models\Family;
 use App\Models\Personnel;
 use Livewire\Component;
 use App\Livewire\PersonnelNavigation;
+use Illuminate\Support\Facades\Auth;
 
 class OtherInformationForm extends PersonnelNavigation
 {
@@ -116,7 +117,15 @@ class OtherInformationForm extends PersonnelNavigation
             session()->flash('flash.banner', 'Failed to delete information');
             session()->flash('flash.bannerStyle', 'danger');
 
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            if(Auth::user()->role === "teacher")
+            {
+                return redirect()->route('personnel.profile');
+            } elseif(Auth::user()->role === "school_head")
+            {
+                return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+            } else {
+                return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            };
         }
     }
 
@@ -208,12 +217,17 @@ class OtherInformationForm extends PersonnelNavigation
 
             session()->flash('flash.banner', 'Other information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
-
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         } catch (\Throwable $th) {
             session()->flash('flash.banner', $th->getMessage());
             session()->flash('flash.bannerStyle', 'danger');
-
+        }
+        if(Auth::user()->role === "teacher")
+        {
+            return redirect()->route('personnel.profile');
+        } elseif(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+        } else {
             return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
         }
     }

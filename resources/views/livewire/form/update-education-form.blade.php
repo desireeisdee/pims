@@ -104,11 +104,17 @@
     <section>
         <h4 class="mt-8 mb-3 font-bold text-base text-gray-darkest">Graduate</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
-            <span class="w-3/4">
+            <span class="w-3/12">
                 <x-input id="graduate_school_name" type="text" label="School Name" name="graduate_school_name" wire:model="graduate_school_name"/>
             </span>
-            <span class="w-1/4">
+            <span class="w-3/12">
                 <x-input id="graduate_degree_course" type="text" label="Basic Education/Degree/ Course" name="graduate_degree_course" wire:model="graduate_degree_course"/>
+            </span>
+            <span class="w-3/12">
+                <x-input id="graduate_major" type="text" label="Major" name="graduate_major" wire:model="graduate_major"/>
+            </span>
+            <span class="w-3/12">
+                <x-input id="graduate_minor" type="text" label="Minor" name="graduate_minor" wire:model="graduate_minor"/>
             </span>
         </div>
         <div class="m-0 mb-4 p-0 flex items-center space-x-3 justify-between">
@@ -145,8 +151,14 @@
                 <x-input id="graduate_studies_degree_course" type="text" label="Basic Education/Degree/ Course" name="graduate_studies_degree_course" wire:model="graduate_studies_degree_course"/>
             </span>
         </div>
-        <div class="m-0 mb-4 p-0 flex items-center space-x-3 justify-between">
-            <span class="w-2/12">
+        <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
+            <span class="w-3/12">
+                <x-input id="graduate_studies_major" type="text" label="Major" name="graduate_studies_major" wire:model="graduate_studies_major"/>
+            </span>
+            <span class="w-3/12">
+                <x-input id="graduate_studies_minor" type="text" label="Minor" name="graduate_studies__minor" wire:model="graduate_studies_minor"/>
+            </span>
+            <span class="w-6/12">
                 <label for="email" class="block font-medium text-sm text-center text-gray-700">Period Of Attendance</label>
                 <div class="flex space-x-2">
                     <div class="w-1/2">
@@ -157,6 +169,8 @@
                     </div>
                 </div>
             </span>
+        </div>
+        <div class="m-0 mb-4 p-0 flex items-center space-x-3 justify-between">
             <span class="w-4/12">
                 <x-input id="graduate_studies_highest_level_units" type="text" label="Highest Level/Units Earned(If Not Graduated)" name="graduate_studies_highest_level_units" wire:model="graduate_studies_highest_level_units"/>
             </span>

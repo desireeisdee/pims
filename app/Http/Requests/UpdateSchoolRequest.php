@@ -26,7 +26,7 @@ class UpdateSchoolRequest extends FormRequest
             'school_id' => 'required|unique:schools|numeric',
             'school_name' => 'required',
             'address' => 'required',
-            'region' => 'required',
+            // 'region' => 'required',
             'division' => 'required',
             'district' => 'required',
             'email' => 'required|email',

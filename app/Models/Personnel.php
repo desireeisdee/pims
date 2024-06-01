@@ -56,6 +56,40 @@ class Personnel extends Model
         'employment_start_date',
     ];
 
+    // Boot method to attach the saved event
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::saved(function ($personnel) {
+    //         // $original = $personnel->getOriginal();
+    //         // $fieldsToCheck = ['position_id', 'appointment', 'salary_grade', 'district', 'school_id'];
+
+    //         // foreach ($fieldsToCheck as $field) {
+    //         //     if ($personnel->$field !== $original[$field]) {
+    //                 $personnel->createOrUpdateServiceRecord();
+    //     //             break; // Break loop if any one of the fields changes
+    //     //         }
+    //     //     }
+    //     });
+
+    //     static::created(function ($personnel) {
+    //         $personnel->createInitialServiceRecord();
+    //     });
+    // }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(function ($personnel) {
+            $personnel->createOrUpdateServiceRecord();
+        });
+
+        static::created(function ($personnel) {
+            $personnel->createInitialServiceRecord();
+        });
+    }
+
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
@@ -201,60 +235,63 @@ class Personnel extends Model
         return $this->hasMany(AssignmentDetail::class);
     }
 
-    // public function awardReceived(): HasMany
-    // {
-    //     return $this->hasMany(AwardReceived::class);
-    // }
+    public function createInitialServiceRecord()
+    {
+        $this->serviceRecords()->create([
+            'personnel_id' => $this->id,
+            'from_date' => now(),
+            'to_date' => null,
+            'designation' => $this->position_id,
+            'appointment_status' => $this->appointment,
+            'salary' => $this->salary_grade,
+            'station' => $this->school->district_id,
+            'branch' => $this->school_id
+        ]);
+    }
+
+    public function createOrUpdateServiceRecord()
+    {
+        $existingRecord = $this->serviceRecords()->orderByDesc('created_at')->first();
+
+        if ($existingRecord) {
+            // Update the existing ServiceRecord
+            $existingRecord->update([
+                'to_date' => now(),
+            ]);
+
+            // Create a new ServiceRecord
+            $this->createInitialServiceRecord();
+        } else {
+            // Create the first ServiceRecord
+            $this->createInitialServiceRecord();
+        }
+    }
 
     public function serviceRecords(): HasMany
     {
         return $this->hasMany(ServiceRecord::class);
     }
 
-    protected static function boot()
+    public function createServiceRecord()
     {
-        parent::boot();
-
-        static::updating(function ($personnel) {
-            // Check if any of the specified attributes are being changed
-            $attributes = ['position_id', 'salary_grade', 'appointment', 'school_id', 'district_id', 'job_status'];
-            $isDirty = false;
-            foreach ($attributes as $attribute) {
-                if ($personnel->isDirty($attribute)) {
-                    $isDirty = true;
-                    break;
-                }
-            }
-
-            dd('IsDirty:', $isDirty, 'Changed Attributes:', $personnel->getDirty());
-
-            if ($isDirty) {
-                // Get the current date
-                $currentDate = now();
-
-                // // Find the current active service record
-                // $currentServiceRecord = $personnel->serviceRecords()->whereNull('to_date')->first();
-
-                // if ($currentServiceRecord) {
-                //     // Update the end date of the current service record
-                //     $currentServiceRecord->update(['to_date' => $currentDate]);
-                // }
-
-
-                // Create a new service record
-                $personnel->serviceRecords()->create([
-                    'personnel_id' => $personnel->id,
-                    'from_date' => $currentDate,
-                    'to_date' => null,
-                    'designation' => $personnel->position_id,
-                    'appointment_status' => $personnel->appointment,
-                    'salary' => $personnel->salary_grade,
-                    'station' => $personnel->school->district_id,
-                    'branch' => $personnel->school->id
-                ]);
-            }
-        });
+        try {
+            $this->serviceRecords()->create([
+                'personnel_id' => $this->id,
+                'from_date' => $this->employment_start,
+                'to_date' => $this->employment_end,
+                'designation' => $this->position_id,
+                'appointment_status' => $this->appointment,
+                'salary' => $this->salary_grade, // Assuming salary_grade corresponds to salary in ServiceRecord
+                'station' => $this->district_id, // Assuming district corresponds to station in ServiceRecord
+                'branch' => $this->school_id, // Assuming school_id corresponds to branch in ServiceRecord
+                'lv_wo_pay' => null, // Assuming lv_wo_pay is not available in the Personnel model
+                'separation_date_cause' => null, // Assuming separation_date_cause is not available in the Personnel model
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
+
 
     public function scopeSearch($query, $value){
         $query->where('personnel_id', "like", "%{$value}%")
@@ -274,13 +311,78 @@ class Personnel extends Model
             ->get();
     }
 
+    protected function abbreviateTitle($title)
+    {
+        $abbreviations = [
+            'Teacher I' => 'T-I', 'Teacher II' => 'T-II', 'Teacher III' => 'T-III',
+            'Master Teacher I' => 'MT-I', 'Master Teacher II' => 'MT-II',
+            'Master Teacher III' => 'MT-III', 'Master Teacher IV' => 'MT-IV',
+            'Head Teacher I' => 'HT-I', 'Head Teacher II' => 'HT-II',
+            'Head Teacher III' => 'HT-III', 'Head Teacher IV' => 'HT-IV',
+            'Head Teacher V' => 'HT-V', 'Head Teacher VI' => 'HT-VI',
+            'Special Education Teacher I' => 'SET-I', 'Special Education Teacher II' => 'SET-II',
+            'Special Education Teacher III' => 'SET-III', 'Special Education Teacher IV' => 'SET-IV',
+            'Special Education Teacher V' => 'SET-V', 'School Principal I' => 'P-I',
+            'School Principal II' => 'P-II', 'School Principal III' => 'P-III',
+            'School Principal IV' => 'P-IV',
+        ];
+
+        return $abbreviations[$title] ?? $title;
+    }
+
+    public function getAbbreviatedTitleAttribute()
+    {
+        return $this->abbreviateTitle($this->position->title ?? '');
+    }
+
+    public function getEQDegreePostGraduate()
+    {
+
+        $graduateEducation = $this->graduateEducation()->first();
+        // dd($this->graduateEducation());
+        $graduateStudiesEducation = $this->graduateStudiesEducation()->first();
+
+        if ($graduateStudiesEducation) {
+            return $graduateEducation->degree_course . '/' . $graduateStudiesEducation->degree_course;
+        } else {
+            return $graduateEducation->degree_course ?? 'N/A';
+        }
+    }
+
+    public function getEQMajor()
+    {
+        $graduateEducation = $this->graduateEducation()->first();
+        $graduateStudiesEducation = $this->graduateStudiesEducation()->first();
+
+        if ($graduateStudiesEducation && $graduateStudiesEducation->major != null) {
+            return $graduateStudiesEducation->major;
+        } elseif ($graduateEducation && $graduateEducation->major != null) {
+            return $graduateEducation->major;
+        } else {
+            return 'N/A';
+        }
+    }
+
+    public function getEQMinor()
+    {
+        $graduateEducation = $this->graduateEducation()->first();
+        $graduateStudiesEducation = $this->graduateStudiesEducation()->first();
+
+        if ($graduateStudiesEducation && $graduateStudiesEducation->minor != null) {
+            return $graduateStudiesEducation->minor;
+        } elseif ($graduateEducation && $graduateEducation->minor != null) {
+            return $graduateEducation->minor;
+        } else {
+            return 'N/A';
+        }
+    }
+
     public function fullName()
     {
         return $this->first_name . ' '
                 . ($this->middle_name ? $this->middle_name[0] . '. ' : '')
                 . $this->last_name . ' '
                 . $this->name_ext;
-
     }
 
 

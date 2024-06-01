@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SchoolExport;
 use App\Exports\SchoolsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSchoolRequest;
@@ -14,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\ValidationException;
 
 class SchoolController extends Controller
 {
@@ -25,7 +27,6 @@ class SchoolController extends Controller
 
     public function create()
     {
-        // $schools = School::all();
         return view('school.create');
     }
 
@@ -50,61 +51,33 @@ class SchoolController extends Controller
     public function export($id)
     {
         $school = School::findOrFail($id);
+        $export = new SchoolExport($school->id);
 
-        $schoolData = [
-            'school' => $school->toArray(),
-            'personnels' => $school->personnels->toArray()
-            // 'assignmentDetails' => $school->personnels->assignmentDetails->toArray()
-        ];
-
-        return Excel::download(new SchoolsExport($schoolData, $school->id), 'schools.xlsx');
+        return response()->download($export->getOutputPath(), $school->school_id . '_sf7.xlsx');
     }
 
-    public function store(StoreSchoolRequest $request)
+    public function store(Request $request)
     {
-        $school = School::create($request->all());
-        dd($school);
+        try {
+            $request->validate([
+                'school_id' => 'required',
+                'school_name' => 'required',
+                'address' => 'required',
+                'division' => 'required',
+                'district_id' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'curricular_classification' => 'required',
+            ]);
 
-        if ($school) {
-            // $this->storeFundedItems($school, $request->all());
-            // $this->storeAppointmentsFunding($school, $request->all());
-
-            session()->flash('flash', ['banner' => 'School data saved successfully.', 'bannerStyle' => 'success']);
-        } else {
-            session()->flash('flash', ['banner' => 'Failed to save school data.', 'bannerStyle' => 'danger']);
+            School::create($request->all());
+            session()->flash('flash.banner', 'School Created Successfully');
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (ValidationException $e) {
+            session()->flash('flash.banner', 'Failed to create School');
+            session()->flash('flash.bannerStyle', 'danger');
         }
-
-        return redirect()->route('schools.index');
+        return redirect()->back();
     }
-
-
-//     public function getSchoolID(Request $request): Collection
-// {
-//     // Initialize the query to select id and school_name from the School model
-//     $query = School::query()
-//         ->select('id', 'school_name');
-
-//     // Apply search filter if search parameter is present in the request
-//     $query->when(
-//         $request->search,
-//         fn (Builder $query) => $query->where('school_name', 'like', "%{$request->search}%")
-//     );
-
-//     // Check if 'selected' parameter exists in the request
-//     $query->when(
-//         $request->exists('selected'),
-//         // If 'selected' parameter exists, filter by selected IDs
-//         fn (Builder $query) => $query->whereIn('id', $request->input('selected', [])),
-//         // Otherwise, limit the results to 10
-//         fn (Builder $query) => $query->limit(10)
-//     );
-
-//     // Order the results by school_name
-//     $query->orderBy('school_name');
-
-//     // Execute the query and return the results as a collection
-//     return $query->get();
-// }
-
 
 }

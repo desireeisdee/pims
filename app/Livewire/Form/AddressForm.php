@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\ContactPerson;
 use App\Models\Personnel;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use App\Livewire\PersonnelNavigation;
 
 class AddressForm extends PersonnelNavigation
@@ -151,7 +152,15 @@ class AddressForm extends PersonnelNavigation
             session()->flash('flash.banner', 'Address and Contact Person saved successfully');
             session()->flash('flash.bannerStyle', 'success');
 
-            return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            if(Auth::user()->role === "teacher")
+            {
+                return redirect()->route('personnel.profile');
+            } elseif(Auth::user()->role === "school_head")
+            {
+                return redirect()->route('school_personnels.show', ['personnel' => $this->personnel->id]);
+            } else {
+                return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
+            }
 
         } catch (\Exception $ex) {
             session()->flash('error', 'Something went wrong: ' . $ex->getMessage());

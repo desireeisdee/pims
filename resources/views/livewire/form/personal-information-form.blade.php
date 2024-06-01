@@ -69,7 +69,7 @@
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="sss_num" label="SSS No." wire:model="sss_num" readonly/>
                         </span>
                         <span class="w-1/4">
-                            <x-input type="number" class="bg-gray-50 border-gray-300" id="gsis_num" label="GSIS BP No." wire:model="gsis_num" readonly/>
+                            <x-input type="number" class="bg-gray-50 border-gray-300" id="gsis_num" label="GSIS No." wire:model="gsis_num" readonly/>
                         </span>
                     </div>
                     <div class="mt-2 pt-3 mb-4 p-0 flex space-x-5">
