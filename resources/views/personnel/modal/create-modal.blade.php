@@ -1,5 +1,5 @@
-<x-modal name="create-personnel-modal" blur="2xl">
-    <x-card>
+<x-modal name="create-personnel-modal" blur max-width="6xl">>
+    <x-card title="Create New Personnel">
         <form action="{{ route('personnels.store') }}" method="post">
             @csrf
             <div class="px-5 py-5">

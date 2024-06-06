@@ -15,22 +15,9 @@ class QuestionnaireForm extends PersonnelNavigation
     public $convicted_crime, $convicted_crime_details, $separated_from_service, $separation_details;
     public $candidate_last_year, $candidate_details, $resigned_to_campaign, $resigned_campaign_details;
     public $immigrant_status, $immigrant_country_details;
-    public $member_indigenous_group, $indigenous_group_details, $person_with_disability, $disability_id_no, $solo_parent;
+    public $member_indigenous_group, $indigenous_group_details, $person_with_disability, $disability_id_no, $solo_parent, $solo_parent_id_no;
 
     protected $rules = [
-        'consanguinity_third_degree_details' => 'required_if:consanguinity_third_degree,1',
-        'administrative_offense_details' => 'required_if:found_guilty_administrative_offense,1',
-        'criminally_charged_details' => 'required_if:criminally_charged,1',
-        'criminally_charged_date_filed' => 'required_if:criminally_charged,1',
-        'criminally_charged_status' => 'required_if:criminally_charged,1',
-        'convicted_crime_details' => 'required_if:convicted_crime,1',
-        'separation_details' => 'required_if:separated_from_service,1',
-        'candidate_details' => 'required_if:candidate_last_year,1',
-        'resigned_campaign_details' => 'required_if:resigned_to_campaign,1',
-        'immigrant_country_details' => 'required_if:immigrant_status,1',
-        'indigenous_group_details' => 'required_if:member_indigenous_group,1',
-        'disability_id_no' => 'required_if:person_with_disability,1',
-        'solo_parent' => 'required',
     ];
 
     public function mount($id = null)
@@ -70,10 +57,46 @@ class QuestionnaireForm extends PersonnelNavigation
 
     public function save()
     {
-        $this->validate();
+        // Create a copy of the default rules
+        $rules = $this->rules;
+
+        // Dynamically add validation rules based on the state
+        $conditionalRules = [
+            'consanguinity_third_degree' => 'consanguinity_third_degree_details',
+            'found_guilty_administrative_offense' => 'administrative_offense_details',
+            'criminally_charged' => [
+                'criminally_charged_details',
+                'criminally_charged_date_filed',
+                'criminally_charged_status'
+            ],
+            'convicted_crime' => 'convicted_crime_details',
+            'separated_from_service' => 'separation_details',
+            'candidate_last_year' => 'candidate_details',
+            'resigned_to_campaign' => 'resigned_campaign_details',
+            'immigrant_status' => 'immigrant_country_details',
+            'member_indigenous_group' => 'indigenous_group_details',
+            'person_with_disability' => 'disability_id_no',
+            'solo_parent' => 'solo_parent_id_no',
+        ];
+
+        foreach ($conditionalRules as $field => $details) {
+            if ($this->$field == 1) {
+                if (is_array($details)) {
+                    foreach ($details as $detail) {
+                        $rules[$detail] = 'required';
+                    }
+                } else {
+                    $rules[$details] = 'required';
+                }
+            }
+        }
+
+
 
         try {
-            if ($this->personnelDetail != null) {
+            // Validate the input
+    $this->validate($rules);
+            if ($this->personnel->personnelDetail != null) {
                 $this->personnel->personnelDetail()->update([
                     'consanguinity_third_degree' => $this->consanguinity_third_degree,
                     'consanguinity_third_degree_details' => $this->consanguinity_third_degree_details,
@@ -99,7 +122,8 @@ class QuestionnaireForm extends PersonnelNavigation
                     'person_with_disability' => $this->person_with_disability,
                     'immigrant_country_details' => $this->immigrant_country_details,
                     'disability_id_no' => $this->disability_id_no,
-                    'solo_parent' => $this->solo_parent
+                    'solo_parent' => $this->solo_parent,
+                    'solo_parent_id_no' => $this->solo_parent_id_no
                 ]);
             } else {
                 $this->personnel->personnelDetail()->create([
@@ -127,14 +151,15 @@ class QuestionnaireForm extends PersonnelNavigation
                     'person_with_disability' => $this->person_with_disability,
                     'immigrant_country_details' => $this->immigrant_country_details,
                     'disability_id_no' => $this->disability_id_no,
-                    'solo_parent' => $this->solo_parent
+                    'solo_parent' => $this->solo_parent,
+                    'solo_parent_id_no' => $this->solo_parent_id_no
                 ]);
             }
 
             session()->flash('flash.banner', 'Questionnaire saved successfully');
-            session()->flash('flash.bannerStyle', 'save');
+            session()->flash('flash.bannerStyle', 'success');
         } catch (\Throwable $th) {
-            session()->flash('flash.banner', 'Failed to save Questionnaire');
+            session()->flash('flash.banner', 'Failed to save Questionnaire'. $th);
             session()->flash('flash.bannerStyle', 'danger');
         }
 

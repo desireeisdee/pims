@@ -60,10 +60,37 @@ class PersonnelController extends Controller
         return view('personnel.loyalty-awards', compact('recipients'));
     }
 
-    public function export($id)
+    // public function export($id)
+    // {
+    //     $personnel = Personnel::findOrFail($id);
+
+    //     // Pass the personnel data to the export class
+    //     $export = new PersonnelDataExport($personnel->id);
+
+    //     return response()->download($export->getOutputPath(), $personnel->personnel_id . '_pds.xlsm');
+    // }
+
+    public function export_data($id)
     {
         $personnel = Personnel::findOrFail($id);
 
+        try {
+            // Pass the personnel data to the export class
+            $export = new PersonnelDataExport($personnel->id);
+
+            return response()->download($export->getOutputPath(), $personnel->personnel_id . '_pds.xlsm');
+
+            session()->flash('flash.banner', 'Personnel Created Successfully');
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (\Throwable $th) {
+            session()->flash('flash.banner', 'Failed to create Personnel, something went wrong');
+                session()->flash('flash.bannerStyle', 'danger');
+        }
+    }
+
+    public function profile_export()
+    {
+        $personnel = Personnel::findOrFail(Auth::user()->personnel->id);
         // Pass the personnel data to the export class
         $export = new PersonnelDataExport($personnel->id);
 

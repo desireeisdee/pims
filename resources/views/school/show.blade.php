@@ -18,7 +18,7 @@
                     </span>
                 </a> --}}
 
-                @if (Auth::user()->role === "admin")
+                {{-- @if (Auth::user()->role === "admin")
                     <form action="{{ route('schools.destroy', $school->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -26,7 +26,7 @@
                             Delete
                         </button>
                     </form>
-                @endif
+                @endif --}}
             </div>
 
         </div>

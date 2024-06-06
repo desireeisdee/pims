@@ -28,8 +28,8 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '199-05-21',
                 'place_of_birth' => 'Manila',
                 'email' => 'johndoe@example.com',
-                'tel_no' => '1234567',
-                'mobile_no' => '09123456789',
+                'tel_no' => '355-5049',
+                'mobile_no' => '09102939200',
                 'personnel_id' => '4806550',
                 'school_id' => 1, // Ensure this matches an existing school_id
                 'position_id' => 5, // Ensure this matches an existing job_id
@@ -39,7 +39,7 @@ class PersonnelSeeder extends Seeder
                 'step' => '3',
                 'category' => 'SDO Personnel',
                 'job_status' => 'active',
-                'employment_start' => '1990-04-06',
+                'employment_start' => '2014-04-06',
                 'employment_end' => null,
                 'tin' => 123456789,
                 'sss_num' => 987654321,
@@ -63,8 +63,8 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '2000-10-04',
                 'place_of_birth' => 'Ormoc City',
                 'email' => 'marjolaine.lang@hotmail.com',
-                'tel_no' => '1999567',
-                'mobile_no' => '09999956789',
+                'tel_no' => '355-5049',
+                'mobile_no' => '09102939200',
                 'personnel_id' => '4661237',
                 'school_id' => 1, // Ensure this matches an existing school_id
                 'position_id' => 10, // Ensure this matches an existing job_id
@@ -74,7 +74,7 @@ class PersonnelSeeder extends Seeder
                 'step' => '3',
                 'category' => 'School Non-teaching Personnel',
                 'job_status' => 'active',
-                'employment_start' => '2020-02-09',
+                'employment_start' => '2004-02-09',
                 'employment_end' => null,
                 'tin' => 112345789,
                 'sss_num' => 912354321,
@@ -98,7 +98,7 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '2000-12-12',
                 'place_of_birth' => 'Tacloban City',
                 'email' => 'kimmikimi.lang@hotmail.com',
-                'tel_no' => '1999567',
+                'tel_no' => '355-5049',
                 'mobile_no' => '09999956789',
                 'personnel_id' => '6291866',
                 'school_id' => 1, // Ensure this matches an existing school_id
@@ -133,8 +133,8 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '2000-10-10',
                 'place_of_birth' => 'Tacloban City',
                 'email' => 'pooliinar.lang@hotmail.com',
-                'tel_no' => '1999567',
-                'mobile_no' => '09999956789',
+                'tel_no' => '355-5049',
+                'mobile_no' => '09102939200',
                 'personnel_id' => '10757',
                 'school_id' => 1, // Ensure this matches an existing school_id
                 'position_id' => 22, // Ensure this matches an existing job_id
@@ -168,8 +168,8 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '1990-03-03',
                 'place_of_birth' => 'Baybay City',
                 'email' => 'hululu.lang@hotmail.com',
-                'tel_no' => '1999567',
-                'mobile_no' => '09999956789',
+                'tel_no' => '355-5049',
+                'mobile_no' => '09102939200',
                 'personnel_id' => '4848606',
                 'school_id' => 1, // Ensure this matches an existing school_id
                 'position_id' => 25, // Ensure this matches an existing job_id
@@ -203,8 +203,8 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => '1984-08-22',
                 'place_of_birth' => 'Baybay City',
                 'email' => 'hululu.lang@hotmail.com',
-                'tel_no' => '1999567',
-                'mobile_no' => '09999956789',
+                'tel_no' => '355-5049',
+                'mobile_no' => '09102939200',
                 'personnel_id' => '6291692',
                 'school_id' => 2, // Ensure this matches an existing school_id
                 'position_id' => 14, // Ensure this matches an existing job_id

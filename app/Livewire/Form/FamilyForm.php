@@ -20,29 +20,29 @@ class FamilyForm extends PersonnelNavigation
     public $showMode = false, $updateMode = false;
 
     protected $rules = [
-        'fathers_first_name' => 'required',
-        'fathers_middle_name' => 'required',
-        'fathers_last_name' => 'required',
+        'fathers_first_name' => 'required|alpha',
+        'fathers_middle_name' => 'required|alpha',
+        'fathers_last_name' => 'required|alpha',
         'fathers_name_ext' => 'nullable',
-        'mothers_first_name' => 'required',
-        'mothers_middle_name' => 'required',
-        'mothers_last_name' => 'required',
-        'spouse_first_name' => 'required',
-        'spouse_middle_name' => 'required',
-        'spouse_last_name' => 'required',
+        'mothers_first_name' => 'required|alpha',
+        'mothers_middle_name' => 'required|alpha',
+        'mothers_last_name' => 'required|alpha',
+        'spouse_first_name' => 'required|alpha',
+        'spouse_middle_name' => 'required|alpha',
+        'spouse_last_name' => 'required|alpha',
         'spouse_name_ext' => 'nullable',
         'spouse_occupation' => 'required',
         'spouse_business_name' => 'required',
         'spouse_business_address' => 'required',
         'spouse_tel_no' => 'required',
-        'old_children.*.first_name' => 'required',
-        'old_children.*.middle_name' => 'required',
-        'old_children.*.last_name' => 'required',
+        'old_children.*.first_name' => 'required|alpha',
+        'old_children.*.middle_name' => 'required|alpha',
+        'old_children.*.last_name' => 'required|alpha',
         'old_children.*.name_ext' => 'nullable',
         'old_children.*.date_of_birth' => 'required|date',
-        'new_children.*.first_name' => 'required',
-        'new_children.*.middle_name' => 'required',
-        'new_children.*.last_name' => 'required',
+        'new_children.*.first_name' => 'required|alpha',
+        'new_children.*.middle_name' => 'required|alpha',
+        'new_children.*.last_name' => 'required|alpha',
         'new_children.*.name_ext' => 'nullable',
         'new_children.*.date_of_birth' => 'required|date',
     ];
@@ -166,7 +166,7 @@ class FamilyForm extends PersonnelNavigation
                     'first_name' => $this->fathers_first_name,
                     'middle_name' => $this->fathers_middle_name,
                     'last_name' => $this->fathers_last_name,
-                    'name_extension' => $this->fathers_name_ext
+                    'name_ext' => $this->fathers_name_ext
                 ]);
             } else {
                 $this->personnel->father()->create([
@@ -175,7 +175,7 @@ class FamilyForm extends PersonnelNavigation
                     'first_name' => $this->fathers_first_name,
                     'middle_name' => $this->fathers_middle_name,
                     'last_name' => $this->fathers_last_name,
-                    'name_extension' => $this->fathers_name_ext
+                    'name_ext' => $this->fathers_name_ext
                 ]);
             }
 
@@ -204,7 +204,7 @@ class FamilyForm extends PersonnelNavigation
                     'first_name' => $this->spouse_first_name,
                     'middle_name' => $this->spouse_middle_name,
                     'last_name' => $this->spouse_last_name,
-                    'name_extension' => $this->spouse_name_ext,
+                    'name_ext' => $this->spouse_name_ext,
                     'occupation' => $this->spouse_occupation,
                     'employer_business_name' => $this->spouse_business_name,
                     'business_address' => $this->spouse_business_address,
@@ -217,7 +217,7 @@ class FamilyForm extends PersonnelNavigation
                     'first_name' => $this->spouse_first_name,
                     'middle_name' => $this->spouse_middle_name,
                     'last_name' => $this->spouse_last_name,
-                    'name_extension' => $this->spouse_name_ext,
+                    'name_ext' => $this->spouse_name_ext,
                     'occupation' => $this->spouse_occupation,
                     'employer_business_name' => $this->spouse_business_name,
                     'business_address' => $this->spouse_business_address,
@@ -233,7 +233,7 @@ class FamilyForm extends PersonnelNavigation
                             'first_name' => $child['first_name'],
                             'middle_name' => $child['middle_name'],
                             'last_name' => $child['last_name'],
-                            'name_extension' => $child['name_ext'],
+                            'name_ext' => $child['name_ext'],
                             'date_of_birth' => $child['date_of_birth'],
                         ]);
                 }
@@ -247,7 +247,7 @@ class FamilyForm extends PersonnelNavigation
                         'first_name' => $new_child['first_name'],
                         'middle_name' => $new_child['middle_name'],
                         'last_name' => $new_child['last_name'],
-                        'name_extension' => $new_child['name_ext'],
+                        'name_ext' => $new_child['name_ext'],
                         'date_of_birth' => $new_child['date_of_birth'],
                     ]);
                 }
@@ -259,7 +259,7 @@ class FamilyForm extends PersonnelNavigation
             session()->flash('flash.banner', 'Family information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
         } catch (\Exception $ex) {
-            session()->flash('flash.banner', 'Failed to save Address and Contact Person');
+            session()->flash('flash.banner', 'Failed to save Family Information'. $ex);
             session()->flash('flash.bannerStyle', 'danger');
         }
 

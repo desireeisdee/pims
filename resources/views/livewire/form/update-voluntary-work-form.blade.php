@@ -46,7 +46,7 @@
                             <div class="w-1/12">
                                 <x-input id="old_voluntary_works.{{ $index }}.hours"
                                                  wire:model="old_voluntary_works.{{ $index }}.hours" name="old_voluntary_works.{{ $index }}.hours"
-                                                 type="text" class="form-control" required/>
+                                                 type="number" class="form-control" required/>
                             </div>
                             <div class="w-1/12 pe-3 text-xs text-center">
                                 <button wire:click="confirmRemoveOldField({{ $index }})" wire:confirm="Are you sure you want to delete this child?" class="m-0 p-0 text-gray-400 hover:text-red-600 hover:scale-105 duration-300">

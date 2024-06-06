@@ -54,13 +54,13 @@
                                     <div class="w-2/12">
                                         <x-input id="dtr_day_{{ $index }}" type="text" wire:model="old_assignment_details.{{ $index }}.dtr_day" name="old_assignment_details[{{ $index }}][dtr_day]" readonly/>
                                     </div>
-                                    <div class="w-1/12">
+                                    <div class="w-2/12">
                                         <x-input id="dtr_from_{{ $index }}" type="time" wire:model="old_assignment_details.{{ $index }}.dtr_from" name="old_assignment_details[{{ $index }}][dtr_from]" readonly/>
                                     </div>
-                                    <div class="w-1/12">
+                                    <div class="w-2/12">
                                         <x-input id="dtr_to_{{ $index }}" type="time" wire:model="old_assignment_details.{{ $index }}.dtr_to" name="old_assignment_details[{{ $index }}][dtr_to]" readonly/>
                                     </div>
-                                    <div class="w-2/12">
+                                    <div class="w-1/12">
                                         <x-input id="teaching_minutes_per_week_{{ $index }}" type="number" wire:model="old_assignment_details.{{ $index }}.teaching_minutes_per_week" name="old_assignment_details[{{ $index }}][teaching_minutes_per_week]" readonly/>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                         @endforeach
                     </section>
                 @else
-                    <p class="mt-3 w-full py-2 font-medium text-xs text-center bg-gray-200">No Assignment Details Found</p>
+                    <p class="mt-3 w-full py-2 font-medium text-xs text-center bg-gray-200">No Record Found</p>
                 @endif
             </div>
         </div>

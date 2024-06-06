@@ -1,16 +1,6 @@
-<div class="mx-5 my-8 p-3">
-    <div class="flex justify-between">
-        <div class="w-1/4 inline-flex space-x-4">
-            @include('personnel.modal.create-modal')
-            <div class="flex justify-between space-x-3">
-                <a href="#" x-on:click="$openModal('create-personnel-modal')">
-                    <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
-                        New Personnel
-                    </button>
-                </a>
-            </div>
-        </div>
 
+<div class="mx-5 my-8 p-3">
+    <div class="flex justify-end">
         <div class="flex w-2/4 items-center rounded-md border border-gray-400 bg-white focus:bg-white focus:border-gray-500">
             <div class="pl-2">
                 <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
@@ -73,9 +63,9 @@
         <table class="table-auto w-full">
             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                 <tr>
-                    <th wire:click="doSort('personnel_id')" class="w-1/12 p-2 whitespace-nowrap">
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('employee_id')">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="personnel_id">
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="employee_id">
                                 <span class="font-semibold text-left">Personnel ID</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -83,27 +73,17 @@
                             </button>
                         </div>
                     </th>
-                    <th wire:click="doSort('personnel_id')" class="w-2/12 p-2 whitespace-nowrap">
+                    <th wire:click="doSort('school_id')" class="w-2/12 p-2 whitespace-nowrap">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="personnel_id">
-                                <span class="font-semibold text-left">Name</span>
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="school_id">
+                                <span class="font-semibold text-left">School Id</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-1/12" wire:click="doSort('job_status')">
-                        <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="job_status">
-                                <span class="font-semibold text-left">Job Status</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                </svg>
-                            </button>
-                        </div>
-                    </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('position_id')">
+                    <th class="p-2 whitespace-nowrap w-1/12" wire:click="doSort('position_id')">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="position_id">
                                 <span class="font-semibold text-left">Position</span>
@@ -113,10 +93,10 @@
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('classification')">
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('appointment')">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="school_id">
-                                <span class="font-semibold text-left">Classification</span>
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="appointment">
+                                <span class="font-semibold text-left">Appointment</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
@@ -133,10 +113,10 @@
                             </button>
                         </div>
                     </th>
-                    <th class="p-2 whitespace-nowrap w-1/12" wire:click="doSort('school_id')">
+                    <th class="p-2 whitespace-nowrap w-2/12" wire:click="doSort('created_at')">
                         <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="phone">
-                                <span class="font-semibold text-left">School ID</span>
+                            <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="created_at">
+                                <span class="font-semibold text-left">Created</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
@@ -153,33 +133,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $personnels as $index => $personnel)
+                @foreach ( $histories as $index => $history)
                 <tr wire:loading.class="opacity-75" class="text-sm">
                     <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-left">{{ $personnel->personnel_id }}</div>
+                        <div class="text-left">{{ $history->employee_id }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left capitalize">{{ $personnel->fullName() }}</div>
+                        <div class="text-left capitalize">{{ $history->personnel->school->school_id }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-left capitalize">{{ $personnel->job_status }}</div>
+                        <div class="text-left capitalize">{{ $history->personnel->position->title }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left capitalize">{{ $personnel->position->title }}</div>
+                        <div class="text-left capitalize">{{ $history->appointment }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left capitalize">{{ $personnel->position->classification }}</div>
+                        <div class="text-left capitalize">{{ $history->category }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
-                        <div class="text-left capitalize">{{ $personnel->category }}</div>
+                        <div class="text-left capitalize">{{  date('m-d-Y', strtotime($history->created_at)) }}</div>
                     </td>
-                    <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-left">{{ $personnel->school->school_id }}</div>
-                    </td>
-                    <td class="p-2 whitespace-nowrap w-1/12">
+                    @include('history.view-form')
+                    <td class="p-2 whitespace-nowrap w-2/12">
                         <div class="flex justify-between space-x-3">
-                            <a href="{{ route('personnels.show', ['personnel' => $personnel->id]) }}">
-                                <button class="py-1 px-2 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
+                            <a href="#" x-on:click="$openModal('view-history-modal-{{ $history->id }}', { district: '{{ $history->id }}' })">
+                                <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>
                             </a>
@@ -187,7 +165,7 @@
                     </td>
                 </tr>
                 @endforeach
-                @if ($personnels->isEmpty())
+                @if ($histories->isEmpty())
                     <tr wire:loading.class="opacity-75">
                         <td colspan="5" class="p-2 w-full text-center">No Record Found</td>
                     </tr>
@@ -196,6 +174,6 @@
         </table>
     </div>
     <div class="mt-5">
-        {{ $personnels->links() }}
+        {{ $histories->links() }}
     </div>
 </div>

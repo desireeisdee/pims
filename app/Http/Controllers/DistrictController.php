@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class DistrictController extends Controller
 {
@@ -13,44 +15,45 @@ class DistrictController extends Controller
         return view('district.index', compact('districts'));
     }
 
-    public function create()
-    {
-        return view('district.create');
-    }
 
     public function store(Request $request)
     {
+        try {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        District::create($request->all());
-        return redirect()->route('district.index')->with('success', 'District created successfully.');
+            District::create($request->all());
+            session()->flash('flash.banner', 'District Created Successfully');
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (ValidationException $e) {
+            session()->flash('flash.banner', 'Failed to create District');
+            session()->flash('flash.bannerStyle', 'danger');
+        }
+        return redirect()->back();
     }
 
-    public function show(District $district)
+    public function update(Request $request, $id)
     {
-        return view('district.show', compact('district'));
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+                $district = District::findOrFail($id);
+                $district->update($request->all());
+
+                session()->flash('flash.banner', "District successfully updated");
+                session()->flash('flash.bannerStyle', 'success');
+
+        } catch (ValidationException $e) {
+            session()->flash('flash.banner', 'Failed to save District. Ensure all inputs are properly filled.');
+            session()->flash('flash.bannerStyle', 'danger');
+
+        } catch (ModelNotFoundException $e) {
+            session()->flash('flash.banner', 'District Not Found.');
+            session()->flash('flash.bannerStyle', 'danger');
+        }
+        return redirect()->back();
     }
 
-    public function edit(District $district)
-    {
-        return view('district.edit', compact('district'));
-    }
-
-    public function update(Request $request, District $district)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        $district->update($request->all());
-        return redirect()->route('district.index')->with('success', 'District updated successfully.');
-    }
-
-    public function destroy(District $district)
-    {
-        $district->delete();
-        return redirect()->route('district.index')->with('success', 'District deleted successfully.');
-    }
 }

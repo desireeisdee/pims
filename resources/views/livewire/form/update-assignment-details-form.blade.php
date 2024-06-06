@@ -66,13 +66,13 @@
                             <div class="w-2/12">
                                 <x-input id="dtr_day_{{ $index }}" type="text" wire:model="new_assignment_details.{{ $index }}.dtr_day" name="new_assignment_details[{{ $index }}][dtr_day]" />
                             </div>
-                            <div class="w-1/12">
+                            <div class="w-2/12">
                                 <x-input id="dtr_from_{{ $index }}" type="time" wire:model="new_assignment_details.{{ $index }}.dtr_from" name="new_assignment_details[{{ $index }}][dtr_from]" />
                             </div>
-                            <div class="w-1/12">
+                            <div class="w-2/12">
                                 <x-input id="dtr_to_{{ $index }}" type="time" wire:model="new_assignment_details.{{ $index }}.dtr_to" name="new_assignment_details[{{ $index }}][dtr_to]" />
                             </div>
-                            <div class="w-2/12">
+                            <div class="w-1/12">
                                 <x-input id="teaching_minutes_per_week_{{ $index }}" type="number" wire:model="new_assignment_details.{{ $index }}.teaching_minutes_per_week" name="new_assignment_details[{{ $index }}][teaching_minutes_per_week]" />
                             </div>
                         </div>

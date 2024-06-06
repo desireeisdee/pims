@@ -56,7 +56,7 @@
                     <option value="School Non-teaching Personnel">School Non-teaching Personnel</option>
                 </x-native-select>
             </div>
-            <div class="w-[11rem] px-0.5 text-xs">
+            {{-- <div class="w-[11rem] px-0.5 text-xs">
                 <x-select
                     wire:model.live.debounce.300ms="selectedSchool"
                     placeholder="Select a school"
@@ -65,7 +65,7 @@
                     option-value="id"
                     option-description="school_name"
                 />
-            </div>
+            </div> --}}
         </div>
         <table class="table-auto w-full">
             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -73,7 +73,7 @@
                     <th wire:click="doSort('personnel_id')" class="w-1/12 p-2 whitespace-nowrap">
                         <div class="flex items-center gap-x-3">
                             <button class="flex items-center gap-x-2" sortColumn="$sortColumn" sortDirection="$sortDirection" columnName="personnel_id">
-                                <span class="font-semibold text-left">ID</span>
+                                <span class="font-semibold text-left">School ID</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                 </svg>
@@ -186,7 +186,7 @@
                 @endforeach
                 @if ($personnels->isEmpty())
                     <tr wire:loading.class="opacity-75">
-                        <td colspan="5" class="p-2 w-full text-center">No School Found</td>
+                        <td colspan="5" class="p-2 w-full text-center">No Record Found</td>
                     </tr>
                 @endif
             </tbody>

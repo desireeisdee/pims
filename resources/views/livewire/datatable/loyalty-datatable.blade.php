@@ -165,7 +165,7 @@
                 @endforeach
                 @if ($personnels->isEmpty())
                     <tr wire:loading.class="opacity-75">
-                        <td colspan="5" class="p-2 w-full text-center">No Loyalty Awardees for 2024 Found</td>
+                        <td colspan="5" class="p-2 w-full text-center">No Record Found</td>
                     </tr>
                 @endif
             </tbody>

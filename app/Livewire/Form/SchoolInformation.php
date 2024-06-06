@@ -4,11 +4,12 @@ namespace App\Livewire\Form;
 
 use App\Models\School;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class SchoolInformation extends Component
 {
     public $school;
-    public $school_id, $division, $district_id, $school_name,
+    public $school_id, $division, $district, $district_id, $school_name,
            $address, $email, $phone, $curricular_classification;
     public $showMode = false, $storeMode = false, $updateMode = false;
 
@@ -35,6 +36,7 @@ class SchoolInformation extends Component
                 $this->school_name = $this->school->school_name;
                 // $this->region = $this->school->region;
                 $this->division = $this->school->division;
+                $this->district = $this->school->district->title;
                 $this->district_id = $this->school->district_id;
                 $this->address = $this->school->address;
                 $this->email = $this->school->email;
@@ -119,10 +121,17 @@ class SchoolInformation extends Component
             session()->flash('flash.banner', 'School updated successfully');
             session()->flash('flash.bannerStyle', 'success');
 
-            return redirect()->route('schools.show', ['school' =>  $this->school->id]);
+
         } catch (\Throwable $th) {
             session()->flash('flash.banner', 'Failed to update school.');
             session()->flash('flash.bannerStyle', 'danger');
+        }
+
+        if(Auth::user()->role === "school_head")
+        {
+            return redirect()->route('schools.show', ['school' =>  $this->school->id]);
+        } else {
+            return redirect()->route('schools.profile', ['school' =>  $this->school->id]);
         }
     }
 }

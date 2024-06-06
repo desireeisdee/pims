@@ -22,6 +22,8 @@ Route::controller('App\Http\Controllers\Auth\RegisterController'::class)->group(
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('personnel/{personnel}/export', [PersonnelController::class, 'export_data'])->name('pds.export');
+
     Route::get('/', function () {
         $user = Auth::user();
         if ($user->role === 'teacher') {
@@ -35,12 +37,13 @@ Route::middleware(['auth'])->group(function () {
         }
     });
 
+
     // PERSONNEL ACCESS
     Route::middleware(['user-access:teacher'])->group(function () {
         // Route::get('profile/{personnel}', [PersonnelController::class, 'profile'])->name('personnel.profile');
         Route::get('/profile', [PersonnelController::class, 'profile'])->name('personnel.profile');
         Route::patch('personnels/{personnel}', [PersonnelController::class, 'update'])->name('personnels.update');
-        Route::get('personnel/{personnel}/export', [PersonnelController::class, 'export'])->name('pds.export');
+
     });
 
     // SCHOOL HEAD ACCESS
@@ -59,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('personnels/', 'index')->name('school_personnels.index');
             Route::get('personnels/{personnel}/edit', 'edit')->name('school_personnels.edit');
             Route::patch('personnels/{personnel}', 'update')->name('school_personnels.update');
-            Route::get('personnel/{personnel}/export', [PersonnelController::class, 'export'])->name('pds.export');
+            // Route::get('personnel/{personnel}/export', [PersonnelController::class, 'export'])->name('pds.export');
             Route::get('/personnel/profile', [PersonnelController::class, 'profile'])->name('personnels.profile');
             Route::get('school/personnels/{personnel}', 'show')->name('school_personnels.show');
         });
@@ -80,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('personnels/', 'store')->name('personnels.store');
             Route::get('personnels/{personnel}/edit', 'edit')->name('personnels.edit');
             Route::patch('personnels/{personnel}', 'update')->name('personnels.update');
-            Route::get('personnels/export/{personnel}', 'export')->name('personnels.export');
+            // Route::get('personnels/export/{personnel}', 'export')->name('personnels.export');
             Route::get('personnels/{personnel}', 'show')->name('personnels.show');
             Route::delete('personnels/{personnel}', 'destroy')->name('personnels.destroy');
         });
@@ -92,7 +95,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('schools/{school}/edit', 'edit')->name('schools.edit');
             Route::patch('schools/{school}', 'update')->name('schools.update');
             Route::get('schools/{school}', 'show')->name('schools.show');
-            Route::get('/schools/export/{school}', 'export')->name('schools.export');
+            // Route::get('/schools/export/{school}', 'export')->name('schools.export');
             Route::delete('schools/{school}', 'destroy')->name('schools.destroy');
         });
 

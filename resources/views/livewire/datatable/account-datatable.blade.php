@@ -97,12 +97,13 @@
                         <div class="text-left">{{ $account->email }}</div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-1/12">
-                        <div class="text-xs tracking-wider text-left uppercase">{{ $account->role }}</div>
+                        <div class="text-xs tracking-wider text-left uppercase">{{$account->role == 'teacher' ? 'personnel' : $account->role}}
+                        </div>
                     </td>
                     <td class="p-2 whitespace-nowrap w-2/12">
                         @include('user.forms.edit')
                         <div class="flex justify-between space-x-3">
-                            <a href="#" x-on:click="$openModal('edit-account-modal', { id: '{{ $account->id }}' })">
+                            <a href="#" x-on:click="$openModal('edit-account-modal-{{ $account->id }}', { account: '{{ $account->id }}' })">
                                 <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>
@@ -113,7 +114,7 @@
                 @endforeach
                 @if ($accounts->isEmpty())
                     <tr wire:loading.class="opacity-75">
-                        <td colspan="5" class="p-2 w-full text-center">No Accounts Found</td>
+                        <td colspan="5" class="p-2 w-full text-center">No Record Found</td>
                     </tr>
                 @endif
             </tbody>

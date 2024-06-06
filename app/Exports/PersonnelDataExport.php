@@ -50,58 +50,6 @@ class PersonnelDataExport
     }
 
 
-    // public function convertToPdf()
-    // {
-    //     // Load the Excel file
-    //     $spreadsheet = IOFactory::load($this->excelOutputPath);
-
-    //     // Create options for dompdf
-    //     $options = new Options();
-    //     $options->set('isHtml5ParserEnabled', true);
-
-    //     // Create dompdf instance
-    //     $dompdf = new Dompdf($options);
-
-    //     // Initialize HTML content
-    //     $html = '<html>';
-    //     $html .= '<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>';
-    //     $html .= '<body>';
-
-    //     // Loop through each sheet
-    //     foreach ($spreadsheet->getAllSheets() as $sheet) {
-    //         $html .= '<table>';
-
-    //         // Loop through each row in the sheet
-    //         foreach ($sheet->getRowIterator() as $row) {
-    //             $html .= '<tr>';
-
-    //             // Loop through each cell in the row
-    //             foreach ($row->getCellIterator() as $cell) {
-    //                 $html .= '<td>' . $cell->getValue() . '</td>';
-    //             }
-
-    //             $html .= '</tr>';
-    //         }
-
-    //         $html .= '</table>';
-    //     }
-
-    //     $html .= '</body>';
-    //     $html .= '</html>';
-
-    //     // Load HTML into dompdf
-    //     $dompdf->loadHtml($html);
-
-    //     // Set paper size and orientation
-    //     $dompdf->setPaper('A4', 'portrait');
-
-    //     // Render PDF
-    //     $dompdf->render();
-
-    //     // Save PDF
-    //     file_put_contents($this->pdfOutputPath, $dompdf->output());
-    // }
-
     public function getOutputPath()
     {
         return $this->excelOutputPath;

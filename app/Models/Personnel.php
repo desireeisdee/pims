@@ -234,6 +234,11 @@ class Personnel extends Model
     {
         return $this->hasMany(AssignmentDetail::class);
     }
+    public function history()
+    {
+        return $this->hasMany(PersonnelHistory::class);
+    }
+
 
     public function createInitialServiceRecord()
     {

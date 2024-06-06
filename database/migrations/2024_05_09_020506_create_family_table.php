@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('name_extension')->nullable();
+            $table->string('name_ext')->nullable();
             $table->string('occupation')->nullable();
             $table->string('employer_business_name')->nullable();
             $table->string('business_address')->nullable();

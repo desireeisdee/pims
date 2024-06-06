@@ -22,18 +22,18 @@ class PersonalInformationForm extends PersonnelNavigation
     public $showMode = false, $storeMode = false, $updateMode = false;
 
     protected $rules = [
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'middle_name' => 'nullable',
+        'first_name' => 'required|alpha',
+        'last_name' => 'required|alpha',
+        'middle_name' => 'nullable|alpha',
         'name_ext' => 'nullable',
         'date_of_birth' => 'required',
         'place_of_birth' => 'required',
         'sex' => 'required',
         'civil_status' => 'required',
-        'citizenship' => 'required',
-        'height' => 'required',
-        'weight' => 'required',
-        'blood_type' => 'required',
+        'citizenship' => 'required|alpha',
+        'height' => 'nullable',
+        'weight' => 'nullable',
+        'blood_type' => 'nullable',
 
         'personnel_id' => 'required',
         'school_id' => 'required',
@@ -47,14 +47,14 @@ class PersonalInformationForm extends PersonnelNavigation
         'employment_start' => 'required',
 
         'tin' => 'required|min:8|max:12',
-        'sss_num' => 'required|size:10',
+        'sss_num' => 'nullable|size:10',
         'gsis_num' => 'required|min:8',
-        'philhealth_num' => 'required|min:11',
+        'philhealth_num' => 'nullable|min:11',
         'pagibig_num' => 'required|min:11',
 
         'email' => 'required',
-        'tel_no' => 'nullable',
-        'mobile_no' => 'required',
+        'tel_no' => 'nullable|numeric',
+        'mobile_no' => 'required|numeric',
     ];
 
     public function mount($id = null)
@@ -134,70 +134,6 @@ class PersonalInformationForm extends PersonnelNavigation
         }
     }
 
-    // public function save()
-    // {
-    //     $this->validate();
-
-    //     // try {
-    //     $school = School::findOrFail($this->school_id);
-
-    //     $data = [
-    //         'first_name' => $this->first_name,
-    //         'last_name' => $this->last_name,
-    //         'middle_name' => $this->middle_name,
-    //         'name_ext' => $this->name_ext,
-    //         'date_of_birth' => $this->date_of_birth,
-    //         'place_of_birth' => $this->place_of_birth,
-    //         'sex' => $this->sex,
-    //         'civil_status' => $this->civil_status,
-    //         'citizenship' => $this->citizenship,
-    //         'height' => $this->height,
-    //         'weight' => $this->weight,
-    //         'blood_type' => $this->blood_type,
-
-    //         'tin' => $this->tin,
-    //         'sss_num' => $this->sss_num,
-    //         'gsis_num' => $this->gsis_num,
-    //         'philhealth_num' => $this->philhealth_num,
-    //         'pagibig_num' => $this->pagibig_num,
-
-    //         'personnel_id' => $this->personnel_id,
-    //         'school_id' => $school->id,
-    //         'position_id' => $this->position_id,
-    //         'appointment' => $this->appointment,
-    //         'fund_source' => $this->fund_source,
-    //         'salary_grade' => $this->salary_grade,
-    //         'step' => $this->step,
-    //         'category' => $this->category,
-    //         'job_status' => $this->job_status,
-    //         'employment_start' => $this->employment_start,
-    //         'employment_end' => $this->employment_end,
-
-    //         'email' => $this->email,
-    //         'tel_no' => $this->tel_no,
-    //         'mobile_no' => $this->mobile_no
-    //     ];
-
-    //     if ($this->personnel == null) {
-    //         $this->personnel = Personnel::create($data);
-    //         session()->flash('flash.banner', 'Personnel created successfully');
-    //         session()->flash('flash.bannerStyle', 'success');
-
-    //         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-    //     } else {
-
-    //         $this->personnel->update($data);
-    //         session()->flash('flash.banner', 'Personal Information saved successfully');
-    //         session()->flash('flash.bannerStyle', 'success');
-
-    //         return redirect()->route('personnels.show', ['personnel' => $this->personnel->id]);
-    //     }
-
-    //     $this->updateMode = false;
-    //     $this->storeMode = false;
-    //     $this->showMode = true;
-    // }
-
     public function save()
     {
         $this->validate();
@@ -263,6 +199,7 @@ class PersonalInformationForm extends PersonnelNavigation
             session()->flash('flash.bannerStyle', 'success');
         } else {
             $this->personnel->update($data);
+            $this->logHistory();
 
             session()->flash('flash.banner', 'Personal Information saved successfully');
             session()->flash('flash.bannerStyle', 'success');
@@ -284,19 +221,62 @@ class PersonalInformationForm extends PersonnelNavigation
         }
     }
 
-    public function createInitialServiceRecord()
+    public function logHistory()
     {
-        $this->personnel->serviceRecords()->create([
-            'personnel_id' => $this->personnel->id,
-            'from_date' => now(),
-            'to_date' => null,
-            'designation' => $this->personnel->position_id,
-            'appointment_status' => $this->personnel->appointment,
-            'salary' => $this->personnel->salary_grade,
-            'station' => $this->personnel->school->district_id,
-            'branch' => $this->personnel->school_id
-        ]);
+        $this->personnel->history()->create([
+                    'personnel_id' => $this->personnel->id,
+                    'school_id' => $this->personnel->school_id,
+                    'position_id' => $this->personnel->position_id,
+                    'employee_id' => $this->personnel->personnel_id,
+                    'appointment' => $this->personnel->appointment,
+                    'fund_source' => $this->personnel->fund_source,
+                    'salary_grade' => $this->personnel->salary_grade,
+                    'step' => $this->personnel->step,
+                    'category' => $this->personnel->category,
+                    'job_status' => $this->personnel->job_status,
+                    'employment_start' => $this->personnel->employment_start,
+                    'employment_end' => $this->personnel->employment_end
+                ]);
     }
+
+    // public function createInitialServiceRecord()
+    // {
+    //     $this->personnel->serviceRecords()->create([
+    //         'personnel_id' => $this->personnel->id,
+    //         'from_date' => now(),
+    //         'to_date' => null,
+    //         'designation' => $this->personnel->position_id,
+    //         'appointment_status' => $this->personnel->appointment,
+    //         'salary' => $this->personnel->salary_grade,
+    //         'station' => $this->personnel->school->district_id,
+    //         'branch' => $this->personnel->school_id
+    //     ]);
+    // }
+
+    // public function updateServiceRecord()
+    // {
+    //    // Get the last service record
+    // $lastServiceRecord = $this->personnel->serviceRecords()->latest()->first();
+
+    // // Update the end date of the last service record to the current date
+    // if ($lastServiceRecord) {
+    //     $lastServiceRecord->update(['to_date' => now()]);
+    // }
+
+    // // Create the new service record
+    // $this->personnel->history()->create([
+    //     'personnel_id' => $this->personnel->id,
+    //     'from_date' => now(),
+    //     'to_date' => null,
+    //     'designation' => $this->personnel->position_id,
+    //     'from_date' => now(),
+    //     'to_date' => null,
+    //     'appointment_status' => $this->personnel->appointment,
+    //     'salary' => $this->personnel->salary_grade,
+    //     'station' => $this->personnel->school->district_id,
+    //     'branch' => $this->personnel->school_id
+    // ]);
+    // }
 
 
     public function logAction($action, $description)

@@ -22,8 +22,8 @@ class AddressForm extends PersonnelNavigation
         'permanent_st_address' => 'required',
         'permanent_subdivision' => 'nullable',
         'permanent_brgy' => 'required',
-        'permanent_city' => 'required',
-        'permanent_province' => 'nullable',
+        'permanent_city' => 'required|alpha',
+        'permanent_province' => 'nullable|alpha',
         'permanent_region' => 'required',
         'permanent_zip_code' => 'required',
 
@@ -31,8 +31,8 @@ class AddressForm extends PersonnelNavigation
         'residential_st_address' => 'required',
         'residential_subdivision' => 'nullable',
         'residential_brgy' => 'required',
-        'residential_city' => 'required',
-        'residential_province' => 'required',
+        'residential_city' => 'required|alpha',
+        'residential_province' => 'required|alpha',
         'residential_region' => 'required',
         'residential_zip_code' => 'required',
 

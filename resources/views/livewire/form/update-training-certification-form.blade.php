@@ -82,6 +82,11 @@
                                          wire:model="new_training_certifications.{{ $index }}.type"
                                          name="new_training_certification[{{ $index }}][type]"
                                          class="text-xs" label="Type" required/>
+                                <x-native-select label="Type" wire:model="new_training_certifications.{{ $index }}.type">
+                                    <option value="single">Managerial</option>
+                                    <option value="married">Supervisory</option>
+                                    <option value="technical">Technical</option>
+                                </x-native-select>
                             </div>
                             <div class="w-3/12 text-xs">
                                 <x-input type="number"
