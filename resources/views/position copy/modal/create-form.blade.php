@@ -1,5 +1,5 @@
 <x-modal name="create-position-modal" max-width="sm">
-    <x-card title="Create New Position">
+    <x-card title="Add Position">
         <div class="px-2 py-1">
             <form action="{{ route('positions.store') }}" method="POST">
                 @csrf

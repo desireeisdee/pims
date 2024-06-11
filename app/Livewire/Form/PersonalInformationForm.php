@@ -14,7 +14,7 @@ class PersonalInformationForm extends PersonnelNavigation
     public $personnel;
     public $first_name, $middle_name, $last_name, $name_ext,
            $date_of_birth, $place_of_birth, $civil_status, $sex,
-           $citizenship, $blood_type, $height, $weight,
+           $citizenship,$dual_citizenship, $dual_citizenship_birth, $dual_citizenship_naturalization, $blood_type, $height, $weight,
            $tin, $sss_num, $gsis_num, $philhealth_num,
            $pagibig_num,
            $personnel_id, $school_id, $position_id, $appointment, $fund_source, $job_status, $category, $employment_start, $employment_end, $salary_grade, $step, $classification, $position,
@@ -22,15 +22,15 @@ class PersonalInformationForm extends PersonnelNavigation
     public $showMode = false, $storeMode = false, $updateMode = false;
 
     protected $rules = [
-        'first_name' => 'required|alpha',
-        'last_name' => 'required|alpha',
-        'middle_name' => 'nullable|alpha',
+        'first_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'last_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'middle_name' => 'nullable|regex:/^[a-zA-Z\s]+$/',
         'name_ext' => 'nullable',
         'date_of_birth' => 'required',
         'place_of_birth' => 'required',
         'sex' => 'required',
         'civil_status' => 'required',
-        'citizenship' => 'required|alpha',
+        'citizenship' => 'required|regex:/^[a-zA-Z\s]+$/',
         'height' => 'nullable',
         'weight' => 'nullable',
         'blood_type' => 'nullable',
@@ -72,6 +72,8 @@ class PersonalInformationForm extends PersonnelNavigation
                 $this->civil_status = $this->personnel->civil_status;
                 $this->sex = $this->personnel->sex;
                 $this->citizenship = $this->personnel->citizenship;
+                $this->dual_citizenship_birth = $this->personnel->dual_citizenship == "birth" ? true : false;
+                $this->dual_citizenship_naturalization = $this->personnel->dual_citizenship == "naturalization" ? true : false;
                 $this->blood_type = $this->personnel->blood_type;
                 $this->height = $this->personnel->height;
                 $this->weight = $this->personnel->weight;
@@ -137,7 +139,6 @@ class PersonalInformationForm extends PersonnelNavigation
     public function save()
     {
         $this->validate();
-
         // Find the school
         $school = School::findOrFail($this->school_id);
 
@@ -152,6 +153,7 @@ class PersonalInformationForm extends PersonnelNavigation
             'sex' => $this->sex,
             'civil_status' => $this->civil_status,
             'citizenship' => $this->citizenship,
+            'dual_citizenship' => ($this->dual_citizenship_naturalization == true) ? 'naturalization' : (($this->dual_citizenship_birth == true) ? 'birth' : 'none'),
             'height' => $this->height,
             'weight' => $this->weight,
             'blood_type' => $this->blood_type,

@@ -19,8 +19,8 @@ class EducationForm extends Component
     public $showMode = false, $storeMode = false, $updateMode = false;
 
     protected $rules = [
-        'elementary_school_name' => 'required',
-        'elementary_degree_course' => 'nullable',
+        'elementary_school_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'elementary_degree_course' => 'nullable|regex:/^[a-zA-Z\s]+$/',
         // 'elementary_period_from' => 'required|integer|digits:4',
         // 'elementary_period_to' => 'required|integer|digits:4',
         'elementary_highest_level_units' => 'required',
@@ -28,13 +28,22 @@ class EducationForm extends Component
         'elementary_scholarship_honors' => 'nullable',
 
         // Secondary Education
-        'secondary_school_name' => 'required',
-        'secondary_degree_course' => 'nullable',
+        'secondary_school_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'secondary_degree_course' => 'nullable|regex:/^[a-zA-Z\s]+$/',
         // 'secondary_period_from' => 'required|integer|digits:4',
         // 'secondary_period_to' => 'required|integer|digits:4',
         'secondary_highest_level_units' => 'required',
         'secondary_year_graduated' => 'required',
-        'secondary_scholarship_honors' => 'nullable'
+        'secondary_scholarship_honors' => 'nullable',
+
+        'vocational_school_name' => 'nullable|regex:/^[a-zA-Z\s]+$/',
+        'vocational_degree_course' => 'nullable|regex:/^[a-zA-Z\s]+$/',
+
+        'graduate_school_name' => 'nullable|regex:/^[a-zA-Z\s]+$/',
+        'graduate_degree_course' => 'nullable|regex:/^[a-zA-Z\s]+$/',
+
+        'graduate_studies_school_name' => 'nullable|regex:/^[a-zA-Z\s]+$/',
+        'graduate_studies_degree_course' => 'nullable|regex:/^[a-zA-Z\s]+$/',
     ];
 
     public function mount($id = null, $showMode = true)

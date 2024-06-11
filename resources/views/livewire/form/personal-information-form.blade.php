@@ -51,22 +51,31 @@
                         <span class="w-2/12">
                             <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="place_of_birth*" label="Place of Birth" wire:model="place_of_birth" readonly/>
                         </span>
-                        <span class="w-3/12">
-                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="citizenship" label="Citizenship*" wire:model="citizenship" readonly/>
-                        </span>
-                        <span class="w-2/12">
-                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="civil_status" label="Civil Status*" wire:model="civil_status" readonly/>
-                        </span>
-                        <span class="w-2/12">
-                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="blood_type" label="Blood Type" wire:model="blood_type" readonly/>
-                        </span>
-                    </div>
-                    <div class="m-0 mb-4 p-0 flex space-x-6">
                         <span class="w-1/12">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="height" label="Height" suffix="m" wire:model="height" readonly/>
                         </span>
                         <span class="w-1/12">
                             <x-input type="number" class="bg-gray-50 border-gray-300" id="weight" label="Weight" suffix="kg" wire:model="weight" readonly/>
+                        </span>
+                        <span class="w-2/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="blood_type" label="Blood Type" wire:model="blood_type" readonly/>
+                        </span>
+                        <span class="w-2/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="civil_status" label="Civil Status*" wire:model="civil_status" readonly/>
+                        </span>
+                    </div>
+                    <div class="m-0 mb-4 p-0 flex space-x-3">
+                        <span class="w-4/12">
+                            <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="citizenship"
+                                    label="Citizenship/Country*"
+                                    wire:model="citizenship" readonly>
+                            </x-input>
+                            <small class="mt-1 text-muted text-xs">For foreigner/dual citizenship, enter country(e.g., Fiji)</small>
+                        </span>
+                        <span class="w-4/12 flex items-center space-x-3">
+
+                    <x-checkbox id="right-label" name="birth"  label="By birth" wire:model.defer="dual_citizenship_birth" class="{{ $dual_citizenship_birth ? 'checked' : ''}}" disabled/>
+                    <x-checkbox id="right-label" name="naturalization" label="By naturalization" wire:model.defer="dual_citizenship_naturalization" class="{{ $dual_citizenship_naturalization ? 'checked' : ''}}" disabled/>
                         </span>
                     </div>
                 </div>
@@ -151,7 +160,7 @@
     @else
         @isset($personnel)
             <div class="flex justify-between">
-                <h4 class="font-bold text-2xl text-gray-darkest">{{ $personnel ? 'Edit Personal Information' : 'New Personnel' }} </h4>
+                <h4 class="font-bold text-2xl text-gray-darkest">{{ $personnel ? 'Edit Personal Information' : 'Add Personnel' }} </h4>
 
                 <button wire:click.prevent="back" type="button" class="inline-flex items-center px-5 py-2 mb-2 mr-2 text-sm font-medium text-center text-gray-900 bg-gray-50 border border-slate-200 rounded-lg hover:bg-white hover:scale-105 duration-300">
                     <span class="flex items-center">

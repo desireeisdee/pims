@@ -1,6 +1,6 @@
 <div>
-    <section>
-        <h4 class="mt-5 mb-3 font-bold text-base text-gray-darkest">Elementary</h4>
+    <section class="px-3 py-3 border border-gray-200 rounded focus:outline-none">
+        <h4 class="mb-3 font-bold text-base text-gray-darkest">Elementary</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
             <span class="w-3/4">
                 <x-input id="elementary_school_name" type="text" label="School Name" name="elementary_school_name"  wire:model="elementary_school_name" />
@@ -33,8 +33,8 @@
         </div>
     </section>
 
-    <section>
-        <h4 class="mt-8 mb-3 font-bold text-base text-gray-darkest">Secondary</h4>
+    <section class="mt-3 px-3 py-3 border border-gray-200 rounded focus:outline-none">
+        <h4 class="mb-3 font-bold text-base text-gray-darkest">Secondary</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
             <span class="w-3/4">
                 <x-input id="secondary_school_name" type="text" label="School Name" name="secondary_school_name" wire:model="secondary_school_name" />
@@ -67,8 +67,8 @@
         </div>
     </section>
 
-    <section>
-        <h4 class="mt-8 mb-3 font-bold text-base text-gray-darkest">Vocational/Trade Course</h4>
+    <section class="mt-3 px-3 py-3 border border-gray-200 rounded focus:outline-none">
+        <h4 class="mb-3 font-bold text-base text-gray-darkest">Vocational/Trade Course</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
             <span class="w-3/4">
                 <x-input id="vocational_school_name" type="text" label="School Name" name="vocational_school_name" wire:model="vocational_school_name" />
@@ -101,8 +101,8 @@
         </div>
     </section>
 
-    <section>
-        <h4 class="mt-8 mb-3 font-bold text-base text-gray-darkest">Graduate</h4>
+    <section class="mt-3 px-3 py-3 border border-gray-200 rounded focus:outline-none">
+        <h4 class="mb-3 font-bold text-base text-gray-darkest">Graduate</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
             <span class="w-3/12">
                 <x-input id="graduate_school_name" type="text" label="School Name" name="graduate_school_name" wire:model="graduate_school_name"/>
@@ -141,8 +141,8 @@
         </div>
     </section>
 
-    <section>
-        <h4 class="mt-8 mb-3 font-bold text-base text-gray-darkest">Graduate Studies</h4>
+    <section class="mt-3 px-3 py-3 border border-gray-200 rounded focus:outline-none">
+        <h4 class="mb-3 font-bold text-base text-gray-darkest">Graduate Studies</h4>
         <div class="m-0 mb-4 p-0 flex space-x-3 justify-between">
             <span class="w-3/4">
                 <x-input id="graduate_studies_school_name" type="text" label="School Name" name="graduate_studies_school_name" wire:model="graduate_studies_school_name"/>

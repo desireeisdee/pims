@@ -2,20 +2,17 @@
 
 namespace App\Exports\Sheets;
 
-
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PersonnelDataC1Sheet
 {
     protected $personnel;
-    protected $spreadsheet;
     protected $worksheet;
 
     public function __construct($personnel, Spreadsheet $spreadsheet)
     {
         $this->personnel = $personnel;
-        $this->spreadsheet = $spreadsheet;
+        // $this->personnel = $this->personnel[0];
         $this->worksheet = $spreadsheet->getSheet(0); // Assuming the first sheet is being used
     }
 
@@ -36,7 +33,7 @@ class PersonnelDataC1Sheet
         $worksheet->setCellValue('D10', $this->personnel->last_name ?? 'N/A');
         $worksheet->setCellValue('D11', $this->personnel->first_name ?? 'N/A');
         $worksheet->setCellValue('D12', $this->personnel->middle_name ?? 'N/A');
-        $worksheet->setCellValue('J12', $this->personnel->name_ext ?? 'N/A');
+        $worksheet->setCellValue('N11', $this->personnel->name_ext ?? 'N/A');
         $worksheet->setCellValue('D13', $this->personnel->date_of_birth ?? 'N/A');
         $worksheet->setCellValue('D15', $this->personnel->place_of_birth ?? 'N/A');
         $worksheet->setCellValue('D16', $this->personnel->sex ?? 'N/A');
@@ -109,7 +106,7 @@ class PersonnelDataC1Sheet
             $worksheet->setCellValue('D36', $this->personnel->spouse->last_name);
             $worksheet->setCellValue('D37', $this->personnel->spouse->first_name);
             $worksheet->setCellValue('D38', $this->personnel->spouse->middle_name);
-            $worksheet->setCellValue('K12', $this->personnel->spouse->name_ext ?? 'N/A');
+            $worksheet->setCellValue('H37', $this->personnel->spouse->name_ext);
             $worksheet->setCellValue('D39', $this->personnel->spouse->occupation);
             $worksheet->setCellValue('D40', $this->personnel->spouse->employer_business_name);
             $worksheet->setCellValue('D41', $this->personnel->spouse->telephone_number);
@@ -125,30 +122,29 @@ class PersonnelDataC1Sheet
             $worksheet->setCellValue('D41', 'N/A');
             $worksheet->setCellValue('D42', 'N/A');
 
-            if ($this->personnel->father) {
-                // Father's Information
-                $worksheet->setCellValue('D43', $this->personnel->father->last_name);
-                $worksheet->setCellValue('D44', $this->personnel->father->first_name);
-                $worksheet->setCellValue('D45', $this->personnel->father->middle_name);
-                $worksheet->setCellValue('L12', $this->personnel->father->name_ext ?? 'N/A');
-                $worksheet->setCellValue('M12', $this->personnel->father->name_ext ?? 'N/A');
-            } else {
-                $worksheet->setCellValue('D43', 'N/A');
-                $worksheet->setCellValue('D44', 'N/A');
-                $worksheet->setCellValue('D45', 'N/A');
-                $worksheet->setCellValue('H44', 'N/A');
-            }
+        if ($this->personnel->father) {
+            // Father's Information
+            $worksheet->setCellValue('D43', $this->personnel->father->last_name);
+            $worksheet->setCellValue('D44', $this->personnel->father->first_name);
+            $worksheet->setCellValue('D45', $this->personnel->father->middle_name);
+            $worksheet->setCellValue('H44', $this->personnel->father->name_ext);
+        } else {
+            $worksheet->setCellValue('D43', 'N/A');
+            $worksheet->setCellValue('D44', 'N/A');
+            $worksheet->setCellValue('D45', 'N/A');
+            $worksheet->setCellValue('H44', 'N/A');
+        }
 
-            if ($this->personnel->mother) {
-                // Mother's Information
-                $worksheet->setCellValue('D47', $this->personnel->mother->last_name);
-                $worksheet->setCellValue('D48', $this->personnel->mother->first_name);
-                $worksheet->setCellValue('D49', $this->personnel->mother->middle_name);
-            } else {
-                $worksheet->setCellValue('D47', 'N/A');
-                $worksheet->setCellValue('D48', 'N/A');
-                $worksheet->setCellValue('D49', 'N/A');
-            }
+        if ($this->personnel->mother) {
+            // Mother's Information
+            $worksheet->setCellValue('D47', $this->personnel->mother->last_name);
+            $worksheet->setCellValue('D48', $this->personnel->mother->first_name);
+            $worksheet->setCellValue('D49', $this->personnel->mother->middle_name);
+        } else {
+            $worksheet->setCellValue('D47', 'N/A');
+            $worksheet->setCellValue('D48', 'N/A');
+            $worksheet->setCellValue('D49', 'N/A');
+        }
         }
     }
 
@@ -202,80 +198,33 @@ class PersonnelDataC1Sheet
         $worksheet->setCellValue('N58', $this->personnel->graduateStudiesEducation->scholarship_honors ?? 'N/A');
     }
 
-    // protected function populateChildren()
-    // {
-    //     $worksheet = $this->worksheet;
-
-    //     // Load the attachment workbook
-    //     $attachmentSheet = $this->spreadsheet->getSheetByName('children_attachment'); // Assuming 'C1' is the sheet name
-
-    //     $startRow = 37; // Starting row for children info
-    //     $endRow = 48; // Ending row for children info
-    //     $currentRow = $startRow;
-
-    //     if ($this->personnel->children->isNotEmpty()) {
-    //         $attachmentSheet->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE);
-    //         $attachmentCounter = 1;
-    //         foreach ($this->personnel->children as $child) {
-    //             if ($currentRow > $endRow) {
-    //                 // Copy the template from the attachmentSheet to the current workbook
-    //                 $newSheet = $attachmentSheet->copy();
-    //                 $newSheet->setTitle('Attachment ' . chr(64 + $attachmentCounter));
-    //                 $this->spreadsheet->addSheet($newSheet);
-
-    //                 $sheetIndex = $this->spreadsheet->getIndex($attachmentSheet);
-    //                 $this->spreadsheet->removeSheetByIndex($sheetIndex);
-
-    //                 $attachmentCounter++;
-    //                 $worksheet = $newSheet;
-    //                 $currentRow = 4;
-
-    //                 $worksheet->setCellValue('A1', 'Attachment ' . chr(64 + $attachmentCounter - 1));
-    //             }
-    //             $worksheet->setCellValue('A' . $currentRow, $child->fullName());
-    //             $worksheet->setCellValue('E' . $currentRow, $child->date_of_birth);
-
-    //             $currentRow++;
-    //         }
-    //     } else {
-    //         $worksheet->setCellValue('I37', 'N/A');
-    //         $worksheet->setCellValue('M37', 'N/A');
-    //     }
-    // }
     protected function populateChildren()
     {
         $worksheet = $this->worksheet;
+
         $startRow = 37; // Starting row for children info
-        $endRow = 48; // Ending row for children info
+        $endRow = 49; // Ending row for children info
         $currentRow = $startRow;
 
-        if ($this->personnel->children->isNotEmpty()) {
-
-            if(count($this->personnel->children) > ($endRow - $startRow))
-            {
-                $attachmentSheet = $this->spreadsheet->getSheetByName('children_attachment');
-                $newSheet = $attachmentSheet->copy();
-                $attachmentCounter = 1;
-                $i = 4;
-                $newSheet->setTitle('Attachment Children ' . $attachmentCounter);
-                $this->spreadsheet->addSheet($newSheet);
-                $new_sheet = $newSheet;
-                $new_sheet->setCellValue('A1', 'Attachment Children ' . $attachmentCounter);
-
-                foreach ($this->personnel->children as $index => $child) {
-                    if ($index < 12) {
-                        $worksheet->setCellValue('I' . $currentRow, $child->fullName());
-                        $worksheet->setCellValue('M' . $currentRow, $child->date_of_birth);
-                        $currentRow++;
+        if($this->personnel->children())
+        {
+            foreach ($this->personnel->children as $child) {
+                if ($currentRow > $endRow) {
+                    // Create a new sheet or use the next existing sheet
+                    $currentSheetIndex = $this->worksheet->getParent()->getIndex($worksheet) + 1;
+                    if ($currentSheetIndex >= $this->worksheet->getParent()->getSheetCount()) {
+                        $worksheet = $this->worksheet->getParent()->createSheet();
+                        $worksheet->setTitle('Attachment ' . ($currentSheetIndex + 1));
                     } else {
-                        // $sheetIndex = $this->spreadsheet->getIndex($attachmentSheet);
-                        // $this->spreadsheet->removeSheetByIndex($sheetIndex);\
-                        $new_sheet->setCellValue('A' . $i, $child->fullName());
-                        $new_sheet->setCellValue('E' . $i, $child->date_of_birth);
-                        $i++;
+                        $worksheet = $this->worksheet->getParent()->getSheet($currentSheetIndex);
                     }
-
+                    $currentRow = $startRow; // Reset the current row to the start row
                 }
+
+                // Populate the cell values
+                $worksheet->setCellValue('I' . $currentRow, $child->fullName());
+                $worksheet->setCellValue('M' . $currentRow, $child->date_of_birth);
+                $currentRow++;
             }
         } else {
             $worksheet->setCellValue('I37', 'N/A');

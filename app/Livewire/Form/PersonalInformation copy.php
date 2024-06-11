@@ -11,13 +11,13 @@ class PersonalInformation extends Component
     public $personnel, $first_name, $middle_name, $last_name, $name_ext, $date_of_birth, $place_of_birth, $civil_status, $sex, $citizenship, $blood_type, $height, $weight, $tin, $sss_num, $gsis_num, $philhealth_num, $pagibig_num, $personnel_id, $email, $tel_no, $mobile_no, $updateMode = false;
 
     protected $rules = [
-        'first_name' => 'required|alpha',
-        'last_name' => 'required|alpha',
+        'first_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'last_name' => 'required|regex:/^[a-zA-Z\s]+$/',
         'date_of_birth' => 'required',
         'place_of_birth' => 'required',
         'sex' => 'required',
         'civil_status' => 'required',
-        'citizenship' => 'required|alpha',
+        'citizenship' => 'required|regex:/^[a-zA-Z\s]+$/',
         'height' => 'required',
         'weight' => 'required',
         'blood_type' => 'required',

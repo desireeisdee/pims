@@ -21,6 +21,7 @@ class PersonnelDataExport
 
     public function __construct($id)
     {
+        try{
         $this->personnel = Personnel::findOrFail($id);
 
         $this->filename = public_path('report/macro_enabled_cs_form_no_212.xlsm');
@@ -42,11 +43,24 @@ class PersonnelDataExport
         $this->pdfOutputPath = public_path('report/pds_generated.pdf');
 
         // Save the Excel file
+
+        $this->spreadsheet->getSheetByName('children_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+        $this->spreadsheet->getSheetByName('cse_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+        $this->spreadsheet->getSheetByName('work_experience_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+        $this->spreadsheet->getSheetByName('voluntary_work_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+        $this->spreadsheet->getSheetByName('training_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+        $this->spreadsheet->getSheetByName('other_information_attachment')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+
+
         $writer = IOFactory::createWriter($this->spreadsheet, 'Xlsx');
         $writer->save($this->excelOutputPath);
 
-        // $writer = IOFactory::createWriter($this->spreadsheet, 'Pdf');
-        // $writer->save($this->pdfOutputPath);
+            session()->flash('flash.banner', 'Personnel Data Exported Successfully');
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (\Throwable $th) {
+            session()->flash('flash.banner', 'Failed to export Personnel Data, something went wrong');
+            session()->flash('flash.bannerStyle', 'danger');
+        }
     }
 
 

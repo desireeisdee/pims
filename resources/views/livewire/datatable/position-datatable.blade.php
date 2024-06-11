@@ -88,7 +88,7 @@
                     <td class="p-2 whitespace-nowrap w-2/12">
                         {{-- @livewire('modal') --}}@include('position.forms.edit')
                         <div class="flex justify-between space-x-3">
-                            <a href="#" x-on:click="$openModal('edit-position-modal-', { id: '{{ $position->id }}' })">
+                            <a href="#" x-on:click="$openModal('edit-position-modal-{{ $position->id }}', { id: '{{ $position->id }}' })">
                                 <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
                                     View
                                 </button>

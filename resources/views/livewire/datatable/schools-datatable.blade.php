@@ -4,7 +4,7 @@
             @include('school.modal.create-modal')
             <a href="#" x-on:click="$openModal('create-school-modal')">
                 <x-button class="m-0 hover:shadow-[0.5rem_0.5rem_#FA0302,-0.5rem_-0.5rem_#FCC008] transition">
-                    {{ __('New School') }}
+                    {{ __('Add School') }}
                 </x-button>
             </a>
         </div>

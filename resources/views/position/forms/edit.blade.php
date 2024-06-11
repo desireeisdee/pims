@@ -31,4 +31,3 @@
         </form>
     </x-card>
 </x-modal>
-e

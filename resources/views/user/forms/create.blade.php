@@ -1,5 +1,5 @@
 <x-modal name="create-account-modal" max-width="sm">>
-    <x-card title="Create New Account">
+    <x-card title="Add Account">
         <form action="{{ route('accounts.store') }}" method="POST">
             @csrf
             <div>

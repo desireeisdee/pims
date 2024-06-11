@@ -89,7 +89,17 @@
                         <x-input id="division" wire:model="division" type="text" label="Division" class="bg-gray-50 border-gray-300" name="division" readonly/>
                     </span>
                     <span class="w-1/4">
-                        <x-input id="district_id" wire:model="district" type="text" label="District" class="bg-gray-50 border-gray-300" name="district"  readonly/>
+                        {{-- <x-input id="district_id" wire:model="district" type="text" label="District" class="bg-gray-50 border-gray-300" name="district"  readonly/> --}}
+                        <x-select
+                        wire:model="district_id"
+                        id="district_id"
+                        name="district_id"
+                        placeholder="Select a District"
+                        :async-data="route('api.districts.index')"
+                        option-label="name"
+                        option-value="id"
+                        label="District"
+                        readonly/>
                         {{-- <x-input type="text" class="bg-gray-50 border-gray-300 capitalize" id="position" label="Position" wire:model="position" readonly/> --}}
                     </span>
                 </div>

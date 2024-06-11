@@ -43,25 +43,48 @@
                 @if ($old_assignment_details != null)
                     <section>
                         @foreach ($old_assignment_details as $index => $old_assignment_detail)
-                            <div class="mb-2 px-3 w-full space-x-3 h-14 border border-gray-200 rounded focus:outline-none">
-                                <div class="mb-3 flex space-x-2">
+                            <div class="mb-2 px-3 py-2 w-full space-x-3 border border-gray-200 rounded focus:outline-none">
+                                <div class="flex space-x-2 items-center">
                                     <div class="w-2/12 flex space-x-2">
-                                        <x-input id="school_year_{{ $index }}" type="text" wire:model="old_assignment_details.{{ $index }}.school_year" name="old_assignment_details[{{ $index }}][school_year]" readonly/>
+                                        <x-input id="school_year_{{ $index }}"
+                                                type="text"
+                                                wire:model="old_assignment_details.{{ $index }}.school_year"
+                                                name="old_assignment_details[{{ $index }}][school_year]"
+                                                readonly/>
                                     </div>
                                     <div class="w-3/12">
-                                        <x-input id="assignment_{{ $index }}" type="text" wire:model="old_assignment_details.{{ $index }}.assignment" name="old_assignment_details[{{ $index }}][assignment]" readonly/>
+                                        <x-input id="assignment_{{ $index }}"
+                                                type="text"
+                                                wire:model="old_assignment_details.{{ $index }}.assignment"
+                                                name="old_assignment_details[{{ $index }}][assignment]"
+                                                readonly/>
                                     </div>
                                     <div class="w-2/12">
-                                        <x-input id="dtr_day_{{ $index }}" type="text" wire:model="old_assignment_details.{{ $index }}.dtr_day" name="old_assignment_details[{{ $index }}][dtr_day]" readonly/>
+                                        <x-input id="dtr_day_{{ $index }}"
+                                                type="text" wire:model="old_assignment_details.{{ $index }}.dtr_day"
+                                                name="old_assignment_details[{{ $index }}][dtr_day]"
+                                                readonly/>
                                     </div>
                                     <div class="w-2/12">
-                                        <x-input id="dtr_from_{{ $index }}" type="time" wire:model="old_assignment_details.{{ $index }}.dtr_from" name="old_assignment_details[{{ $index }}][dtr_from]" readonly/>
+                                        <x-input id="dtr_from_{{ $index }}"
+                                                type="time"
+                                                wire:model="old_assignment_details.{{ $index }}.dtr_from"
+                                                name="old_assignment_details[{{ $index }}][dtr_from]"
+                                                readonly/>
                                     </div>
                                     <div class="w-2/12">
-                                        <x-input id="dtr_to_{{ $index }}" type="time" wire:model="old_assignment_details.{{ $index }}.dtr_to" name="old_assignment_details[{{ $index }}][dtr_to]" readonly/>
+                                        <x-input id="dtr_to_{{ $index }}"
+                                                type="time"
+                                                wire:model="old_assignment_details.{{ $index }}.dtr_to"
+                                                name="old_assignment_details[{{ $index }}][dtr_to]"
+                                                readonly/>
                                     </div>
                                     <div class="w-1/12">
-                                        <x-input id="teaching_minutes_per_week_{{ $index }}" type="number" wire:model="old_assignment_details.{{ $index }}.teaching_minutes_per_week" name="old_assignment_details[{{ $index }}][teaching_minutes_per_week]" readonly/>
+                                        <x-input id="teaching_minutes_per_week_{{ $index }}"
+                                                type="number"
+                                                wire:model="old_assignment_details.{{ $index }}.teaching_minutes_per_week"
+                                                name="old_assignment_details[{{ $index }}][teaching_minutes_per_week]"
+                                                readonly/>
                                     </div>
                                 </div>
                             </div>

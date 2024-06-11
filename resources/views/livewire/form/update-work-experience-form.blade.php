@@ -4,8 +4,8 @@
             <div class="mt-2">
                 @if (count($personnel->workExperiences))
                     @foreach ($old_work_experiences as $index => $old_work_experience)
-                        <div class="mb-2 px-3 py-4 w-full space-x-3 border border-gray-400">
-                            <div class="my-3 mx-3 flex space-x-2">
+                        <div class="mb-2 py-4 w-full space-x-3 h-44 border border-gray-200 rounded focus:outline-none">
+                            <div class="mx-3 mb-3 flex space-x-2">
                                 <div class="w-4/12 flex space-x-2">
                                     <div class="w-1/2">
                                         <x-input id="inclusive_from_{{ $index }}" type="date" wire:model="old_work_experiences.{{ $index }}.inclusive_from" name="old_work_experiences[{{ $index }}][inclusive_from]" label="Start Date" class="form-control" required/>
@@ -44,7 +44,7 @@
 
                 <!-- New Data Children -->
                 @foreach ($new_work_experiences as $index => $work_experience)
-                    <div class="mb-2 px-3 py-2 w-full space-x-3 h-40 border border-gray-200 rounded focus:outline-none">
+                    <div class="mb-2 py-4 w-full space-x-3 h-44 border border-gray-200 rounded focus:outline-none">
                         <div class="mb-3 flex space-x-2">
                             <div class="w-4/12 flex space-x-2">
                                 <div class="w-1/2">

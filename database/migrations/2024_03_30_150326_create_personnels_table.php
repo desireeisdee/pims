@@ -21,6 +21,9 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female']);
             $table->enum('civil_status', ['single', 'married', 'widowed', 'divorced', 'seperated', 'others']);
             $table->string('citizenship');
+            $table->enum('dual_citizenship',['none','birth', 'naturalization'])->default('none');
+
+
             $table->string('blood_type')->nullable();
             $table->string('height')->nullable();
             $table->string('weight')->nullable();

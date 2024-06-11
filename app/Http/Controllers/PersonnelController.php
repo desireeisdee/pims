@@ -80,12 +80,13 @@ class PersonnelController extends Controller
 
             return response()->download($export->getOutputPath(), $personnel->personnel_id . '_pds.xlsm');
 
-            session()->flash('flash.banner', 'Personnel Created Successfully');
+            session()->flash('flash.banner', 'Personnel Data Exported Successfully');
             session()->flash('flash.bannerStyle', 'success');
         } catch (\Throwable $th) {
-            session()->flash('flash.banner', 'Failed to create Personnel, something went wrong');
-                session()->flash('flash.bannerStyle', 'danger');
+            session()->flash('flash.banner', 'Failed to export Personnel, something went wrong');
+            session()->flash('flash.bannerStyle', 'danger');
         }
+        return redirect()->back();
     }
 
     public function profile_export()

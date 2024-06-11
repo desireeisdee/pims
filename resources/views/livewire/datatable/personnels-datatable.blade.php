@@ -5,7 +5,7 @@
             <div class="flex justify-between space-x-3">
                 <a href="#" x-on:click="$openModal('create-personnel-modal')">
                     <button class="py-1 px-4 bg-white font-medium text-sm tracking-wider rounded-md border-2 border-main hover:bg-main hover:text-white text-main duration-300">
-                        New Personnel
+                        Add Personnel
                     </button>
                 </a>
             </div>

@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="w-2/12">
                                         <div class="flex space-x-8 items-center">
-                                            <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
+                                            <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1 me-5">
                                                 <div>
                                                     <input type="radio" name="consanguinity_third_degree" wire:model="consanguinity_third_degree" id="consanguinity_third_degree_yes" value="1" class="peer hidden" {{ ($consanguinity_third_degree == true ? 'checked' : '') }} readonly>
                                                     <label for="consanguinity_third_degree_yes" class="block cursor-pointer select-none rounded-xl px-3 p-1.5 text-xs text-center peer-checked:bg-cyan-500 peer-checked:font-bold peer-checked:text-white">Yes</label>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="w-2/12">
                                         <div class="flex space-x-8 items-center">
-                                            <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
+                                            <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1 me-5">
                                                 <div>
                                                     <input type="radio" name="consanguinity_fourth_degree" wire:model="consanguinity_fourth_degree" id="consanguinity_fourth_degree_yes" value="1" class="peer hidden" {{ ($consanguinity_fourth_degree == true ? 'checked' : '') }}>
                                                     <label for="consanguinity_fourth_degree_yes" class="block cursor-pointer select-none rounded-xl px-3 p-1.5 text-xs text-center peer-checked:bg-cyan-500 peer-checked:font-bold peer-checked:text-white">Yes</label>
@@ -333,7 +333,7 @@
                                         </div>
                                         <div class="w-2/12 me-5">
                                             <div class="flex space-x-8 items-center">
-                                                <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
+                                                <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1 me-5">
                                                     <div>
                                                         <input type="radio" name="person_with_disability" wire:model="person_with_disability" id="person_with_disability_yes" value="1" class="peer hidden" {{ ($person_with_disability == true ? 'checked' : '') }}>
                                                         <label  for="person_with_disability_yes" class="block cursor-pointer select-none rounded-xl px-3 p-1.5 text-xs text-center peer-checked:bg-cyan-500 peer-checked:font-bold peer-checked:text-white">Yes</label>
@@ -361,7 +361,7 @@
                                         </div>
                                         <div class="w-2/12 me-5">
                                             <div class="flex space-x-8 items-center">
-                                                <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1">
+                                                <div class="grid w-full grid-cols-2 gap-1 rounded-xl bg-gray-200 p-1 me-5">
                                                     <div>
                                                         <input type="radio" name="solo_parent" wire:model="solo_parent" id="solo_parent_yes" value="1" class="peer hidden" {{ ($solo_parent == true ? 'checked' : '') }}>
                                                         <label x-on:click="open = ! open" for="solo_parent_yes" class="block cursor-pointer select-none rounded-xl px-3 p-1.5 text-xs text-center peer-checked:bg-cyan-500 peer-checked:font-bold peer-checked:text-white">Yes</label>

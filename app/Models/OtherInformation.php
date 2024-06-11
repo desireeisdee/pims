@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OtherInformation extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['personnel_id', 'name', 'type'];
 
     public function personnel(): BelongsTo
     {

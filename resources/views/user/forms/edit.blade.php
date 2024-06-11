@@ -1,5 +1,5 @@
 
-<x-modal name="edit-account-modal-{{ $account->id }}" max-width="sm">>
+<x-modal name="edit-account-modal-{{ $account->id }}" max-width="sm">
     <x-card title="Edit Account">
         <div>
             <form action="{{ route('accounts.update', ['account' => $account->id]) }}" method="POST">

@@ -29,18 +29,11 @@
                 <span class="w-2/12">
                     <x-input type="text" class="form-control" id="place_of_birth" label="Place of Birth" wire:model="place_of_birth" required/>
                 </span>
-                <span class="w-3/12">
-                    <x-input type="text" class="form-control" id="citizenship" label="Citizenship" wire:model="citizenship" required/>
+                <span class="w-1/12">
+                    <x-input type="number" class="form-control" id="height" label="Height" suffix="m" wire:model="height" required/>
                 </span>
-                <span class="w-2/12">
-                    <x-native-select wire:model="civil_status" class="form-control" label="Civil Status">
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                        <option value="seperated">Seperated</option>
-                        <option value="widowed">Widowed</option>
-                        <option value="divorced">Divorced</option>
-                        <option value="others">Others</option>
-                    </x-native-select>
+                <span class="w-1/12">
+                    <x-input type="number" class="form-control" id="weight" label="Weight" suffix="kg" wire:model="weight" required/>
                 </span>
                 <span class="w-2/12">
                     <x-native-select wire:model="blood_type" class="form-control" label="Blood Type">
@@ -54,13 +47,28 @@
                         <option value="O-">O-</option>
                     </x-native-select>
                 </span>
-            </div>
-            <div class="m-0 mb-4 p-0 flex space-x-6">
-                <span class="w-1/12">
-                    <x-input type="number" class="form-control" id="height" label="Height" suffix="m" wire:model="height" required/>
+                <span class="w-2/12">
+                    <x-native-select wire:model="civil_status" class="form-control" label="Civil Status*">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="seperated">Seperated</option>
+                        <option value="widowed">Widowed</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="others">Others</option>
+                    </x-native-select>
                 </span>
-                <span class="w-1/12">
-                    <x-input type="number" class="form-control" id="weight" label="Weight" suffix="kg" wire:model="weight" required/>
+            </div>
+            <div class="m-0 mb-4 p-0 flex space-x-3">
+                <span class="w-4/12">
+                    <x-input type="text" class="form-control" id="citizenship"
+                            label="Citizenship/Country*"
+                            wire:model="citizenship" required>
+                    </x-input>
+                    <small class="mt-1 text-muted text-xs">For foreigner/dual citizenship, enter country(e.g., Fiji)</small>
+                </span>
+                <span class="w-4/12 flex items-center space-x-3">
+                    <x-checkbox id="right-label" name="birth"  label="By birth" wire:model.defer="dual_citizenship_birth" class="{{ $dual_citizenship_birth ? 'checked' : ''}}"/>
+                    <x-checkbox id="right-label" name="naturalization" label="By naturalization" wire:model.defer="dual_citizenship_naturalization" class="{{ $dual_citizenship_naturalization ? 'checked' : ''}}"/>
                 </span>
             </div>
         </div>

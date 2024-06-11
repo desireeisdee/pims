@@ -1,5 +1,5 @@
 <x-modal name="create-school-modal" max-width="3xl">
-    <x-card title="Create New School">
+    <x-card title="Add School">
         <div class="px-2 py-1">
             <form action="{{ route('schools.store') }}" method="POST">
                 @csrf

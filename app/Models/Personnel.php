@@ -22,6 +22,7 @@ class Personnel extends Model
         'sex',
         'civil_status',
         'citizenship',
+        'dual_citizenship',
         'blood_type',
         'height',
         'weight',

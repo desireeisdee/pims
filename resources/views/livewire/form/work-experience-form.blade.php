@@ -14,7 +14,7 @@
                         <p>Edit</p>
                     </span>
                 </button>
-            @elseif(Auth::user()->personnel->id == $personnel->id && Auth::user()->role == 'school_head')
+                @elseif(Auth::user()->personnel->id == $personnel->id && Auth::user()->role == 'school_head')
                 <button wire:click.prevent="edit" type="button" class="inline-flex items-center px-5 py-2 mb-2 mr-2 text-sm font-medium text-center text-white bg-main border border-main rounded-lg hover:bg-main_hover hover:scale-105 duration-300">
                     <span class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 -ml-1 h-5">
@@ -24,19 +24,19 @@
                         <p>Edit</p>
                     </span>
                 </button>
-            @endif
+                @endif
             </div>
             <div>
                 <div class="mt-10">
                     @if ($old_work_experiences != null)
                         <section>
                             @foreach ($old_work_experiences as $index => $old_work_experience)
-                                <div class="mb-2 px-3 w-full space-x-3 h-48 border border-gray-200 rounded focus:outline-none">
-                                    <div class="mb-3 flex space-x-2">
+                                <div class="mb-2 py-4 w-full space-x-3 h-44 border border-gray-200 rounded focus:outline-none">
+                                    <div class="mx-3 mb-3 flex space-x-2">
                                         <div class="w-4/12 flex space-x-2">
                                             <div class="w-1/2">
                                                 <x-input id="inclusive_from_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.inclusive_from" name="old_work_experiences[{{ $index }}][inclusive_from]" label="Start Date" readonly/>
-                                            </div>
+                                        </div>
                                             <div class="w-1/2">
                                                 <x-input id="inclusive_to_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.inclusive_to" name="old_work_experiences[{{ $index }}][inclusive_to]" label="End Date" readonly/>
                                             </div>
@@ -48,12 +48,14 @@
                                             <x-input id="company_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.company" name="old_work_experiences[{{ $index }}][company]" label="Department/Company" readonly/>
                                         </div>
                                     </div>
-                                    <div class="mb-3 flex space-x-2">
-                                        <div class="w-3/12">
-                                            <x-input id="monthly_salary_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.monthly_salary" name="old_work_experiences[{{ $index }}][monthly_salary]" label="Monthly Salary" readonly/>
-                                        </div>
-                                        <div class="w-3/12">
-                                            <x-input id="paygrade_step_increment_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.paygrade_step_increment" name="old_work_experiences[{{ $index }}][paygrade_step_increment]" label="Pay Grade/Step Increment" readonly/>
+                                    <div class="mx-3 mb-3 flex space-x-2">
+                                        <div class="w-4/12 flex space-x-2">
+                                            <div class="w-1/2">
+                                                <x-input id="monthly_salary_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.monthly_salary" name="old_work_experiences[{{ $index }}][monthly_salary]" label="Monthly Salary" readonly/>
+                                            </div>
+                                            <div class="w-1/2">
+                                                <x-input id="paygrade_step_increment_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.paygrade_step_increment" name="old_work_experiences[{{ $index }}][paygrade_step_increment]" label="Pay Grade" readonly/>
+                                            </div>
                                         </div>
                                         <div class="w-4/12">
                                             <x-input id="appointment_{{ $index }}" type="text" wire:model="old_work_experiences.{{ $index }}.appointment" name="old_work_experiences[{{ $index }}][appointment]" label="Appointment" readonly/>
